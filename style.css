@@ -1,0 +1,100 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#toDos {
+  align-items: center;
+  justify-content: center;
+}
+
+input[type='text'] {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 300px;
+  height: 30px;
+  font-size: 20px;
+}
+
+input[type='text']:focus {
+  outline: none;
+}
+
+input[type='checkbox'] {
+  top: 149px;
+  left: 26px;
+  margin-left: 39.25%;
+  width: 25px;
+  height: 25px;
+}
+
+.editToDoButton {
+  left: 1105px;
+  top: 150px;
+  width: 30px;
+}
+
+.deleteToDoButton {
+  left: 1140px;
+  top: 150px;
+  width: 30px;
+}
+
+.span {
+  font-size: 23px;
+  text-align: center;
+}
+
+#addToDo {
+  border: 1px solid black;
+  background: none;
+  width: 40px;
+  height: 36px;
+  margin-left: 1%;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+#addToDo:hover {
+  background: black;
+  color: white;
+  transition: all 0.4s ease;
+}
+
+#addToDo:focus {
+  outline: none;
+}
+
+.checkbox:checked + .span {
+  text-decoration: line-through;
+}
+
+button > i {
+  pointer-events: none;
+}
+
+.span-hidden {
+  display: none;
+}
+
+.input-hidden {
+  display: none;
+}
+
+.input-visible {
+  display: inline-block;
+}
