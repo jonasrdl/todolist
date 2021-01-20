@@ -79,7 +79,7 @@ input[type='checkbox'] {
   outline: none;
 }
 
-.checkbox:checked + .span {
+.checkbox:checked ~ .span {
   text-decoration: line-through;
 }
 
@@ -87,14 +87,12 @@ button > i {
   pointer-events: none;
 }
 
-.span-hidden {
-  display: none;
-}
-
-.input-hidden {
-  display: none;
-}
-
-.input-visible {
+li.edit > input[type='text'],
+li > span {
   display: inline-block;
+}
+
+li.edit > span,
+li > input[type='text'] {
+  display: none;
 }
