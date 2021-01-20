@@ -25,7 +25,6 @@ function addToDo() {
 
   const span = document.createElement('span');
   span.innerText = inputField.value;
-  span.classList.add('span');
 
   const li = document.createElement('li');
 
