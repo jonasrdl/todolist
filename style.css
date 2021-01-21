@@ -80,7 +80,7 @@ span {
   outline: none;
 }
 
-.checkbox:checked ~ .span {
+.checkbox:checked ~ span {
   text-decoration: line-through;
 }
 
