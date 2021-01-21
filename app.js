@@ -1,27 +1,29 @@
+'use strict';
+
 const init = () => {
   const addToDoButton = document.getElementById('addToDo');
   const inputField = document.getElementById('inputField');
-  const ulToDo = document.querySelector('#ulToDo');
 
   addToDoButton.addEventListener('click', addToDo);
-
-  const keyup = function (event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      addToDoButton.click();
-    }
-  };
-
-  inputField.addEventListener('keyup', keyup);
+  inputField.addEventListener('keyup', keyUp);
 };
 
 window.addEventListener('DOMContentLoaded', init);
 
-function addToDo() {
+const keyUp = (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    addToDo();
+  }
+};
+
+const addToDo = () => {
   if (inputField.value === '') {
     alert('Bitte ein To Do eintragen.');
     return;
   }
+
+  const ulToDo = document.getElementById('ulToDo');
 
   const span = document.createElement('span');
   span.innerText = inputField.value;
@@ -54,22 +56,22 @@ function addToDo() {
   ulToDo.appendChild(li);
 
   inputField.value = '';
-}
+};
 
-function editToDo(event) {
+const editToDo = (event) => {
   const toDo = event.target.parentElement;
   const toDoText = toDo.querySelector('span');
   const inputEdit = toDo.querySelector('input[type="text"]');
 
   toDo.classList.add('edit');
   inputEdit.value = toDoText.textContent;
-}
+};
 
-function deleteToDo(event) {
+const deleteToDo = (event) => {
   event.target.parentElement?.remove?.();
-}
+};
 
-function editKeyUp(event) {
+const editKeyUp = (event) => {
   if (event.key === 'Enter') {
     const toDo = event.target.parentElement;
     const toDoText = toDo.querySelector('span');
@@ -79,4 +81,4 @@ function editKeyUp(event) {
     toDo.classList.remove('edit');
     toDoText.textContent = inputEdit.value;
   }
-}
+};
