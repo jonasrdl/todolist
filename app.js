@@ -77,7 +77,11 @@ const editKeyUp = (event) => {
     const toDoText = toDo.querySelector('span');
     const inputEdit = toDo.querySelector('input[type="text"]');
 
-    event.preventDefault();
+    if (inputEdit.value === '') {
+      alert('Bitte ein To Do eintragen.');
+      return;
+    }
+
     toDo.classList.remove('edit');
     toDoText.textContent = inputEdit.value;
   }
