@@ -10,18 +10,17 @@ ul {
   list-style-type: none;
 }
 
+li {
+  padding: 10px;
+}
+
 #inputContainer {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#toDos {
-  align-items: center;
-  justify-content: center;
-}
-
-input[type='text'] {
+#inputField {
   border-top: none;
   border-left: none;
   border-right: none;
@@ -35,28 +34,34 @@ input[type='text']:focus {
 }
 
 input[type='checkbox'] {
-  top: 149px;
-  left: 26px;
-  margin-left: 39.25%;
-  width: 25px;
-  height: 25px;
+  position: absolute;
+  left: 40.5%;
+  width: 20px;
+  height: 20px;
+}
+
+input[type='checkbox']:checked ~ span {
+  text-decoration: line-through;
 }
 
 .editToDoButton {
-  left: 1105px;
-  top: 150px;
+  position: absolute;
+  left: 56%;
   width: 30px;
+  height: 30px;
 }
 
 .deleteToDoButton {
-  left: 1140px;
-  top: 150px;
+  position: absolute;
+  left: 58%;
   width: 30px;
+  height: 30px;
 }
 
 span {
   font-size: 20px;
-  text-align: center;
+  position: relative;
+  left: 42%;
 }
 
 #addToDo {
@@ -80,12 +85,18 @@ span {
   outline: none;
 }
 
-.checkbox:checked ~ span {
-  text-decoration: line-through;
-}
-
 button > i {
   pointer-events: none;
+}
+
+li.edit > input[type='text'] {
+  font-size: 20px;
+  position: relative;
+  left: 42%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 225px;
 }
 
 li.edit > input[type='text'],
