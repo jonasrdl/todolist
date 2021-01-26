@@ -49,6 +49,21 @@ input[type='checkbox']:checked ~ span {
   left: 56%;
   width: 30px;
   height: 30px;
+  color: black;
+  background: none;
+  border: 1px solid black;
+  transition: all 0.4s ease-in-out;
+}
+
+.editToDoButton:hover {
+  transition: all 0.2s ease-in-out;
+  color: white;
+  background: black;
+  cursor: pointer;
+}
+
+.editToDoButton:focus {
+  outline: none;
 }
 
 .deleteToDoButton {
@@ -56,12 +71,27 @@ input[type='checkbox']:checked ~ span {
   left: 58%;
   width: 30px;
   height: 30px;
+  color: black;
+  background: none;
+  border: 1px solid black;
+}
+
+.deleteToDoButton:hover {
+  transition: all 0.2s ease-in-out;
+  color: white;
+  background: black;
+  cursor: pointer;
+}
+
+.deleteToDoButton:focus {
+  outline: none;
 }
 
 span {
   font-size: 20px;
   position: relative;
-  left: 42%;
+  margin-top: 2px;
+  left: 41%;
 }
 
 #addToDo {
