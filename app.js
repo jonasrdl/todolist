@@ -79,10 +79,9 @@ const editKeyUp = (event) => {
 
     if (inputEdit.value === '') {
       alert('Bitte ein To Do eintragen.');
-      return;
+    } else {
+      toDo.classList.remove('edit');
+      toDoText.textContent = inputEdit.value;
     }
-
-    toDo.classList.remove('edit');
-    toDoText.textContent = inputEdit.value;
   }
 };
