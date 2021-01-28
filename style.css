@@ -122,11 +122,11 @@ button > i {
 li.edit > input[type='text'] {
   font-size: 20px;
   position: relative;
-  left: 42%;
+  left: 41%;
   border-top: none;
   border-left: none;
   border-right: none;
-  width: 225px;
+  width: 247px;
 }
 
 li.edit > input[type='text'],
