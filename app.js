@@ -90,17 +90,20 @@ const editKeyUp = (event) => {
 let dragging = null;
 
 document.addEventListener('dragstart', function (event) {
-  let target = getLI(event.target);
+  const target = getLI(event.target);
   dragging = target;
+
   event.dataTransfer.setData('text/plain', null);
   event.dataTransfer.setDragImage(self.dragging, 0, 0);
 });
 
 document.addEventListener('dragover', function (event) {
   event.preventDefault();
-  let target = getLI(event.target);
-  let bounding = target.getBoundingClientRect();
-  let offset = bounding.y + bounding.height / 2;
+
+  const target = getLI(event.target);
+  const bounding = target.getBoundingClientRect();
+  const offset = bounding.y + bounding.height / 2;
+
   if (event.clientY - offset > 0) {
     target.style['border-bottom'] = 'solid 4px blue';
     target.style['border-top'] = '';
@@ -111,14 +114,17 @@ document.addEventListener('dragover', function (event) {
 });
 
 document.addEventListener('dragleave', function (event) {
-  let target = getLI(event.target);
+  const target = getLI(event.target);
+
   target.style['border-bottom'] = '';
   target.style['border-top'] = '';
 });
 
 document.addEventListener('drop', function (event) {
   event.preventDefault();
-  let target = getLI(event.target);
+
+  const target = getLI(event.target);
+
   if (target.style['border-bottom'] !== '') {
     target.style['border-bottom'] = '';
     target.parentNode.insertBefore(dragging, event.target.nextSibling);
@@ -135,6 +141,7 @@ function getLI(target) {
   ) {
     target = target.parentNode;
   }
+
   if (target.nodeName.toLowerCase() == 'body') {
     return false;
   } else {
