@@ -134,7 +134,7 @@ document.addEventListener('drop', function (event) {
   }
 });
 
-function getLI(target) {
+const getLI = (target) => {
   while (
     target.nodeName.toLowerCase() != 'li' &&
     target.nodeName.toLowerCase() != 'body'
@@ -147,4 +147,4 @@ function getLI(target) {
   } else {
     return target;
   }
-}
+};
