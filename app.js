@@ -6,6 +6,7 @@ const init = () => {
 
   addToDoButton.addEventListener('click', addToDo);
   inputField.addEventListener('keyup', keyUp);
+  getTodos();
 };
 
 window.addEventListener('DOMContentLoaded', init);
@@ -56,7 +57,75 @@ const addToDo = () => {
   li.appendChild(deleteToDoButton);
   ulToDo.appendChild(li);
 
+  // Add Todo to Localstorage
+  saveTodos(inputField.value);
+
   inputField.value = '';
+};
+
+const saveTodos = (toDo) => {
+  // Check if already items in localstorage
+  let todos;
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+
+  todos.push(toDo);
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+const getTodos = () => {
+  let todos;
+
+  // Check if already items in localstorage
+  if (localStorage.getItem('todos') === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+
+  todos.forEach(function (toDo) {
+    const ulToDo = document.getElementById('ulToDo');
+
+    const span = document.createElement('span');
+    span.innerText = toDo;
+
+    const li = document.createElement('li');
+    li.draggable = 'true';
+
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('checkbox');
+
+    const editToDoButton = document.createElement('button');
+    editToDoButton.addEventListener('click', editToDo);
+    editToDoButton.classList.add('editToDoButton');
+    editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+
+    const deleteToDoButton = document.createElement('button');
+    deleteToDoButton.addEventListener('click', deleteToDo);
+    deleteToDoButton.classList.add('deleteToDoButton');
+    deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+
+    const inputEdit = document.createElement('input');
+    inputEdit.type = 'text';
+    inputEdit.addEventListener('keyup', editKeyUp);
+
+    li.appendChild(checkbox);
+    li.appendChild(inputEdit);
+    li.appendChild(span);
+    li.appendChild(editToDoButton);
+    li.appendChild(deleteToDoButton);
+    ulToDo.appendChild(li);
+  });
+};
+
+const clearLocalStorage = () => {
+  console.log('Cleared Local Storage');
+  window.localStorage.clear();
+  location.reload();
 };
 
 const editToDo = (event) => {
@@ -70,6 +139,7 @@ const editToDo = (event) => {
 
 const deleteToDo = (event) => {
   event.target.parentElement?.remove?.();
+  removeTodos(toDo);
 };
 
 const editKeyUp = (event) => {
@@ -82,8 +152,8 @@ const editKeyUp = (event) => {
       alert('Bitte ein To Do eintragen.');
     } else {
       toDo.classList.remove('edit');
-      toDoText.textContent = inputEdit.value;
     }
+    toDoText.textContent = inputEdit.value;
   }
 };
 
