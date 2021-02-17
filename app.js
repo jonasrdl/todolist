@@ -72,9 +72,7 @@ const saveToDos = (toDo) => {
     toDos = JSON.parse(localStorage.getItem('toDos'));
   }
 
-  // let toDos = localStorage.getItem('toDos') || [];
-
-  console.log(JSON.stringify(toDos));
+  // let toDos = localStorage.getItem('toDos') || []; //! toDo.push is not a function
 
   toDos.push(toDo);
   localStorage.setItem('toDos', JSON.stringify(toDos));
@@ -82,7 +80,6 @@ const saveToDos = (toDo) => {
 
 const getToDos = () => {
   let toDos;
-
   // Check if already items in localstorage
   if (localStorage.getItem('toDos') === null) {
     toDos = [];
@@ -90,9 +87,23 @@ const getToDos = () => {
     toDos = JSON.parse(localStorage.getItem('toDos'));
   }
 
+  // let toDos = localStorage.getItem('toDos') || []; //! toDo.push is not a function
+
   toDos.forEach((toDo) => {
-    toDoForEach();
+    toDoForEach(toDo);
   });
+};
+
+const removeToDos = () => {
+  let toDos;
+  // Check if already items in localstorage
+  if (localStorage.getItem('toDos') === null) {
+    toDos = [];
+  } else {
+    toDos = JSON.parse(localStorage.getItem('toDos'));
+  }
+
+  localStorage.removeItem('toDos', JSON.stringify(toDos));
 };
 
 const toDoForEach = (toDo) => {
@@ -147,7 +158,10 @@ const editToDo = (event) => {
 
 const deleteToDo = (event) => {
   event.target.parentElement?.remove?.();
-  // removeToDos(toDo);
+  removeToDos();
+  if (removeToDos) {
+    console.log('%c ToDo gelöscht! ', 'background: #222; color: #bada55');
+  }
 };
 
 const editKeyUp = (event) => {
