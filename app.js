@@ -6,7 +6,7 @@ const init = () => {
 
   addToDoButton.addEventListener('click', addToDo);
   inputField.addEventListener('keyup', keyUp);
-  getTodos();
+  getToDos();
 };
 
 window.addEventListener('DOMContentLoaded', init);
@@ -58,68 +58,76 @@ const addToDo = () => {
   ulToDo.appendChild(li);
 
   // Add Todo to Localstorage
-  saveTodos(inputField.value);
+  saveToDos(inputField.value);
 
   inputField.value = '';
 };
 
-const saveTodos = (toDo) => {
+const saveToDos = (toDo) => {
   // Check if already items in localstorage
-  let todos;
-  if (localStorage.getItem('todos') === null) {
-    todos = [];
+  let toDos;
+  if (localStorage.getItem('toDos') === null) {
+    toDos = [];
   } else {
-    todos = JSON.parse(localStorage.getItem('todos'));
+    toDos = JSON.parse(localStorage.getItem('toDos'));
   }
 
-  todos.push(toDo);
-  localStorage.setItem('todos', JSON.stringify(todos));
+  // let toDos = localStorage.getItem('toDos') || [];
+
+  console.log(JSON.stringify(toDos));
+
+  toDos.push(toDo);
+  localStorage.setItem('toDos', JSON.stringify(toDos));
 };
 
-const getTodos = () => {
-  let todos;
+const getToDos = () => {
+  let toDos;
 
   // Check if already items in localstorage
-  if (localStorage.getItem('todos') === null) {
-    todos = [];
+  if (localStorage.getItem('toDos') === null) {
+    toDos = [];
   } else {
-    todos = JSON.parse(localStorage.getItem('todos'));
+    toDos = JSON.parse(localStorage.getItem('toDos'));
   }
 
-  todos.forEach(function (toDo) {
-    const ulToDo = document.getElementById('ulToDo');
-
-    const span = document.createElement('span');
-    span.innerText = toDo;
-
-    const li = document.createElement('li');
-    li.draggable = 'true';
-
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('checkbox');
-
-    const editToDoButton = document.createElement('button');
-    editToDoButton.addEventListener('click', editToDo);
-    editToDoButton.classList.add('editToDoButton');
-    editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
-
-    const deleteToDoButton = document.createElement('button');
-    deleteToDoButton.addEventListener('click', deleteToDo);
-    deleteToDoButton.classList.add('deleteToDoButton');
-    deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
-
-    const inputEdit = document.createElement('input');
-    inputEdit.type = 'text';
-    inputEdit.addEventListener('keyup', editKeyUp);
-
-    li.appendChild(checkbox);
-    li.appendChild(inputEdit);
-    li.appendChild(span);
-    li.appendChild(editToDoButton);
-    li.appendChild(deleteToDoButton);
-    ulToDo.appendChild(li);
+  toDos.forEach((toDo) => {
+    toDoForEach();
   });
+};
+
+const toDoForEach = (toDo) => {
+  const ulToDo = document.getElementById('ulToDo');
+
+  const span = document.createElement('span');
+  span.innerText = toDo;
+
+  const li = document.createElement('li');
+  li.draggable = 'true';
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add('checkbox');
+
+  const editToDoButton = document.createElement('button');
+  editToDoButton.addEventListener('click', editToDo);
+  editToDoButton.classList.add('editToDoButton');
+  editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+
+  const deleteToDoButton = document.createElement('button');
+  deleteToDoButton.addEventListener('click', deleteToDo);
+  deleteToDoButton.classList.add('deleteToDoButton');
+  deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+
+  const inputEdit = document.createElement('input');
+  inputEdit.type = 'text';
+  inputEdit.addEventListener('keyup', editKeyUp);
+
+  li.appendChild(checkbox);
+  li.appendChild(inputEdit);
+  li.appendChild(span);
+  li.appendChild(editToDoButton);
+  li.appendChild(deleteToDoButton);
+  ulToDo.appendChild(li);
 };
 
 const clearLocalStorage = () => {
@@ -139,7 +147,7 @@ const editToDo = (event) => {
 
 const deleteToDo = (event) => {
   event.target.parentElement?.remove?.();
-  removeTodos(toDo);
+  // removeToDos(toDo);
 };
 
 const editKeyUp = (event) => {
