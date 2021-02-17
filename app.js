@@ -1,5 +1,15 @@
 'use strict';
 
+// Wo bin ich?
+const getArrayIndex = (element) => {
+  let i = 0;
+  while (element.previousElementSibling) {
+    element = element.previousElementSibling;
+    i++;
+  }
+  return i;
+};
+
 const init = () => {
   const addToDoButton = document.getElementById('addToDo');
   const inputField = document.getElementById('inputField');
@@ -63,7 +73,7 @@ const addToDo = () => {
   inputField.value = '';
 };
 
-const saveToDos = (toDo) => {
+const checkLocalStorage = () => {
   // Check if already items in localstorage
   let toDos;
   if (localStorage.getItem('toDos') === null) {
@@ -71,10 +81,23 @@ const saveToDos = (toDo) => {
   } else {
     toDos = JSON.parse(localStorage.getItem('toDos'));
   }
+  return toDos;
+};
+
+const saveToDos = (toDo) => {
+  let toDos = checkLocalStorage();
 
   // let toDos = localStorage.getItem('toDos') || []; //! toDo.push is not a function
 
   toDos.push(toDo);
+  localStorage.setItem('toDos', JSON.stringify(toDos));
+};
+
+const changeToDo = (index, value) => {
+  let toDos = checkLocalStorage();
+
+  toDos[index] = value;
+
   localStorage.setItem('toDos', JSON.stringify(toDos));
 };
 
@@ -94,16 +117,12 @@ const getToDos = () => {
   });
 };
 
-const removeToDos = () => {
-  let toDos;
-  // Check if already items in localstorage
-  if (localStorage.getItem('toDos') === null) {
-    toDos = [];
-  } else {
-    toDos = JSON.parse(localStorage.getItem('toDos'));
-  }
+const removeToDo = (index) => {
+  let toDos = checkLocalStorage();
 
-  localStorage.removeItem('toDos', JSON.stringify(toDos));
+  toDos.splice(index, 1);
+
+  localStorage.setItem('toDos', JSON.stringify(toDos));
 };
 
 const toDoForEach = (toDo) => {
@@ -157,11 +176,10 @@ const editToDo = (event) => {
 };
 
 const deleteToDo = (event) => {
+  removeToDo(getArrayIndex(event.target.parentElement));
   event.target.parentElement?.remove?.();
-  removeToDos();
-  if (removeToDos) {
-    console.log('%c ToDo gelöscht! ', 'background: #222; color: #bada55');
-  }
+
+  console.log('%c ToDo gelöscht! ', 'background: #222; color: #bada55');
 };
 
 const editKeyUp = (event) => {
@@ -175,7 +193,11 @@ const editKeyUp = (event) => {
     } else {
       toDo.classList.remove('edit');
     }
+    console.log(toDoText.textContent, '', inputEdit.value);
+
     toDoText.textContent = inputEdit.value;
+
+    changeToDo(nodeIndex(event.target.parentElement), inputEdit.value);
   }
 };
 
