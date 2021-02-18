@@ -169,7 +169,6 @@ const editKeyUp = (event) => {
     } else {
       toDo.classList.remove('edit');
     }
-    console.log(toDoText.textContent, '', inputEdit.value);
 
     toDoText.textContent = inputEdit.value;
 
