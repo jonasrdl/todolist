@@ -73,21 +73,10 @@ const addToDo = () => {
   inputField.value = '';
 };
 
-const checkLocalStorage = () => {
-  // Check if already items in localstorage
-  let toDos;
-  if (localStorage.getItem('toDos') === null) {
-    toDos = [];
-  } else {
-    toDos = JSON.parse(localStorage.getItem('toDos'));
-  }
-  return toDos;
-};
+const checkLocalStorage = () => JSON.parse(localStorage.getItem('toDos')) || [];
 
 const saveToDos = (toDo) => {
   let toDos = checkLocalStorage();
-
-  // let toDos = localStorage.getItem('toDos') || []; //! toDo.push is not a function
 
   toDos.push(toDo);
   localStorage.setItem('toDos', JSON.stringify(toDos));
@@ -102,19 +91,9 @@ const changeToDo = (index, value) => {
 };
 
 const getToDos = () => {
-  let toDos;
-  // Check if already items in localstorage
-  if (localStorage.getItem('toDos') === null) {
-    toDos = [];
-  } else {
-    toDos = JSON.parse(localStorage.getItem('toDos'));
-  }
+  const toDos = JSON.parse(localStorage.getItem('toDos')) || [];
 
-  // let toDos = localStorage.getItem('toDos') || []; //! toDo.push is not a function
-
-  toDos.forEach((toDo) => {
-    toDoForEach(toDo);
-  });
+  toDos.forEach((toDo) => createToDoElement(toDo));
 };
 
 const removeToDo = (index) => {
@@ -125,7 +104,7 @@ const removeToDo = (index) => {
   localStorage.setItem('toDos', JSON.stringify(toDos));
 };
 
-const toDoForEach = (toDo) => {
+const createToDoElement = (toDo) => {
   const ulToDo = document.getElementById('ulToDo');
 
   const span = document.createElement('span');
@@ -197,14 +176,14 @@ const editKeyUp = (event) => {
 
     toDoText.textContent = inputEdit.value;
 
-    changeToDo(nodeIndex(event.target.parentElement), inputEdit.value);
+    changeToDo(getArrayIndex(event.target.parentElement), inputEdit.value);
   }
 };
 
 let dragging = null;
 
 document.addEventListener('dragstart', function (event) {
-  const target = getLI(event.target);
+  const target = getToDoElement(event.target);
   dragging = target;
 
   event.dataTransfer.setData('text/plain', null);
@@ -214,7 +193,7 @@ document.addEventListener('dragstart', function (event) {
 document.addEventListener('dragover', function (event) {
   event.preventDefault();
 
-  const target = getLI(event.target);
+  const target = getToDoElement(event.target);
   const bounding = target.getBoundingClientRect();
   const offset = bounding.y + bounding.height / 2;
 
@@ -228,7 +207,7 @@ document.addEventListener('dragover', function (event) {
 });
 
 document.addEventListener('dragleave', function (event) {
-  const target = getLI(event.target);
+  const target = getToDoElement(event.target);
 
   target.style['border-bottom'] = '';
   target.style['border-top'] = '';
@@ -237,7 +216,7 @@ document.addEventListener('dragleave', function (event) {
 document.addEventListener('drop', function (event) {
   event.preventDefault();
 
-  const target = getLI(event.target);
+  const target = getToDoElement(event.target);
 
   if (target.style['border-bottom'] !== '') {
     target.style['border-bottom'] = '';
@@ -248,7 +227,7 @@ document.addEventListener('drop', function (event) {
   }
 });
 
-const getLI = (target) => {
+const getToDoElement = (target) => {
   while (
     target.nodeName.toLowerCase() != 'li' &&
     target.nodeName.toLowerCase() != 'body'
