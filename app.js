@@ -140,8 +140,7 @@ const createToDoElement = (toDo) => {
 };
 
 const clearLocalStorage = () => {
-  console.log('Cleared Local Storage');
-  window.localStorage.clear();
+  localStorage.removeItem('toDos');
   location.reload();
 };
 
