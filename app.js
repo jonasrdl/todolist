@@ -157,8 +157,6 @@ const editToDo = (event) => {
 const deleteToDo = (event) => {
   removeToDo(getArrayIndex(event.target.parentElement));
   event.target.parentElement?.remove?.();
-
-  console.log('%c ToDo gelöscht! ', 'background: #222; color: #bada55');
 };
 
 const editKeyUp = (event) => {
