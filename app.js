@@ -30,7 +30,7 @@ const keyUp = (event) => {
 
 const addToDo = () => {
   if (inputField.value === '') {
-    alert('Bitte ein To Do eintragen.');
+    //TODO Message
     return;
   }
 
@@ -165,7 +165,7 @@ const editKeyUp = (event) => {
     const inputEdit = toDo.querySelector('input[type="text"]');
 
     if (inputEdit.value === '') {
-      alert('Bitte ein To Do eintragen.');
+      //TODO Message
     } else {
       toDo.classList.remove('edit');
     }
