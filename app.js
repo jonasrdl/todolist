@@ -76,14 +76,14 @@ const addToDo = () => {
 const checkLocalStorage = () => JSON.parse(localStorage.getItem('toDos')) || [];
 
 const saveToDos = (toDo) => {
-  let toDos = checkLocalStorage();
+  const toDos = checkLocalStorage();
 
   toDos.push(toDo);
   localStorage.setItem('toDos', JSON.stringify(toDos));
 };
 
 const changeToDo = (index, value) => {
-  let toDos = checkLocalStorage();
+  const toDos = checkLocalStorage();
 
   toDos[index] = value;
 
