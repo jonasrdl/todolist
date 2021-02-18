@@ -34,7 +34,7 @@ const addToDo = () => {
     return;
   }
 
-  const ulToDo = document.getElementById('ulToDo');
+  const toDoElement = document.getElementById('toDoElement');
 
   const span = document.createElement('span');
   span.innerText = inputField.value;
@@ -65,7 +65,7 @@ const addToDo = () => {
   li.appendChild(span);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
-  ulToDo.appendChild(li);
+  toDoElement.appendChild(li);
 
   // Add Todo to Localstorage
   saveToDos(inputField.value);
@@ -105,7 +105,7 @@ const removeToDo = (index) => {
 };
 
 const createToDoElement = (toDo) => {
-  const ulToDo = document.getElementById('ulToDo');
+  const toDoElement = document.getElementById('toDoElement');
 
   const span = document.createElement('span');
   span.innerText = toDo;
@@ -136,7 +136,7 @@ const createToDoElement = (toDo) => {
   li.appendChild(span);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
-  ulToDo.appendChild(li);
+  toDoElement.appendChild(li);
 };
 
 const clearLocalStorage = () => {
