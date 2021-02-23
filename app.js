@@ -91,7 +91,7 @@ const changeToDo = (index, value) => {
 };
 
 const getToDos = () => {
-  const toDos = JSON.parse(localStorage.getItem('toDos')) || [];
+  const toDos = checkLocalStorage();
 
   toDos.forEach((toDo) => createToDoElement(toDo));
 };
