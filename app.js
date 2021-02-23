@@ -84,6 +84,11 @@ const saveToDos = (toDo) => {
   localStorage.setItem(localStorageKey, JSON.stringify(toDos));
 };
 
+const clearLocalStorage = () => {
+  localStorage.removeItem(localStorageKey);
+  location.reload();
+};
+
 const changeToDo = (index, value) => {
   const toDos = checkLocalStorage();
 
@@ -139,11 +144,6 @@ const createToDoElement = (toDo) => {
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
   toDoElement.appendChild(li);
-};
-
-const clearLocalStorage = () => {
-  localStorage.removeItem(localStorageKey);
-  location.reload();
 };
 
 const editToDo = (event) => {
