@@ -227,8 +227,8 @@ document.addEventListener('drop', function (event) {
 
 const getToDoElement = (target) => {
   while (
-    target.nodeName.toLowerCase() != 'li' &&
-    target.nodeName.toLowerCase() != 'body'
+    target.nodeName.toLowerCase() !== 'li' &&
+    target.nodeName.toLowerCase() !== 'body'
   ) {
     target = target.parentNode;
   }
