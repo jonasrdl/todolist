@@ -31,8 +31,10 @@ const keyUp = (event) => {
 
 const addToDo = () => {
   if (inputField.value === '') {
-    //TODO Message
+    inputField.placeholder = 'Trage erst ein To Do ein';
     return;
+  } else {
+    inputField.placeholder = 'To Do...';
   }
 
   const toDoElement = document.getElementById('toDoElement');
@@ -50,11 +52,13 @@ const addToDo = () => {
   const editToDoButton = document.createElement('button');
   editToDoButton.addEventListener('click', editToDo);
   editToDoButton.classList.add('editToDoButton');
+  editToDoButton.classList.add('btn');
   editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
 
   const deleteToDoButton = document.createElement('button');
   deleteToDoButton.addEventListener('click', deleteToDo);
   deleteToDoButton.classList.add('deleteToDoButton');
+  deleteToDoButton.classList.add('btn');
   deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
   const inputEdit = document.createElement('input');
