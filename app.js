@@ -1,12 +1,13 @@
 'use strict';
 
-// Wo bin ich?
 const getArrayIndex = (element) => {
   let i = 0;
+
   while (element.previousElementSibling) {
     element = element.previousElementSibling;
     i++;
   }
+
   return i;
 };
 
