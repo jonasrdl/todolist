@@ -65,7 +65,7 @@ const addToDo = () => {
   li.appendChild(span);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
-  toDoElement.appendChild(li);
+  toDoElement?.appendChild(li);
 
   saveToDos(inputField.value);
 
