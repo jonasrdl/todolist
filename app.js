@@ -187,7 +187,7 @@ const editKeyUp = (event) => {
 
 let dragging = null;
 
-document.addEventListener('dragstart', function (event) {
+document.addEventListener('dragstart', (event) => {
   const target = getToDoElement(event.target);
   dragging = target;
 
@@ -195,7 +195,7 @@ document.addEventListener('dragstart', function (event) {
   event.dataTransfer.setDragImage(self.dragging, 0, 0);
 });
 
-document.addEventListener('dragover', function (event) {
+document.addEventListener('dragover', (event) => {
   event.preventDefault();
 
   const target = getToDoElement(event.target);
@@ -211,14 +211,14 @@ document.addEventListener('dragover', function (event) {
   }
 });
 
-document.addEventListener('dragleave', function (event) {
+document.addEventListener('dragleave', (event) => {
   const target = getToDoElement(event.target);
 
   target.style['border-bottom'] = '';
   target.style['border-top'] = '';
 });
 
-document.addEventListener('drop', function (event) {
+document.addEventListener('drop', (event) => {
   event.preventDefault();
 
   const target = getToDoElement(event.target);
