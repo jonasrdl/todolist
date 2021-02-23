@@ -11,7 +11,7 @@ const getArrayIndex = (element) => {
 };
 
 const init = () => {
-  const addToDoButton = document.getElementById('addToDo');
+  const addToDoButton = document.querySelector('button.addToDo');
   const inputField = document.getElementById('inputField');
 
   addToDoButton.addEventListener('click', addToDo);

@@ -82,7 +82,7 @@ span {
   left: 41%;
 }
 
-#addToDo {
+.addToDo {
   font-size: 15px;
   border: 1px solid black;
   background: none;
@@ -93,13 +93,13 @@ span {
   transition: all 0.4s ease;
 }
 
-#addToDo:hover {
+.addToDo:hover {
   background: black;
   color: white;
   transition: all 0.4s ease;
 }
 
-#addToDo:focus {
+.addToDo:focus {
   outline: none;
 }
 
