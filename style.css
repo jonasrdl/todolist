@@ -44,48 +44,35 @@ input[type='checkbox']:checked ~ span {
   text-decoration: line-through;
 }
 
-.editToDoButton {
+.btn {
   position: absolute;
-  left: 56%;
   width: 30px;
   height: 30px;
   color: black;
   background: none;
   border: 1px solid black;
+}
+
+.btn:hover {
+  transition: all 0.2s ease-in-out;
+  color: white;
+  background: black;
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: none;
+  outline: none;
+}
+
+.editToDoButton {
+  left: 56%;
   transition: all 0.4s ease-in-out;
 }
 
-.editToDoButton:hover {
-  transition: all 0.2s ease-in-out;
-  color: white;
-  background: black;
-  cursor: pointer;
-}
-
-.editToDoButton:focus {
-  outline: none;
-}
-
 .deleteToDoButton {
-  position: absolute;
   left: 58%;
-  width: 30px;
-  height: 30px;
-  color: black;
-  background: none;
-  border: 1px solid black;
   transition: all 0.2s ease-in-out;
-}
-
-.deleteToDoButton:hover {
-  transition: all 0.2s ease-in-out;
-  color: white;
-  background: black;
-  cursor: pointer;
-}
-
-.deleteToDoButton:focus {
-  outline: none;
 }
 
 span {

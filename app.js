@@ -127,11 +127,13 @@ const createToDoElement = (toDo) => {
   const editToDoButton = document.createElement('button');
   editToDoButton.addEventListener('click', editToDo);
   editToDoButton.classList.add('editToDoButton');
+  editToDoButton.classList.add('btn');
   editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
 
   const deleteToDoButton = document.createElement('button');
   deleteToDoButton.addEventListener('click', deleteToDo);
   deleteToDoButton.classList.add('deleteToDoButton');
+  deleteToDoButton.classList.add('btn');
   deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
   const inputEdit = document.createElement('input');
