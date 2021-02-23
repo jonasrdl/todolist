@@ -156,8 +156,8 @@ const editToDo = (event) => {
 };
 
 const deleteToDo = (event) => {
-  removeToDo(getArrayIndex(event.target.parentElement));
-  event.target.parentElement?.remove?.();
+  removeToDo(getArrayIndex(event.target?.parentElement));
+  event.target.parentElement?.remove();
 };
 
 const editKeyUp = (event) => {
