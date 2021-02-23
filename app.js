@@ -67,19 +67,21 @@ const addToDo = () => {
   li.appendChild(deleteToDoButton);
   toDoElement.appendChild(li);
 
-  // Add Todo to Localstorage
   saveToDos(inputField.value);
 
   inputField.value = '';
 };
 
-const checkLocalStorage = () => JSON.parse(localStorage.getItem('toDos')) || [];
+const localStorageKey = 'toDos';
+
+const checkLocalStorage = () =>
+  JSON.parse(localStorage.getItem(localStorageKey)) || [];
 
 const saveToDos = (toDo) => {
   const toDos = checkLocalStorage();
 
   toDos.push(toDo);
-  localStorage.setItem('toDos', JSON.stringify(toDos));
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
 };
 
 const changeToDo = (index, value) => {
@@ -87,7 +89,7 @@ const changeToDo = (index, value) => {
 
   toDos[index] = value;
 
-  localStorage.setItem('toDos', JSON.stringify(toDos));
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
 };
 
 const getToDos = () => {
@@ -101,7 +103,7 @@ const removeToDo = (index) => {
 
   toDos.splice(index, 1);
 
-  localStorage.setItem('toDos', JSON.stringify(toDos));
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
 };
 
 const createToDoElement = (toDo) => {
@@ -140,7 +142,7 @@ const createToDoElement = (toDo) => {
 };
 
 const clearLocalStorage = () => {
-  localStorage.removeItem('toDos');
+  localStorage.removeItem(localStorageKey);
   location.reload();
 };
 
