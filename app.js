@@ -109,7 +109,7 @@ const getToDos = () => {
 };
 
 const removeToDo = (index) => {
-  let toDos = checkLocalStorage();
+  const toDos = checkLocalStorage();
 
   toDos.splice(index, 1);
 
