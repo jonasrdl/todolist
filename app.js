@@ -166,7 +166,7 @@ const editKeyUp = (event) => {
     const inputEdit = toDo.querySelector('input[type="text"]');
 
     if (inputEdit.value === '') {
-      //TODO Message
+      inputEdit.placeholder = 'Trage erst ein To Do ein';
     } else {
       toDo.classList.remove('edit');
     }
