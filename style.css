@@ -147,3 +147,26 @@ li > input[type='text'] {
 .clearLocalStorage:focus {
   outline: none;
 }
+
+.dragover-if {
+  border-bottom: solid 4px blue;
+  border-top: none;
+}
+
+.dragover-else {
+  border-top: solid 4px blue;
+  border-bottom: none;
+}
+
+.dragleave {
+  border-bottom: none;
+  border-top: none;
+}
+
+.drop-if {
+  border-bottom: none;
+}
+
+.drop-else {
+  border-top: none;
+}

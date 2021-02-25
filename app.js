@@ -177,6 +177,12 @@ const editKeyUp = (event) => {
   }
 };
 
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+
 let dragging = null;
 
 document.addEventListener('dragstart', (event) => {
@@ -195,19 +201,24 @@ document.addEventListener('dragover', (event) => {
   const offset = bounding.y + bounding.height / 2;
 
   if (event.clientY - offset > 0) {
-    target.style['border-bottom'] = 'solid 4px blue';
-    target.style['border-top'] = '';
+    // target.style['border-bottom'] = 'solid 4px blue';
+    // target.style['border-top'] = '';
+    target.classList.toggle('dragover-if');
   } else {
-    target.style['border-top'] = 'solid 4px blue';
-    target.style['border-bottom'] = '';
+    // target.style['border-top'] = 'solid 4px blue';
+    // target.style['border-bottom'] = '';
+
+    target.classList.toggle('dragover-else');
   }
 });
 
 document.addEventListener('dragleave', (event) => {
   const target = getToDoElement(event.target);
 
-  target.style['border-bottom'] = '';
-  target.style['border-top'] = '';
+  // target.style['border-bottom'] = '';
+  // target.style['border-top'] = '';
+
+  target.classList.toggle('dragleave');
 });
 
 document.addEventListener('drop', (event) => {
@@ -216,10 +227,16 @@ document.addEventListener('drop', (event) => {
   const target = getToDoElement(event.target);
 
   if (target.style['border-bottom'] !== '') {
-    target.style['border-bottom'] = '';
+    // target.style['border-bottom'] = '';
+
+    target.classList.toggle('drop-if');
+
     target.parentNode.insertBefore(dragging, event.target.nextSibling);
   } else {
-    target.style['border-top'] = '';
+    // target.style['border-top'] = '';
+
+    target.classList.toggle('drop-else');
+
     target.parentNode.insertBefore(dragging, event.target);
   }
 });
