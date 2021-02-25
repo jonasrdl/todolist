@@ -1,15 +1,7 @@
 'use strict';
 
-const getArrayIndex = (element) => {
-  let i = 0;
-
-  while (element.previousElementSibling) {
-    element = element.previousElementSibling;
-    i++;
-  }
-
-  return i;
-};
+const getArrayIndex = (element) =>
+  [...element.parentNode.children].findIndex((child) => child === element);
 
 const init = () => {
   const addToDoButton = document.querySelector('button.addToDo');
