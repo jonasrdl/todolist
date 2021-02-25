@@ -24,9 +24,11 @@ const keyUp = (event) => {
 const addToDo = () => {
   if (inputField.value === '') {
     inputField.placeholder = 'Trage erst ein To Do ein';
+    inputField.classList.add('placeholder-color');
     return;
   } else {
     inputField.placeholder = 'To Do...';
+    inputField.classList.remove('placeholder-color');
   }
 
   const toDoElement = document.getElementById('toDoElement');
@@ -45,12 +47,14 @@ const addToDo = () => {
   editToDoButton.addEventListener('click', editToDo);
   editToDoButton.classList.add('editToDoButton');
   editToDoButton.classList.add('btn');
+  editToDoButton.classList.add('ripple');
   editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
 
   const deleteToDoButton = document.createElement('button');
   deleteToDoButton.addEventListener('click', deleteToDo);
   deleteToDoButton.classList.add('deleteToDoButton');
   deleteToDoButton.classList.add('btn');
+  deleteToDoButton.classList.add('ripple');
   deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
   const inputEdit = document.createElement('input');
@@ -125,13 +129,15 @@ const createToDoElement = (toDo) => {
   editToDoButton.addEventListener('click', editToDo);
   editToDoButton.classList.add('editToDoButton');
   editToDoButton.classList.add('btn');
-  editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+  editToDoButton.classList.add('ripple');
+  editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
 
   const deleteToDoButton = document.createElement('button');
   deleteToDoButton.addEventListener('click', deleteToDo);
   deleteToDoButton.classList.add('deleteToDoButton');
   deleteToDoButton.classList.add('btn');
-  deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+  deleteToDoButton.classList.add('ripple');
+  deleteToDoButton.innerHTML = '<i class="fas fa-trash"></i>';
 
   const inputEdit = document.createElement('input');
   inputEdit.type = 'text';
@@ -167,6 +173,7 @@ const editKeyUp = (event) => {
 
     if (inputEdit.value === '') {
       inputEdit.placeholder = 'Trage erst ein To Do ein';
+      inputEdit.classList.add('.placeholder-color');
     } else {
       toDo.classList.remove('edit');
     }

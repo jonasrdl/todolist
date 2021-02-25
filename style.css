@@ -1,9 +1,12 @@
 * {
+  background-color: #212121;
   font-family: 'Montserrat', sans-serif;
 }
 
 h1 {
   text-align: center;
+  color: white;
+  opacity: 87%;
 }
 
 ul {
@@ -27,6 +30,13 @@ li {
   width: 300px;
   height: 30px;
   font-size: 20px;
+  opacity: 87%;
+  border-bottom: 1px solid white;
+  color: white;
+}
+
+#inputField::placeholder {
+  opacity: 87%;
 }
 
 input[type='text']:focus {
@@ -46,22 +56,19 @@ input[type='checkbox']:checked ~ span {
 
 .btn {
   position: absolute;
+  background-color: none;
   width: 30px;
   height: 30px;
-  color: black;
-  background: none;
-  border: 1px solid black;
+  color: white;
+  border: 1px solid white;
 }
 
 .btn:hover {
   transition: all 0.2s ease-in-out;
-  color: white;
-  background: black;
   cursor: pointer;
 }
 
 .btn:focus {
-  outline: none;
   outline: none;
 }
 
@@ -80,11 +87,15 @@ span {
   position: relative;
   margin-top: 2px;
   left: 41%;
+  color: white;
+  opacity: 87%;
 }
 
 .addToDo {
   font-size: 15px;
-  border: 1px solid black;
+  color: white;
+  border: 1px solid white;
+  opacity: 87%;
   background: none;
   width: 40px;
   height: 36px;
@@ -94,8 +105,6 @@ span {
 }
 
 .addToDo:hover {
-  background: black;
-  color: white;
   transition: all 0.4s ease;
 }
 
@@ -120,6 +129,8 @@ li.edit > input[type='text'] {
 li.edit > input[type='text'],
 li > span {
   display: inline-block;
+  color: white;
+  opacity: 87%;
 }
 
 li.edit > span,
@@ -129,7 +140,9 @@ li > input[type='text'] {
 
 .clearLocalStorage {
   font-size: 15px;
-  border: 1px solid black;
+  border: 1px solid white;
+  color: white;
+  opacity: 87%;
   background: none;
   width: 60px;
   height: 36px;
@@ -139,14 +152,42 @@ li > input[type='text'] {
 }
 
 .clearLocalStorage:hover {
-  background: black;
-  color: white;
   transition: all 0.4s ease;
 }
 
 .clearLocalStorage:focus {
   outline: none;
 }
+
+/* ripple */
+.ripple {
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.ripple:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+/* ripple */
 
 .dragover-if {
   border-bottom: solid 4px blue;
@@ -169,4 +210,8 @@ li > input[type='text'] {
 
 .drop-else {
   border-top: none;
+}
+
+.placeholder-color::placeholder {
+  color: red;
 }
