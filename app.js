@@ -194,11 +194,12 @@ const editKeyUp = (event) => {
 let dragging = null;
 
 document.addEventListener('dragstart', (event) => {
-  const target = getToDoElement(event.target);
-  dragging = target;
+  // console.log(event.target);
+  // const target = getToDoElement(event.target);
+  dragging = event.target;
 
   event.dataTransfer.setData('text/plain', null);
-  event.dataTransfer.setDragImage(self.dragging, 0, 0);
+  event.dataTransfer.setDragImage(dragging, 0, 0);
 });
 
 document.addEventListener('dragover', (event) => {
@@ -211,12 +212,13 @@ document.addEventListener('dragover', (event) => {
   if (event.clientY - offset > 0) {
     // target.style['border-bottom'] = 'solid 4px blue';
     // target.style['border-top'] = '';
-    target.classList.toggle('dragover-if');
+    target.classList.add('dragover-if');
+    target.classList.remove('dragover-else');
   } else {
     // target.style['border-top'] = 'solid 4px blue';
     // target.style['border-bottom'] = '';
-
-    target.classList.toggle('dragover-else');
+    target.classList.remove('dragover-if');
+    target.classList.add('dragover-else');
   }
 });
 
@@ -225,8 +227,9 @@ document.addEventListener('dragleave', (event) => {
 
   // target.style['border-bottom'] = '';
   // target.style['border-top'] = '';
-
-  target.classList.toggle('dragleave');
+  target.classList.remove('dragover-if');
+  target.classList.remove('dragover-else');
+  target.classList.add('dragleave');
 });
 
 document.addEventListener('drop', (event) => {
@@ -236,14 +239,17 @@ document.addEventListener('drop', (event) => {
 
   if (target.style['border-bottom'] !== '') {
     // target.style['border-bottom'] = '';
-
-    target.classList.toggle('drop-if');
-
+    target.classList.remove('dragover-if');
+    target.classList.remove('drop-else');
+    target.classList.remove('dragover-else');
+    target.classList.add('drop-if');
     target.parentNode.insertBefore(dragging, event.target.nextSibling);
   } else {
     // target.style['border-top'] = '';
-
-    target.classList.toggle('drop-else');
+    target.classList.remove('dragover-if');
+    target.classList.remove('drop-if');
+    target.classList.remove('dragover-else');
+    target.classList.add('drop-else');
 
     target.parentNode.insertBefore(dragging, event.target);
   }
