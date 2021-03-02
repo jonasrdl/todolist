@@ -38,7 +38,7 @@ const addToDo = () => {
   span.innerText = inputField.value;
 
   const li = document.createElement('li');
-  li.draggable = 'true';
+  //li.draggable = 'true';
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
@@ -120,7 +120,7 @@ const createToDoElement = (toDo) => {
   span.innerText = toDo;
 
   const li = document.createElement('li');
-  li.draggable = 'true';
+  // li.draggable = 'true';
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
@@ -187,8 +187,15 @@ const editKeyUp = (event) => {
 
 const switchDesign = () => {
   const root = document.querySelector('html');
+  const switchDesignButton = document.querySelector('button.switch-design');
 
   root.classList.toggle('light');
+
+  if (root.classList.contains('light')) {
+    switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
+  } else {
+    switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
+  }
 };
 
 /*

@@ -29,6 +29,7 @@ h1 {
   cursor: pointer;
   top: 1%;
   position: absolute;
+  transition: all 0.8s ease;
 }
 
 ul {
