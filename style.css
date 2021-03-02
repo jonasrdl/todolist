@@ -11,6 +11,7 @@
 }
 
 * {
+  transition: all 0.8s ease;
   background-color: var(--color-background);
   font-family: 'Montserrat', sans-serif;
 }
@@ -19,6 +20,15 @@ h1 {
   text-align: center;
   color: var(--color-text);
   opacity: 87%;
+}
+
+.switch-design {
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  font-size: 20px;
+  cursor: pointer;
+  top: 1%;
+  position: absolute;
 }
 
 ul {
@@ -80,7 +90,8 @@ input[type='checkbox']:checked ~ span {
   cursor: pointer;
 }
 
-.btn:focus {
+.btn:focus,
+.switch-design:focus {
   outline: none;
 }
 

@@ -185,21 +185,23 @@ const editKeyUp = (event) => {
   }
 };
 
-//TODO Klassen setzen für Drag & Drop
-//TODO Klassen setzen für Drag & Drop
-//TODO Klassen setzen für Drag & Drop
-//TODO Klassen setzen für Drag & Drop
-//TODO Klassen setzen für Drag & Drop
+const switchDesign = () => {
+  const root = document.querySelector('html');
 
-let dragging = null;
+  root.classList.toggle('light');
+};
+
+/*
+window.dragging = null;
 
 document.addEventListener('dragstart', (event) => {
-  // console.log(event.target);
-  // const target = getToDoElement(event.target);
-  dragging = event.target;
+  console.log(event.target);
+  const target = getToDoElement(event.target);
+  window.dragging = event.target;
 
   event.dataTransfer.setData('text/plain', null);
-  event.dataTransfer.setDragImage(dragging, 0, 0);
+  console.log(window.dragging);
+  event.dataTransfer.setDragImage(window.dragging, 0, 0);
 });
 
 document.addEventListener('dragover', (event) => {
@@ -210,13 +212,13 @@ document.addEventListener('dragover', (event) => {
   const offset = bounding.y + bounding.height / 2;
 
   if (event.clientY - offset > 0) {
-    // target.style['border-bottom'] = 'solid 4px blue';
-    // target.style['border-top'] = '';
+    target.style['border-bottom'] = 'solid 4px blue';
+    target.style['border-top'] = '';
     target.classList.add('dragover-if');
     target.classList.remove('dragover-else');
   } else {
-    // target.style['border-top'] = 'solid 4px blue';
-    // target.style['border-bottom'] = '';
+    target.style['border-top'] = 'solid 4px blue';
+    target.style['border-bottom'] = '';
     target.classList.remove('dragover-if');
     target.classList.add('dragover-else');
   }
@@ -225,8 +227,8 @@ document.addEventListener('dragover', (event) => {
 document.addEventListener('dragleave', (event) => {
   const target = getToDoElement(event.target);
 
-  // target.style['border-bottom'] = '';
-  // target.style['border-top'] = '';
+  target.style['border-bottom'] = '';
+  target.style['border-top'] = '';
   target.classList.remove('dragover-if');
   target.classList.remove('dragover-else');
   target.classList.add('dragleave');
@@ -238,20 +240,20 @@ document.addEventListener('drop', (event) => {
   const target = getToDoElement(event.target);
 
   if (target.style['border-bottom'] !== '') {
-    // target.style['border-bottom'] = '';
+    target.style['border-bottom'] = '';
     target.classList.remove('dragover-if');
     target.classList.remove('drop-else');
     target.classList.remove('dragover-else');
     target.classList.add('drop-if');
-    target.parentNode.insertBefore(dragging, event.target.nextSibling);
+    target.parentNode.insertBefore(window.dragging, event.target.nextSibling);
   } else {
-    // target.style['border-top'] = '';
+    target.style['border-top'] = '';
     target.classList.remove('dragover-if');
     target.classList.remove('drop-if');
     target.classList.remove('dragover-else');
     target.classList.add('drop-else');
 
-    target.parentNode.insertBefore(dragging, event.target);
+    target.parentNode.insertBefore(window.dragging, event.target);
   }
 });
 
@@ -266,3 +268,4 @@ const getToDoElement = (target) => {
     return target;
   }
 };
+*/
