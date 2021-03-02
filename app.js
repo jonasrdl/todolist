@@ -8,6 +8,7 @@ const init = () => {
   const inputField = document.getElementById('inputField');
 
   addToDoButton.addEventListener('click', addToDo);
+  addToDoButton.classList.add('ripple');
   inputField.addEventListener('keyup', keyUp);
   getToDos();
 };
