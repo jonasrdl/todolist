@@ -131,6 +131,18 @@ const editToDo = (event) => {
 const deleteToDo = (event) => {
     removeToDo(getArrayIndex(event.target?.parentElement))
     event.target.parentElement?.remove()
+
+    deleteToDoMessage();
+}
+
+const deleteToDoMessage = () => {
+    inputField.placeholder = 'To Do gelöscht'
+    inputField.classList.add('placeholder-color')
+
+    setTimeout(function() {
+        inputField.placeholder = 'To Do...'
+        inputField.classList.remove('placeholder-color')
+    }, 3000)
 }
 
 const editKeyUp = (event) => {
