@@ -221,12 +221,13 @@ const initDragAndDrop = () => {
 
     document.addEventListener('dragleave', (event) => {
         const target = getToDoElement(event.target)
-
-        target?.style['border-bottom'] = ''
-        target?.style['border-top'] = ''
-        target?.classList.remove('dragover-if')
-        target?.classList.remove('dragover-else')
-        target?.classList.add('dragleave')
+        if (target) {
+            target.style['border-bottom'] = ''
+            target.style['border-top'] = ''
+            target.classList.remove('dragover-if')
+            target.classList.remove('dragover-else')
+            target.classList.add('dragleave')
+        }
     })
 
     const getToDoElement = (target) => {
