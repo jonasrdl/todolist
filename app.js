@@ -1,11 +1,15 @@
 'use strict';
 
+const getArrayIndex = (element) =>
+  [...element.parentNode.children].findIndex((child) => child === element);
+
 const init = () => {
-  const addToDoButton = document.getElementById('addToDo');
+  const addToDoButton = document.querySelector('button.addToDo');
   const inputField = document.getElementById('inputField');
 
   addToDoButton.addEventListener('click', addToDo);
   inputField.addEventListener('keyup', keyUp);
+  getToDos();
 };
 
 window.addEventListener('DOMContentLoaded', init);
@@ -19,11 +23,13 @@ const keyUp = (event) => {
 
 const addToDo = () => {
   if (inputField.value === '') {
-    alert('Bitte ein To Do eintragen.');
+    inputField.placeholder = 'Trage erst ein To Do ein';
     return;
+  } else {
+    inputField.placeholder = 'To Do...';
   }
 
-  const ulToDo = document.getElementById('ulToDo');
+  const toDoElement = document.getElementById('toDoElement');
 
   const span = document.createElement('span');
   span.innerText = inputField.value;
@@ -38,11 +44,13 @@ const addToDo = () => {
   const editToDoButton = document.createElement('button');
   editToDoButton.addEventListener('click', editToDo);
   editToDoButton.classList.add('editToDoButton');
+  editToDoButton.classList.add('btn');
   editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
 
   const deleteToDoButton = document.createElement('button');
   deleteToDoButton.addEventListener('click', deleteToDo);
   deleteToDoButton.classList.add('deleteToDoButton');
+  deleteToDoButton.classList.add('btn');
   deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
   const inputEdit = document.createElement('input');
@@ -54,9 +62,87 @@ const addToDo = () => {
   li.appendChild(span);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
-  ulToDo.appendChild(li);
+  toDoElement?.appendChild(li);
+
+  saveToDos(inputField.value);
 
   inputField.value = '';
+};
+
+const localStorageKey = 'toDos';
+
+const checkLocalStorage = () =>
+  JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+const saveToDos = (toDo) => {
+  const toDos = checkLocalStorage();
+
+  toDos.push(toDo);
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
+};
+
+const clearLocalStorage = () => {
+  localStorage.removeItem(localStorageKey);
+  location.reload();
+};
+
+const changeToDo = (index, value) => {
+  const toDos = checkLocalStorage();
+
+  toDos[index] = value;
+
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
+};
+
+const getToDos = () => {
+  const toDos = checkLocalStorage();
+
+  toDos.forEach((toDo) => createToDoElement(toDo));
+};
+
+const removeToDo = (index) => {
+  const toDos = checkLocalStorage();
+
+  toDos.splice(index, 1);
+
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
+};
+
+const createToDoElement = (toDo) => {
+  const toDoElement = document.getElementById('toDoElement');
+
+  const span = document.createElement('span');
+  span.innerText = toDo;
+
+  const li = document.createElement('li');
+  li.draggable = 'true';
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add('checkbox');
+
+  const editToDoButton = document.createElement('button');
+  editToDoButton.addEventListener('click', editToDo);
+  editToDoButton.classList.add('editToDoButton');
+  editToDoButton.classList.add('btn');
+  editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+
+  const deleteToDoButton = document.createElement('button');
+  deleteToDoButton.addEventListener('click', deleteToDo);
+  deleteToDoButton.classList.add('deleteToDoButton');
+  deleteToDoButton.classList.add('btn');
+  deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+
+  const inputEdit = document.createElement('input');
+  inputEdit.type = 'text';
+  inputEdit.addEventListener('keyup', editKeyUp);
+
+  li.appendChild(checkbox);
+  li.appendChild(inputEdit);
+  li.appendChild(span);
+  li.appendChild(editToDoButton);
+  li.appendChild(deleteToDoButton);
+  toDoElement.appendChild(li);
 };
 
 const editToDo = (event) => {
@@ -69,7 +155,8 @@ const editToDo = (event) => {
 };
 
 const deleteToDo = (event) => {
-  event.target.parentElement?.remove?.();
+  removeToDo(getArrayIndex(event.target?.parentElement));
+  event.target.parentElement?.remove();
 };
 
 const editKeyUp = (event) => {
@@ -79,66 +166,83 @@ const editKeyUp = (event) => {
     const inputEdit = toDo.querySelector('input[type="text"]');
 
     if (inputEdit.value === '') {
-      alert('Bitte ein To Do eintragen.');
+      inputEdit.placeholder = 'Trage erst ein To Do ein';
     } else {
       toDo.classList.remove('edit');
-      toDoText.textContent = inputEdit.value;
     }
+
+    toDoText.textContent = inputEdit.value;
+
+    changeToDo(getArrayIndex(event.target.parentElement), inputEdit.value);
   }
 };
 
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+//TODO Klassen setzen für Drag & Drop
+
 let dragging = null;
 
-document.addEventListener('dragstart', function (event) {
-  const target = getLI(event.target);
+document.addEventListener('dragstart', (event) => {
+  const target = getToDoElement(event.target);
   dragging = target;
 
   event.dataTransfer.setData('text/plain', null);
   event.dataTransfer.setDragImage(self.dragging, 0, 0);
 });
 
-document.addEventListener('dragover', function (event) {
+document.addEventListener('dragover', (event) => {
   event.preventDefault();
 
-  const target = getLI(event.target);
+  const target = getToDoElement(event.target);
   const bounding = target.getBoundingClientRect();
   const offset = bounding.y + bounding.height / 2;
 
   if (event.clientY - offset > 0) {
-    target.style['border-bottom'] = 'solid 4px blue';
-    target.style['border-top'] = '';
+    // target.style['border-bottom'] = 'solid 4px blue';
+    // target.style['border-top'] = '';
+    target.classList.toggle('dragover-if');
   } else {
-    target.style['border-top'] = 'solid 4px blue';
-    target.style['border-bottom'] = '';
+    // target.style['border-top'] = 'solid 4px blue';
+    // target.style['border-bottom'] = '';
+
+    target.classList.toggle('dragover-else');
   }
 });
 
-document.addEventListener('dragleave', function (event) {
-  const target = getLI(event.target);
+document.addEventListener('dragleave', (event) => {
+  const target = getToDoElement(event.target);
 
-  target.style['border-bottom'] = '';
-  target.style['border-top'] = '';
+  // target.style['border-bottom'] = '';
+  // target.style['border-top'] = '';
+
+  target.classList.toggle('dragleave');
 });
 
-document.addEventListener('drop', function (event) {
+document.addEventListener('drop', (event) => {
   event.preventDefault();
 
-  const target = getLI(event.target);
+  const target = getToDoElement(event.target);
 
   if (target.style['border-bottom'] !== '') {
-    target.style['border-bottom'] = '';
+    // target.style['border-bottom'] = '';
+
+    target.classList.toggle('drop-if');
+
     target.parentNode.insertBefore(dragging, event.target.nextSibling);
   } else {
-    target.style['border-top'] = '';
+    // target.style['border-top'] = '';
+
+    target.classList.toggle('drop-else');
+
     target.parentNode.insertBefore(dragging, event.target);
   }
 });
 
-function getLI(target) {
-  while (
-    target.nodeName.toLowerCase() != 'li' &&
-    target.nodeName.toLowerCase() != 'body'
-  ) {
+const getToDoElement = (target) => {
+  while (target.nodeName.toLowerCase() !== 'li' && target.nodeName === 'BODY') {
     target = target.parentNode;
   }
 
@@ -147,4 +251,4 @@ function getLI(target) {
   } else {
     return target;
   }
-}
+};

@@ -44,47 +44,35 @@ input[type='checkbox']:checked ~ span {
   text-decoration: line-through;
 }
 
-.editToDoButton {
+.btn {
   position: absolute;
-  left: 56%;
   width: 30px;
   height: 30px;
   color: black;
   background: none;
   border: 1px solid black;
+}
+
+.btn:hover {
+  transition: all 0.2s ease-in-out;
+  color: white;
+  background: black;
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: none;
+  outline: none;
+}
+
+.editToDoButton {
+  left: 56%;
   transition: all 0.4s ease-in-out;
 }
 
-.editToDoButton:hover {
-  transition: all 0.2s ease-in-out;
-  color: white;
-  background: black;
-  cursor: pointer;
-}
-
-.editToDoButton:focus {
-  outline: none;
-}
-
 .deleteToDoButton {
-  position: absolute;
   left: 58%;
-  width: 30px;
-  height: 30px;
-  color: black;
-  background: none;
-  border: 1px solid black;
-}
-
-.deleteToDoButton:hover {
   transition: all 0.2s ease-in-out;
-  color: white;
-  background: black;
-  cursor: pointer;
-}
-
-.deleteToDoButton:focus {
-  outline: none;
 }
 
 span {
@@ -94,7 +82,7 @@ span {
   left: 41%;
 }
 
-#addToDo {
+.addToDo {
   font-size: 15px;
   border: 1px solid black;
   background: none;
@@ -105,13 +93,13 @@ span {
   transition: all 0.4s ease;
 }
 
-#addToDo:hover {
+.addToDo:hover {
   background: black;
   color: white;
   transition: all 0.4s ease;
 }
 
-#addToDo:focus {
+.addToDo:focus {
   outline: none;
 }
 
@@ -137,4 +125,48 @@ li > span {
 li.edit > span,
 li > input[type='text'] {
   display: none;
+}
+
+.clearLocalStorage {
+  font-size: 15px;
+  border: 1px solid black;
+  background: none;
+  width: 60px;
+  height: 36px;
+  margin-left: 0.5%;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.clearLocalStorage:hover {
+  background: black;
+  color: white;
+  transition: all 0.4s ease;
+}
+
+.clearLocalStorage:focus {
+  outline: none;
+}
+
+.dragover-if {
+  border-bottom: solid 4px blue;
+  border-top: none;
+}
+
+.dragover-else {
+  border-top: solid 4px blue;
+  border-bottom: none;
+}
+
+.dragleave {
+  border-bottom: none;
+  border-top: none;
+}
+
+.drop-if {
+  border-bottom: none;
+}
+
+.drop-else {
+  border-top: none;
 }
