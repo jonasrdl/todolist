@@ -54,14 +54,14 @@ const addToDo = () => {
   editToDoButton.classList.add('editToDoButton');
   editToDoButton.classList.add('btn');
   editToDoButton.classList.add('ripple');
-  editToDoButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+  editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
 
   const deleteToDoButton = document.createElement('button');
   deleteToDoButton.addEventListener('click', deleteToDo);
   deleteToDoButton.classList.add('deleteToDoButton');
   deleteToDoButton.classList.add('btn');
   deleteToDoButton.classList.add('ripple');
-  deleteToDoButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+  deleteToDoButton.innerHTML = '<i class="fas fa-trash"></i>';
 
   const inputEdit = document.createElement('input');
   inputEdit.type = 'text';
@@ -154,7 +154,7 @@ const createToDoElement = (toDo) => {
   li.appendChild(span);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
-  toDoElement.appendChild(li);
+  toDoElement?.appendChild(li);
 };
 
 const editToDo = (event) => {
