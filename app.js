@@ -37,7 +37,7 @@ const addToDo = () => {
     inputField.classList.remove('placeholder-color');
   }
 
-  const toDoElement = document.getElementById('toDoElement');
+  const toDoList = document.getElementById('toDoList');
 
   const span = document.createElement('span');
   span.innerText = inputField.value;
@@ -72,54 +72,15 @@ const addToDo = () => {
   li.appendChild(span);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
-  toDoElement?.appendChild(li);
+  toDoList?.appendChild(li);
 
   saveToDos(inputField.value);
 
   inputField.value = '';
 };
 
-const localStorageKey = 'toDos';
-
-const checkLocalStorage = () =>
-  JSON.parse(localStorage.getItem(localStorageKey)) || [];
-
-const saveToDos = (toDo) => {
-  const toDos = checkLocalStorage();
-
-  toDos.push(toDo);
-  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
-};
-
-const clearLocalStorage = () => {
-  localStorage.removeItem(localStorageKey);
-  location.reload();
-};
-
-const changeToDo = (index, value) => {
-  const toDos = checkLocalStorage();
-
-  toDos[index] = value;
-
-  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
-};
-
-const getToDos = () => {
-  const toDos = checkLocalStorage();
-
-  toDos.forEach((toDo) => createToDoElement(toDo));
-};
-
-const removeToDo = (index) => {
-  const toDos = checkLocalStorage();
-
-  toDos.splice(index, 1);
-
-  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
-};
-
-const createToDoElement = (toDo) => {
-  const toDoElement = document.getElementById('toDoElement');
+const createToDoFromLocalStorage = (toDo) => {
+  const toDoList = document.getElementById('toDoList');
 
   const span = document.createElement('span');
   span.innerText = toDo;
@@ -154,7 +115,46 @@ const createToDoElement = (toDo) => {
   li.appendChild(span);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
-  toDoElement?.appendChild(li);
+  toDoList?.appendChild(li);
+};
+
+const localStorageKey = 'toDos';
+
+const clearLocalStorage = () => {
+  localStorage.removeItem(localStorageKey);
+  location.reload();
+};
+
+const changeToDo = (index, value) => {
+  const toDos = checkLocalStorage();
+
+  toDos[index] = value;
+
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
+};
+
+const getToDos = () => {
+  const toDos = checkLocalStorage();
+
+  toDos.forEach((toDo) => createToDoFromLocalStorage(toDo));
+};
+
+const removeToDo = (index) => {
+  const toDos = checkLocalStorage();
+
+  toDos.splice(index, 1);
+
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
+};
+
+const checkLocalStorage = () =>
+  JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+const saveToDos = (toDo) => {
+  const toDos = checkLocalStorage();
+
+  toDos.push(toDo);
+  localStorage.setItem(localStorageKey, JSON.stringify(toDos));
 };
 
 const editToDo = (event) => {
@@ -204,7 +204,7 @@ const switchDesign = () => {
 };
 
 const initDragAndDrop = () => {
-  toDoElement.addEventListener('drop', (event) => {
+  toDoList.addEventListener('drop', (event) => {
     event.preventDefault();
 
     const target = getToDoElement(event.target);
