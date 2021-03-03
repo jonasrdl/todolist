@@ -1,16 +1,20 @@
 'use strict';
 
+let toDoList;
+
 const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
 
 const init = () => {
   const addToDoButton = document.querySelector('button.addToDo');
   const inputField = document.getElementById('inputField');
+  toDoList = document.getElementById('toDoList');
 
   addToDoButton.addEventListener('click', addToDo);
   addToDoButton.classList.add('ripple');
   inputField.addEventListener('keyup', keyUp);
   getToDos();
+  initDragAndDrop();
 };
 
 window.addEventListener('DOMContentLoaded', init);
@@ -26,6 +30,7 @@ const addToDo = () => {
   if (inputField.value === '') {
     inputField.placeholder = 'Trage erst ein To Do ein';
     inputField.classList.add('placeholder-color');
+
     return;
   } else {
     inputField.placeholder = 'To Do...';
@@ -38,7 +43,7 @@ const addToDo = () => {
   span.innerText = inputField.value;
 
   const li = document.createElement('li');
-  //li.draggable = 'true';
+  li.draggable = 'true';
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
@@ -120,7 +125,7 @@ const createToDoElement = (toDo) => {
   span.innerText = toDo;
 
   const li = document.createElement('li');
-  // li.draggable = 'true';
+  li.draggable = 'true';
 
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
@@ -198,81 +203,82 @@ const switchDesign = () => {
   }
 };
 
-/*
-window.dragging = null;
+const initDragAndDrop = () => {
+  toDoElement.addEventListener('drop', (event) => {
+    event.preventDefault();
 
-document.addEventListener('dragstart', (event) => {
-  console.log(event.target);
-  const target = getToDoElement(event.target);
-  window.dragging = event.target;
+    const target = getToDoElement(event.target);
 
-  event.dataTransfer.setData('text/plain', null);
-  console.log(window.dragging);
-  event.dataTransfer.setDragImage(window.dragging, 0, 0);
-});
+    if (target.style['border-bottom'] !== '') {
+      target.style['border-bottom'] = '';
+      target.classList.remove('dragover-if');
+      target.classList.remove('drop-else');
+      target.classList.remove('dragover-else');
+      target.classList.add('drop-if');
+      target.parentNode.insertBefore(window.dragging, event.target.nextSibling);
+    } else {
+      target.style['border-top'] = '';
+      target.classList.remove('dragover-if');
+      target.classList.remove('drop-if');
+      target.classList.remove('dragover-else');
+      target.classList.add('drop-else');
 
-document.addEventListener('dragover', (event) => {
-  event.preventDefault();
+      target.parentNode.insertBefore(window.dragging, event.target);
+    }
+  });
 
-  const target = getToDoElement(event.target);
-  const bounding = target.getBoundingClientRect();
-  const offset = bounding.y + bounding.height / 2;
+  window.dragging = null;
 
-  if (event.clientY - offset > 0) {
-    target.style['border-bottom'] = 'solid 4px blue';
-    target.style['border-top'] = '';
-    target.classList.add('dragover-if');
-    target.classList.remove('dragover-else');
-  } else {
-    target.style['border-top'] = 'solid 4px blue';
+  document.addEventListener('dragstart', (event) => {
+    const target = getToDoElement(event.target);
+    window.dragging = target;
+
+    event.dataTransfer.setData('text/plain', null);
+    event.dataTransfer.setDragImage(target, 0, 0);
+  });
+
+  document.addEventListener('dragover', (event) => {
+    event.preventDefault();
+
+    const target = getToDoElement(event.target);
+    const bounding = target.getBoundingClientRect();
+    const offset = bounding.y + bounding.height / 2;
+
+    if (event.clientY - offset > 0) {
+      target.style['border-bottom'] = 'solid 4px blue';
+      target.style['border-top'] = '';
+      target.classList.add('dragover-if');
+      target.classList.remove('dragover-else');
+    } else {
+      target.style['border-top'] = 'solid 4px blue';
+      target.style['border-bottom'] = '';
+      target.classList.remove('dragover-if');
+      target.classList.add('dragover-else');
+    }
+  });
+
+  document.addEventListener('dragleave', (event) => {
+    const target = getToDoElement(event.target);
+
     target.style['border-bottom'] = '';
-    target.classList.remove('dragover-if');
-    target.classList.add('dragover-else');
-  }
-});
-
-document.addEventListener('dragleave', (event) => {
-  const target = getToDoElement(event.target);
-
-  target.style['border-bottom'] = '';
-  target.style['border-top'] = '';
-  target.classList.remove('dragover-if');
-  target.classList.remove('dragover-else');
-  target.classList.add('dragleave');
-});
-
-document.addEventListener('drop', (event) => {
-  event.preventDefault();
-
-  const target = getToDoElement(event.target);
-
-  if (target.style['border-bottom'] !== '') {
-    target.style['border-bottom'] = '';
-    target.classList.remove('dragover-if');
-    target.classList.remove('drop-else');
-    target.classList.remove('dragover-else');
-    target.classList.add('drop-if');
-    target.parentNode.insertBefore(window.dragging, event.target.nextSibling);
-  } else {
     target.style['border-top'] = '';
     target.classList.remove('dragover-if');
-    target.classList.remove('drop-if');
     target.classList.remove('dragover-else');
-    target.classList.add('drop-else');
+    target.classList.add('dragleave');
+  });
 
-    target.parentNode.insertBefore(window.dragging, event.target);
-  }
-});
+  const getToDoElement = (target) => {
+    while (
+      target.nodeName.toLowerCase() !== 'li' &&
+      target.nodeName === 'BODY'
+    ) {
+      target = target.parentNode;
+    }
 
-const getToDoElement = (target) => {
-  while (target.nodeName.toLowerCase() !== 'li' && target.nodeName === 'BODY') {
-    target = target.parentNode;
-  }
-
-  if (target.nodeName.toLowerCase() == 'body') {
-    return false;
-  } else {
-    return target;
-  }
+    if (target.nodeName.toLowerCase() == 'body') {
+      return false;
+    } else {
+      return target;
+    }
+  };
 };
-*/
