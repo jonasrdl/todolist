@@ -260,7 +260,6 @@ const initDragAndDrop = () => {
     }
 
     while (!(target.nodeName === 'LI' || target.nodeName === 'HTML')) {
-      console.log(target.nodeName);
       target = target.parentNode;
     }
 
