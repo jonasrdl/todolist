@@ -15,7 +15,7 @@ const init = () => {
   addToDoButton.addEventListener('click', addToDo);
   addToDoButton.classList.add('ripple');
   inputField.addEventListener('keyup', keyUp);
-  getToDos();
+  renderToDos();
   initDragAndDrop();
 };
 
@@ -77,17 +77,18 @@ const addToDo = () => {
   }
 
   createTodoElement(inputField.value);
-  saveToDos(inputField.value);
+  saveToDosLocalStorage(inputField.value);
 
   inputField.value = '';
 };
 
+//Localstorage part start
 const clearLocalStorage = () => {
   localStorage.removeItem(LOCAL_STORAGE_KEY);
   location.reload();
 };
 
-const changeToDo = (index, value) => {
+const editToDoLocalStorage = (index, value) => {
   const toDos = checkLocalStorage();
 
   toDos[index] = value;
@@ -95,13 +96,13 @@ const changeToDo = (index, value) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
-const getToDos = () => {
+const renderToDos = () => {
   const toDos = checkLocalStorage();
 
   toDos.forEach((toDo) => createTodoElement(toDo));
 };
 
-const removeToDo = (index) => {
+const deleteToDoLocalStorage = (index) => {
   const toDos = checkLocalStorage();
 
   toDos.splice(index, 1);
@@ -112,12 +113,13 @@ const removeToDo = (index) => {
 const checkLocalStorage = () =>
   JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
 
-const saveToDos = (toDo) => {
+const saveToDosLocalStorage = (toDo) => {
   const toDos = checkLocalStorage();
 
   toDos.push(toDo);
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
+// Localstorage part end
 
 const editToDo = (event) => {
   const toDo = event.target.parentElement;
@@ -129,7 +131,7 @@ const editToDo = (event) => {
 };
 
 const deleteToDo = (event) => {
-  removeToDo(getArrayIndex(event.target?.parentElement));
+  deleteToDoLocalStorage(getArrayIndex(event.target?.parentElement));
   event.target.parentElement?.remove();
 
   deleteToDoMessage();
@@ -160,7 +162,7 @@ const editKeyUp = (event) => {
 
     toDoText.textContent = inputEdit.value;
 
-    changeToDo(getArrayIndex(event.target.parentElement), inputEdit.value);
+    editToDoLocalStorage(getArrayIndex(event.target.parentElement), inputEdit.value);
   }
 };
 

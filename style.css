@@ -11,7 +11,7 @@
 }
 
 * {
-    transition: all 0.8s ease;
+    transition: all 0.2s ease;
     background-color: var(--color-background);
     font-family: 'Montserrat', sans-serif;
 }
@@ -29,7 +29,7 @@ h1 {
     cursor: pointer;
     top: 1%;
     position: absolute;
-    transition: all 0.8s ease;
+    transition: all 0.2s ease;
 }
 
 ul {
@@ -98,7 +98,7 @@ input[type='checkbox']:checked ~ span {
 
 .editToDoButton {
     left: 56%;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 .deleteToDoButton {
@@ -125,11 +125,11 @@ span {
     height: 36px;
     margin-left: 1%;
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
 }
 
 .addToDo:hover {
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
 }
 
 .addToDo:focus {
@@ -172,11 +172,11 @@ li > input[type='text'] {
     height: 36px;
     margin-left: 0.5%;
     cursor: pointer;
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
 }
 
 .clearLocalStorage:hover {
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
 }
 
 .clearLocalStorage:focus {
@@ -241,6 +241,43 @@ li > input[type='text'] {
 }
 
 .placeholder-color::placeholder {
-    transition: 0.8s ease-in-out;
+    transition: 0.2s ease-in-out;
     color: red;
+}
+
+.pageLeft, .pageRight {
+    height: 28px;
+    position: absolute;
+    top: 1%;
+    font-size: 20px;
+}
+
+.pageLeft {
+    left: 3%;
+}
+
+.pageRight {
+    left: 4.8%;
+}
+
+.newListInput {
+    position: absolute;
+    top: 0.6%;
+    left: 7%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+    opacity: 87%;
+    border-bottom: 1px solid var(--color-text);
+    color: var(--color-text);
+}
+
+.newListSubmit {
+    font-size: 20px;
+    position: absolute;
+    top: 0.8%;
+    left: 23%;
 }
