@@ -1,8 +1,41 @@
 'use strict';
-const LOCAL_STORAGE_KEY = 'toDos';
+const LOCAL_STORAGE_KEY = 'todos';
 
 let toDoList;
 let inputField;
+
+const testObjekt = [
+  {
+    listName: 'Einkauf',
+    todos: [
+      {
+        todoText: 'Tomaten',
+        done: false,
+      },
+      {
+        todoText: 'Käse',
+        done: true,
+      },
+      {
+        todoText: 'Salz',
+        done: true,
+      },
+    ],
+  },
+  {
+    listName: 'Haushalt',
+    todos: [
+      {
+        todoText: 'Putzen',
+        done: false,
+      },
+      {
+        todoText: 'Wischen',
+        done: true,
+      },
+    ],
+  },
+];
 
 const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
@@ -15,7 +48,7 @@ const init = () => {
   addToDoButton.addEventListener('click', addToDo);
   addToDoButton.classList.add('ripple');
   inputField.addEventListener('keyup', keyUp);
-  renderToDos();
+  getToDos();
   initDragAndDrop();
 };
 
@@ -77,18 +110,17 @@ const addToDo = () => {
   }
 
   createTodoElement(inputField.value);
-  saveToDosLocalStorage(inputField.value);
+  saveToDos(inputField.value);
 
   inputField.value = '';
 };
 
-//Localstorage part start
 const clearLocalStorage = () => {
   localStorage.removeItem(LOCAL_STORAGE_KEY);
   location.reload();
 };
 
-const editToDoLocalStorage = (index, value) => {
+const changeToDo = (index, value) => {
   const toDos = checkLocalStorage();
 
   toDos[index] = value;
@@ -96,13 +128,13 @@ const editToDoLocalStorage = (index, value) => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
-const renderToDos = () => {
+const getToDos = () => {
   const toDos = checkLocalStorage();
 
   toDos.forEach((toDo) => createTodoElement(toDo));
 };
 
-const deleteToDoLocalStorage = (index) => {
+const removeToDo = (index) => {
   const toDos = checkLocalStorage();
 
   toDos.splice(index, 1);
@@ -113,13 +145,13 @@ const deleteToDoLocalStorage = (index) => {
 const checkLocalStorage = () =>
   JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
 
-const saveToDosLocalStorage = (toDo) => {
+const saveToDos = (toDo) => {
   const toDos = checkLocalStorage();
 
   toDos.push(toDo);
+  console.log(toDo);
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
-// Localstorage part end
 
 const editToDo = (event) => {
   const toDo = event.target.parentElement;
@@ -131,7 +163,7 @@ const editToDo = (event) => {
 };
 
 const deleteToDo = (event) => {
-  deleteToDoLocalStorage(getArrayIndex(event.target?.parentElement));
+  removeToDo(getArrayIndex(event.target?.parentElement));
   event.target.parentElement?.remove();
 
   deleteToDoMessage();
@@ -162,7 +194,7 @@ const editKeyUp = (event) => {
 
     toDoText.textContent = inputEdit.value;
 
-    editToDoLocalStorage(getArrayIndex(event.target.parentElement), inputEdit.value);
+    changeToDo(getArrayIndex(event.target.parentElement), inputEdit.value);
   }
 };
 
