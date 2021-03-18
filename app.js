@@ -1,15 +1,19 @@
 'use strict';
 const LOCAL_STORAGE_KEY = 'todos';
+const CURRENT_LIST_KEY = 'currentlist';
 
 let toDoList;
 let inputField;
 let newListInput;
+let newListText;
+let todoLists = [];
 
 const getArrayIndex = (element) =>
     [...element.parentNode.children].findIndex((child) => child === element);
 
 const init = () => {
     const addToDoButton = document.querySelector('button.addToDo');
+    newListText = document.querySelector('span.newListText');
     inputField = document.getElementById('inputField');
     toDoList = document.getElementById('toDoList');
     newListInput = document.querySelector('input.newListInput');
@@ -81,13 +85,21 @@ const addToDo = () => {
     createTodoElement(inputField.value);
     saveToDos(inputField.value);
 
+    for (let i = 0; i < todoLists.length; i++) {
+        const todos = todoLists[i].todos[i];
+
+        for (let j = 0; j < todos.length; j++) {
+            todoLists[i].todos[j].push({name: 'Hallo', done: false});
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+        }
+    }
+
     inputField.value = '';
 };
 
-let todoLists = [];
-
 const clearLocalStorage = () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
+    localStorage.removeItem(CURRENT_LIST_KEY);
     location.reload();
 };
 
@@ -101,8 +113,10 @@ const changeToDo = (index, value) => {
 
 const getToDos = () => {
     const toDos = checkLocalStorage();
+    const currentList = localStorage.getItem(CURRENT_LIST_KEY);
 
-    toDos.forEach((toDo) => createTodoElement(toDo));
+    newListText.innerHTML = 'Current List: ' + currentList;
+    // toDos.forEach((toDo) => createTodoElement(toDo));
 };
 
 const removeToDo = (index) => {
@@ -114,24 +128,37 @@ const removeToDo = (index) => {
 };
 
 const checkLocalStorage = () =>
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || todoLists;
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));//  || todoLists;
 
-const saveToDos = (/*todo*/) => {
-    let todoLists = [];
-
-    let test = {
+const addNewList = () => {
+    let todoListsObject = {
         name: newListInput.value,
-        todos: [
-            {
-                todoName: inputField.value,
-                done: true
-            },
-        ]
+        todos: []
     };
 
-    todoLists.push(test);
+    todoLists.push(todoListsObject);
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoListsObject));
+
+    newListText.innerHTML = ('Current List: ' + newListInput.value);
+    localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
+
+    newListInput.value = null;
+};
+
+const saveToDos = (/*todo*/) => {
+    const currentList = localStorage.getItem(CURRENT_LIST_KEY);
+
+    for (let i = 0; i < todoLists.length; i++) {
+        for (let j = 0; j < todoLists.length; j++) {
+            todoLists[i].todos.push({name: inputField.value, done: false});
+        }
+    }
+
+    //const todo = localStorage.getItem(LOCAL_STORAGE_KEY);
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+    newListText.innerHTML = 'Current List: ' + currentList;
 
     //const toDos = checkLocalStorage();
 

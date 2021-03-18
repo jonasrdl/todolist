@@ -31,13 +31,15 @@
     <form>
       <input
         type="text"
-        placeholder="New list name..."
+        placeholder="New list name... (max. 30)"
         class="newListInput"
         id="newListInput"
         autocomplete="off"
+        maxlength="30"
       />
-      <input type="submit" value="+" class="newListSubmit btn" />
+      <button type="button" class="newListSubmit btn" onclick="addNewList()">+</button>
     </form>
+    <span class="newListText"></span>
 
     <section id="inputContainer">
       <input type="text" placeholder="To Do..." id="inputField" />

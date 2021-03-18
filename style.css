@@ -281,3 +281,9 @@ li > input[type='text'] {
     top: 0.8%;
     left: 23%;
 }
+
+.newListText {
+    position: absolute;
+    top: 5%;
+    left: 0.5%;
+}
