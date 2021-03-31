@@ -23,6 +23,10 @@ const init = () => {
     inputField.addEventListener('keyup', keyUp);
     getToDos();
     initDragAndDrop();
+
+    if (!newListText.value) {
+        newListText.innerHTML = 'Current list: /';
+    }
 };
 
 window.addEventListener('DOMContentLoaded', init);
