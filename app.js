@@ -6,6 +6,8 @@ let toDoList;
 let inputField;
 let newListInput;
 let newListText;
+let siteLeft;
+let siteRight;
 let todoLists = [];
 
 const getArrayIndex = (element) =>
@@ -13,34 +15,35 @@ const getArrayIndex = (element) =>
 
 const init = () => {
     const addToDoButton = document.querySelector('button.addToDo');
+    siteLeft = document.querySelector('.siteLeft');
+    siteRight = document.querySelector('.siteRight');
     newListText = document.querySelector('span.newListText');
     inputField = document.getElementById('inputField');
     toDoList = document.getElementById('toDoList');
     newListInput = document.querySelector('input.newListInput');
 
+    siteLeft.addEventListener('click', changeSiteLeft);
+    siteRight.addEventListener('click', changeSiteRight);
     addToDoButton.addEventListener('click', addToDo);
     addToDoButton.classList.add('ripple');
     inputField.addEventListener('keyup', keyUp);
     getToDos();
     initDragAndDrop();
-
-    if (!newListText.value) {
-        newListText.innerHTML = 'Current list: /';
-    }
 };
 
 window.addEventListener('DOMContentLoaded', init);
 
 const keyUp = (event) => {
     if (event.key === 'Enter') {
-        event.preventDefault();
         addToDo();
     }
 };
 
-const createTodoElement = (todoLabel) => {
+const createTodoElement = (/* todoLabel */) => {
     const span = document.createElement('span');
-    span.innerText = todoLabel;
+    //const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+    span.innerText = inputField.value;
+    //todoLists.forEach(list => list.todos.forEach(todo => todo.name = storedTodos.name));
 
     const li = document.createElement('li');
     li.draggable = true;
@@ -116,8 +119,20 @@ const changeToDo = (index, value) => {
 };
 
 const getToDos = () => {
-    const toDos = checkLocalStorage();
     const currentList = localStorage.getItem(CURRENT_LIST_KEY);
+    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const toDos = checkLocalStorage();
+
+    for (let i = 0; i < todoLists.length; i++) {
+        const todos = todoLists[i].todos;
+
+        for (let j = 0; j < todos.length; j++) {
+            createTodoElement();
+            todos.name = storedTodos;
+        }
+    }
+
+    // toDos.forEach((toDo) => createTodoElement(toDo));
 
     newListText.innerHTML = 'Current List: ' + currentList;
     // toDos.forEach((toDo) => createTodoElement(toDo));
@@ -132,7 +147,7 @@ const removeToDo = (index) => {
 };
 
 const checkLocalStorage = () =>
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));//  || todoLists;
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {name: newListInput.value, todos: []}
 
 const addNewList = () => {
     let todoListsObject = {
@@ -150,8 +165,9 @@ const addNewList = () => {
     newListInput.value = null;
 };
 
-const saveToDos = (/*todo*/) => {
+const saveToDos = () => {
     const currentList = localStorage.getItem(CURRENT_LIST_KEY);
+    const todos = localStorage.getItem(LOCAL_STORAGE_KEY);
 
     for (let i = 0; i < todoLists.length; i++) {
         for (let j = 0; j < todoLists.length; j++) {
@@ -214,6 +230,14 @@ const editKeyUp = (event) => {
         changeToDo(getArrayIndex(event.target.parentElement), inputEdit.value);
     }
 };
+
+const changeSiteLeft = () => {
+    console.log('siteLeft');
+}
+
+const changeSiteRight = () => {
+    console.log('siteRight');
+}
 
 const switchDesign = () => {
     const root = document.querySelector('html');

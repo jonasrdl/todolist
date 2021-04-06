@@ -245,18 +245,18 @@ li > input[type='text'] {
     color: red;
 }
 
-.pageLeft, .pageRight {
+.siteLeft, .siteRight {
     height: 28px;
     position: absolute;
     top: 1%;
     font-size: 20px;
 }
 
-.pageLeft {
+.siteLeft {
     left: 3%;
 }
 
-.pageRight {
+.siteRight {
     left: 4.8%;
 }
 
