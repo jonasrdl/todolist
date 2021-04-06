@@ -158,11 +158,12 @@ const addNewList = () => {
     todoLists.push(todoListsObject);
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoListsObject));
-
     newListText.innerHTML = ('Current List: ' + newListInput.value);
     localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
 
     newListInput.value = null;
+
+    console.log(todoLists);
 };
 
 const saveToDos = () => {
@@ -232,11 +233,22 @@ const editKeyUp = (event) => {
 };
 
 const changeSiteLeft = () => {
-    console.log('siteLeft');
+
 }
 
 const changeSiteRight = () => {
-    console.log('siteRight');
+    let todoListsObject = {
+        name: newListInput.value,
+        todos: []
+    };
+
+    todoLists.push(todoListsObject);
+    localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoListsObject));
+
+    const currentList = localStorage.getItem(CURRENT_LIST_KEY);
+
+    console.log(todoLists);
 }
 
 const switchDesign = () => {
