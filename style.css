@@ -40,13 +40,17 @@ li {
     padding: 10px;
 }
 
+.nameInput {
+    position: relative;
+}
+
 #inputContainer {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#inputField {
+#inputField, .nameInput {
     border-top: none;
     border-left: none;
     border-right: none;
@@ -95,6 +99,13 @@ input[type='checkbox']:checked ~ span {
 .switch-design:focus {
     outline: none;
 }
+
+.nameSubmit {
+    margin-top: 3px;
+    margin-left: 5px;
+    width: 50px;
+}
+
 
 .editToDoButton {
     left: 56%;

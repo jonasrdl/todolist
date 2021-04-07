@@ -19,7 +19,7 @@
     <script src="app.js"></script>
   </head>
   <body>
-    <h1>To Do Liste</h1>
+    <h1 class="toDoListHeader">To Do Liste</h1>
 
     <button class="switch-design" onclick="switchDesign()">
       <i class="fas fa-sun"></i>
@@ -40,6 +40,11 @@
       <button type="submit" class="newListSubmit btn" onclick="event.preventDefault(); addNewList();">+</button>
     </form>
     <span class="newListText"></span>
+
+    <form>
+      <input type="text" placeholder="Your Name..." class="nameInput" maxlength="20">
+      <button type="submit" class="nameSubmit btn" onclick="">Send</button>
+    </form>
 
     <section id="inputContainer">
       <input type="text" placeholder="To Do..." id="inputField" />

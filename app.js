@@ -8,6 +8,8 @@ let newListInput;
 let newListText;
 let siteLeft;
 let siteRight;
+let nameInput;
+let nameSubmit;
 let todoLists = [];
 
 const getArrayIndex = (element) =>
@@ -16,6 +18,8 @@ const getArrayIndex = (element) =>
 const init = () => {
     const addToDoButton = document.querySelector('button.addToDo');
     siteLeft = document.querySelector('.siteLeft');
+    nameInput = document.querySelector('.nameInput');
+    nameSubmit = document.querySelector('.nameSubmit');
     siteRight = document.querySelector('.siteRight');
     newListText = document.querySelector('span.newListText');
     inputField = document.getElementById('inputField');
@@ -23,6 +27,7 @@ const init = () => {
     newListInput = document.querySelector('input.newListInput');
 
     siteLeft.addEventListener('click', changeSiteLeft);
+    nameSubmit.addEventListener('click', sendName);
     siteRight.addEventListener('click', changeSiteRight);
     addToDoButton.addEventListener('click', addToDo);
     addToDoButton.classList.add('ripple');
@@ -38,6 +43,14 @@ const keyUp = (event) => {
         addToDo();
     }
 };
+
+const sendName = (event) => {
+    event.preventDefault();
+    const toDoListHeader = document.querySelector('.toDoListHeader');
+
+    toDoListHeader.textContent = nameInput.value + "'s To Do Liste";
+    nameInput.value = null;
+}
 
 const createTodoElement = (/* todoLabel */) => {
     const span = document.createElement('span');
