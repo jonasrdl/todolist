@@ -48,21 +48,6 @@ const keyUp = (event) => {
     }
 };
 
-const sendName = (event) => {
-    event.preventDefault();
-    const name = nameInput.value;
-
-    if (name.charAt(name.length - 1) === 's') {
-        toDoListHeader.textContent = name + ' To Do List';
-    } else {
-        toDoListHeader.textContent = name + "'s To Do List";
-    }
-
-    localStorage.setItem(NAME_KEY, name);
-
-    nameInput.value = null;
-}
-
 const createTodoElement = (/* todoLabel */) => {
     const span = document.createElement('span');
     //const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -162,15 +147,26 @@ const getToDos = () => {
     // toDos.forEach((toDo) => createTodoElement(toDo));
 };
 
+const sendName = (event) => {
+    event.preventDefault();
+    const name = nameInput.value;
+
+    if (name.endsWith('s')) {
+        toDoListHeader.textContent = name + ' To Do List';
+    } else {
+        toDoListHeader.textContent = name + "'s To Do List";
+    }
+
+    localStorage.setItem(NAME_KEY, name);
+
+    nameInput.value = null;
+}
+
 const renderName = () => { // Load Name of User every reload / start
     const currentName = localStorage.getItem(NAME_KEY);
 
-    if (currentName === '') {
-        toDoListHeader.textContent = '<Your Name> To Do List';
-    }
-
     if (currentName) {
-        if (currentName.charAt(name.length - 1) === 's') {
+        if (currentName.endsWith('s')) {
             toDoListHeader.textContent = currentName + ' To Do List';
         } else {
             toDoListHeader.textContent = currentName + "'s To Do List";
