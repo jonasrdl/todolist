@@ -116,6 +116,7 @@ const addToDo = () => {
 const clearLocalStorage = () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     localStorage.removeItem(CURRENT_LIST_KEY);
+    localStorage.removeItem(NAME_KEY);
     location.reload();
 };
 
