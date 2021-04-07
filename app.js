@@ -1,6 +1,7 @@
 'use strict';
 const LOCAL_STORAGE_KEY = 'todos';
 const CURRENT_LIST_KEY = 'currentlist';
+const NAME_KEY = 'name';
 
 let toDoList;
 let inputField;
@@ -10,6 +11,7 @@ let siteLeft;
 let siteRight;
 let nameInput;
 let nameSubmit;
+let toDoListHeader
 let todoLists = [];
 
 const getArrayIndex = (element) =>
@@ -17,6 +19,7 @@ const getArrayIndex = (element) =>
 
 const init = () => {
     const addToDoButton = document.querySelector('button.addToDo');
+    toDoListHeader = document.querySelector('.toDoListHeader');
     siteLeft = document.querySelector('.siteLeft');
     nameInput = document.querySelector('.nameInput');
     nameSubmit = document.querySelector('.nameSubmit');
@@ -34,6 +37,7 @@ const init = () => {
     inputField.addEventListener('keyup', keyUp);
     getToDos();
     initDragAndDrop();
+    renderName();
 };
 
 window.addEventListener('DOMContentLoaded', init);
@@ -46,9 +50,16 @@ const keyUp = (event) => {
 
 const sendName = (event) => {
     event.preventDefault();
-    const toDoListHeader = document.querySelector('.toDoListHeader');
+    const name = nameInput.value;
 
-    toDoListHeader.textContent = nameInput.value + "'s To Do Liste";
+    if (name.charAt(name.length - 1) === 's') {
+        toDoListHeader.textContent = name + ' To Do List';
+    } else {
+        toDoListHeader.textContent = name + "'s To Do List";
+    }
+
+    localStorage.setItem(NAME_KEY, name);
+
     nameInput.value = null;
 }
 
@@ -150,6 +161,22 @@ const getToDos = () => {
     newListText.innerHTML = 'Current List: ' + currentList;
     // toDos.forEach((toDo) => createTodoElement(toDo));
 };
+
+const renderName = () => { // Load Name of User every reload / start
+    const currentName = localStorage.getItem(NAME_KEY);
+
+    if (currentName === '') {
+        toDoListHeader.textContent = '<Your Name> To Do List';
+    }
+
+    if (currentName) {
+        if (currentName.charAt(name.length - 1) === 's') {
+            toDoListHeader.textContent = currentName + ' To Do List';
+        } else {
+            toDoListHeader.textContent = currentName + "'s To Do List";
+        }
+    }
+}
 
 const removeToDo = (index) => {
     const toDos = checkLocalStorage();
