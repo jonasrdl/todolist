@@ -157,11 +157,13 @@ const addNewList = () => {
 
     todoLists.push(todoListsObject);
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoListsObject));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
     newListText.innerHTML = ('Current List: ' + newListInput.value);
     localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
 
     newListInput.value = null;
+
+    console.log(localStorage.getItem(LOCAL_STORAGE_KEY));
 
     console.log(todoLists);
 };
@@ -221,7 +223,7 @@ const editKeyUp = (event) => {
 
         if (inputEdit.value === '') {
             inputEdit.placeholder = 'Trage erst ein To Do ein';
-            inputEdit.classList.add('.placeholder-color');
+            inputEdit.classList.add('placeholder-color');
         } else {
             toDo.classList.remove('edit');
         }
@@ -233,7 +235,7 @@ const editKeyUp = (event) => {
 };
 
 const changeSiteLeft = () => {
-
+    inputEmptyCheck();
 }
 
 const changeSiteRight = () => {
@@ -241,6 +243,8 @@ const changeSiteRight = () => {
         name: newListInput.value,
         todos: []
     };
+
+    inputEmptyCheck();
 
     todoLists.push(todoListsObject);
     localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
@@ -263,6 +267,19 @@ const switchDesign = () => {
         switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
     }
 };
+
+const inputEmptyCheck = () => {
+    if (newListInput.value === '') {
+        newListInput.placeholder = 'Trage erst einen Namen ein!';
+        newListInput.classList.add('placeholder-color');
+
+        setTimeout(function () {
+            newListInput.classList.remove('placeholder-color');
+            newListInput.placeholder = 'New list name... (max. 30)';
+        }, 3000);
+        return;
+    }
+}
 
 const initDragAndDrop = () => {
     toDoList.addEventListener('drop', (event) => {
