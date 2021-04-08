@@ -1,8 +1,9 @@
 'use strict';
 const LOCAL_STORAGE_KEY = 'todos';
 const CURRENT_LIST_KEY = 'currentlist';
-const NAME_KEY = 'name';
+const NAME_KEY = 'username';
 
+let currentIndex = 0;
 let toDoList;
 let inputField;
 let newListInput;
@@ -11,13 +12,13 @@ let siteLeft;
 let siteRight;
 let nameInput;
 let nameSubmit;
-let toDoListHeader
+let toDoListHeader;
 let todoLists = [];
 
 const getArrayIndex = (element) =>
     [...element.parentNode.children].findIndex((child) => child === element);
 
-const init = () => {
+const init = () => { // Init function, loads everytime when page gets loaded
     const addToDoButton = document.querySelector('button.addToDo');
     toDoListHeader = document.querySelector('.toDoListHeader');
     siteLeft = document.querySelector('.siteLeft');
@@ -29,12 +30,12 @@ const init = () => {
     toDoList = document.getElementById('toDoList');
     newListInput = document.querySelector('input.newListInput');
 
-    siteLeft.addEventListener('click', changeSiteLeft);
+    // siteLeft.addEventListener('click', changeSiteLeft);
     nameSubmit.addEventListener('click', sendName);
-    siteRight.addEventListener('click', changeSiteRight);
+    // siteRight.addEventListener('click', changeSiteRight);
     addToDoButton.addEventListener('click', addToDo);
     addToDoButton.classList.add('ripple');
-    inputField.addEventListener('keyup', keyUp);
+    inputField.addEventListener('keyup', enterKeyUp);
     getToDos();
     initDragAndDrop();
     renderName();
@@ -42,17 +43,15 @@ const init = () => {
 
 window.addEventListener('DOMContentLoaded', init);
 
-const keyUp = (event) => {
+const enterKeyUp = (event) => { // Press enter instead of the + button
     if (event.key === 'Enter') {
         addToDo();
     }
 };
 
-const createTodoElement = (/* todoLabel */) => {
+const createTodoElement = () => { // Creates all necessary HTML Elements for a todo
     const span = document.createElement('span');
-    //const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
     span.innerText = inputField.value;
-    //todoLists.forEach(list => list.todos.forEach(todo => todo.name = storedTodos.name));
 
     const li = document.createElement('li');
     li.draggable = true;
@@ -87,7 +86,7 @@ const createTodoElement = (/* todoLabel */) => {
     toDoList?.appendChild(li);
 };
 
-const addToDo = () => {
+const addToDo = () => { // Adds a todo to the list
     if (inputField.value === '') {
         inputField.placeholder = 'Trage erst ein To Do ein';
         inputField.classList.add('placeholder-color');
@@ -110,17 +109,17 @@ const addToDo = () => {
         }
     }
 
-    inputField.value = '';
+    inputField.value = null;
 };
 
-const clearLocalStorage = () => {
+const clearLocalStorage = () => { // Remove all keys from the localStorage
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     localStorage.removeItem(CURRENT_LIST_KEY);
     localStorage.removeItem(NAME_KEY);
     location.reload();
 };
 
-const changeToDo = (index, value) => {
+const changeToDo = (index, value) => { //TODO REFACTOR
     const toDos = checkLocalStorage();
 
     toDos[index] = value;
@@ -128,54 +127,51 @@ const changeToDo = (index, value) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
-const getToDos = () => {
+const getToDos = () => { //TODO REFACTOR
     const currentList = localStorage.getItem(CURRENT_LIST_KEY);
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-    const toDos = checkLocalStorage();
 
     for (let i = 0; i < todoLists.length; i++) {
-        const todos = todoLists[i].todos;
-
-        for (let j = 0; j < todos.length; j++) {
-            createTodoElement();
-            todos.name = storedTodos;
-        }
+        console.log('test');
     }
 
-    // toDos.forEach((toDo) => createTodoElement(toDo));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+
 
     newListText.innerHTML = 'Current List: ' + currentList;
-    // toDos.forEach((toDo) => createTodoElement(toDo));
 };
 
-const sendName = (event) => {
+const sendName = (event) => { // Sets the name of the list user
     event.preventDefault();
+
     const name = nameInput.value;
 
-    if (name.endsWith('s')) {
-        toDoListHeader.textContent = name + ' To Do List';
-    } else {
-        toDoListHeader.textContent = name + "'s To Do List";
+    if (nameInput.value !== '') {
+        endsWithS(name);
     }
 
     localStorage.setItem(NAME_KEY, name);
 
     nameInput.value = null;
-}
+};
 
 const renderName = () => { // Load Name of User every reload / start
     const currentName = localStorage.getItem(NAME_KEY);
 
     if (currentName) {
-        if (currentName.endsWith('s')) {
-            toDoListHeader.textContent = currentName + ' To Do List';
-        } else {
-            toDoListHeader.textContent = currentName + "'s To Do List";
-        }
+        endsWithS(currentName);
     }
-}
+};
 
-const removeToDo = (index) => {
+const endsWithS = (name) => { // Check if username ends with "S"
+    if (name.endsWith('s')) {
+        toDoListHeader.textContent = name + ' To Do List';
+    } else {
+        toDoListHeader.textContent = name + '\'s To Do List';
+    }
+};
+
+const removeToDo = (index) => { //TODO REFACTOR
     const toDos = checkLocalStorage();
 
     toDos.splice(index, 1);
@@ -183,10 +179,10 @@ const removeToDo = (index) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
-const checkLocalStorage = () =>
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {name: newListInput.value, todos: []}
+const checkLocalStorage = () => //TODO REFACTOR
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {name: newListInput.value, todos: []};
 
-const addNewList = () => {
+const addNewList = () => { //TODO REFACTOR
     let todoListsObject = {
         name: newListInput.value,
         todos: []
@@ -199,13 +195,9 @@ const addNewList = () => {
     localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
 
     newListInput.value = null;
-
-    console.log(localStorage.getItem(LOCAL_STORAGE_KEY));
-
-    console.log(todoLists);
 };
 
-const saveToDos = () => {
+const saveToDos = () => { //TODO REFACTOR
     const currentList = localStorage.getItem(CURRENT_LIST_KEY);
     const todos = localStorage.getItem(LOCAL_STORAGE_KEY);
 
@@ -226,7 +218,7 @@ const saveToDos = () => {
     //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
-const editToDo = (event) => {
+const editToDo = (event) => { //TODO REFACTOR
     const toDo = event.target.parentElement;
     const toDoText = toDo.querySelector('span');
     const inputEdit = toDo.querySelector('input[type="text"]');
@@ -235,14 +227,14 @@ const editToDo = (event) => {
     inputEdit.value = toDoText.textContent;
 };
 
-const deleteToDo = (event) => {
+const deleteToDo = (event) => { //TODO REFACTOR
     removeToDo(getArrayIndex(event.target?.parentElement));
     event.target.parentElement?.remove();
 
     deleteToDoMessage();
 };
 
-const deleteToDoMessage = () => {
+const deleteToDoMessage = () => { //TODO REFACTOR
     inputField.placeholder = 'To Do gelöscht';
     inputField.classList.add('placeholder-color');
 
@@ -252,7 +244,7 @@ const deleteToDoMessage = () => {
     }, 3000);
 };
 
-const editKeyUp = (event) => {
+const editKeyUp = (event) => { //TODO REFACTOR
     if (event.key === 'Enter') {
         const toDo = event.target.parentElement;
         const toDoText = toDo.querySelector('span');
@@ -271,28 +263,7 @@ const editKeyUp = (event) => {
     }
 };
 
-const changeSiteLeft = () => {
-    inputEmptyCheck();
-}
-
-const changeSiteRight = () => {
-    let todoListsObject = {
-        name: newListInput.value,
-        todos: []
-    };
-
-    inputEmptyCheck();
-
-    todoLists.push(todoListsObject);
-    localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoListsObject));
-
-    const currentList = localStorage.getItem(CURRENT_LIST_KEY);
-
-    console.log(todoLists);
-}
-
-const switchDesign = () => {
+const switchDesign = () => { // Switches Design between Dark and White
     const root = document.querySelector('html');
     const switchDesignButton = document.querySelector('button.switch-design');
 
@@ -305,20 +276,7 @@ const switchDesign = () => {
     }
 };
 
-const inputEmptyCheck = () => {
-    if (newListInput.value === '') {
-        newListInput.placeholder = 'Trage erst einen Namen ein!';
-        newListInput.classList.add('placeholder-color');
-
-        setTimeout(function () {
-            newListInput.classList.remove('placeholder-color');
-            newListInput.placeholder = 'New list name... (max. 30)';
-        }, 3000);
-        return;
-    }
-}
-
-const initDragAndDrop = () => {
+const initDragAndDrop = () => { // Init drag and drop function
     toDoList.addEventListener('drop', (event) => {
         event.preventDefault();
         const target = getToDoElement(event.target);
