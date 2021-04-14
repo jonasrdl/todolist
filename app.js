@@ -10,8 +10,8 @@ let toDoList;
 let inputField;
 let newListInput;
 let newListText;
-let siteLeft;
-let siteRight;
+let prevPageBtn;
+let nextPageBtn;
 let nameInput;
 let nameSubmit;
 let toDoListHeader;
@@ -24,10 +24,10 @@ const init = (listname, todoname) => {
   // Init function, loads everytime when page gets loaded
   const addToDoButton = document.querySelector('button.addToDo');
   toDoListHeader = document.querySelector('.toDoListHeader');
-  siteLeft = document.querySelector('.siteLeft');
+  prevPageBtn = document.querySelector('.prevPageBtn');
   nameInput = document.querySelector('.nameInput');
   nameSubmit = document.querySelector('.nameSubmit');
-  siteRight = document.querySelector('.siteRight');
+  nextPageBtn = document.querySelector('.nextPageBtn');
   newListText = document.querySelector('span.newListText');
   inputField = document.getElementById('inputField');
   toDoList = document.getElementById('toDoList');
@@ -85,11 +85,11 @@ const changePage = (direction) => {
 
 const prevPage = () => {
   changePage(-1);
-  console.log('PREVPAGE');
+  console.log(currentIndex);
 };
 const nextPage = () => {
   changePage(1);
-  console.log('NEXTPAGE');
+  console.log(currentIndex);
 };
 
 const enterKeyUp = (event) => {
