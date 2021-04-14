@@ -55,11 +55,6 @@ const init = (listname, todoname) => {
 
   const lists = localStorage.getItem(LOCAL_STORAGE_KEY);
 
-  if (!lists) {
-    console.log('existiert nicht');
-    return;
-  }
-
   todoLists = !!lists
     ? JSON.parse(lists)
     : [
