@@ -4,7 +4,7 @@
   --color-drag-drop: #8b52ff;
 }
 
-:root.light {
+:root.white {
   --color-background: #fdfdfd;
   --color-text: #212121;
   --color-drag-drop: #5527b3;

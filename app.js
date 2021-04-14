@@ -3,6 +3,7 @@ const LOCAL_STORAGE_KEY = 'todos';
 const CURRENT_LIST_KEY = 'currentlist';
 const NAME_KEY = 'username';
 const CURRENT_INDEX_KEY = 'currentIndex';
+const THEME_KEY = 'theme';
 
 let currentIndex = 0;
 let currentList = null;
@@ -22,6 +23,8 @@ const getArrayIndex = (element) =>
 
 const init = (listname, todoname) => {
   // Init function, loads everytime when page gets loaded
+  const root = document.querySelector('html');
+  const switchDesignButton = document.querySelector('button.switch-design');
   const addToDoButton = document.querySelector('button.addToDo');
   toDoListHeader = document.querySelector('.toDoListHeader');
   prevPageBtn = document.querySelector('.prevPageBtn');
@@ -37,6 +40,16 @@ const init = (listname, todoname) => {
   addToDoButton.addEventListener('click', addToDo);
   addToDoButton.classList.add('ripple');
   inputField.addEventListener('keyup', enterKeyUp);
+
+  const theme = localStorage.getItem(THEME_KEY);
+
+  if (theme === 'white') {
+    localStorage.setItem(THEME_KEY, 'white');
+    root.classList.add('white');
+  } else {
+    localStorage.setItem(THEME_KEY, 'dark');
+    root.classList.remove('white');
+  }
 
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
 
@@ -329,11 +342,15 @@ const switchDesign = () => {
   const root = document.querySelector('html');
   const switchDesignButton = document.querySelector('button.switch-design');
 
-  root.classList.toggle('light');
+  root.classList.toggle('white');
 
-  if (root.classList.contains('light')) {
+  if (root.classList.contains('white')) {
+    console.log('White Mode');
+    localStorage.setItem(THEME_KEY, 'white');
     switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
   } else {
+    console.log('Dark Mode');
+    localStorage.setItem(THEME_KEY, 'dark');
     switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
   }
 };
