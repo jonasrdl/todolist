@@ -18,397 +18,400 @@ let toDoListHeader;
 let todoLists = [];
 
 const getArrayIndex = (element) =>
-    [...element.parentNode.children].findIndex((child) => child === element);
+  [...element.parentNode.children].findIndex((child) => child === element);
 
 const init = () => {
-    // Init function, loads everytime when page gets loaded
-    const addToDoButton = document.querySelector('button.addToDo');
-    toDoListHeader = document.querySelector('.toDoListHeader');
-    siteLeft = document.querySelector('.siteLeft');
-    nameInput = document.querySelector('.nameInput');
-    nameSubmit = document.querySelector('.nameSubmit');
-    siteRight = document.querySelector('.siteRight');
-    newListText = document.querySelector('span.newListText');
-    inputField = document.getElementById('inputField');
-    toDoList = document.getElementById('toDoList');
-    newListInput = document.querySelector('input.newListInput');
+  // Init function, loads everytime when page gets loaded
+  const addToDoButton = document.querySelector('button.addToDo');
+  toDoListHeader = document.querySelector('.toDoListHeader');
+  siteLeft = document.querySelector('.siteLeft');
+  nameInput = document.querySelector('.nameInput');
+  nameSubmit = document.querySelector('.nameSubmit');
+  siteRight = document.querySelector('.siteRight');
+  newListText = document.querySelector('span.newListText');
+  inputField = document.getElementById('inputField');
+  toDoList = document.getElementById('toDoList');
+  newListInput = document.querySelector('input.newListInput');
 
-    // siteLeft.addEventListener('click', changeSiteLeft);
-    nameSubmit.addEventListener('click', sendName);
-    // siteRight.addEventListener('click', changeSiteRight);
-    addToDoButton.addEventListener('click', addToDo);
-    addToDoButton.classList.add('ripple');
-    inputField.addEventListener('keyup', enterKeyUp);
+  // siteLeft.addEventListener('click', changeSiteLeft);
+  nameSubmit.addEventListener('click', sendName);
+  // siteRight.addEventListener('click', changeSiteRight);
+  addToDoButton.addEventListener('click', addToDo);
+  addToDoButton.classList.add('ripple');
+  inputField.addEventListener('keyup', enterKeyUp);
 
-    currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
+  currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
 
-    const lists = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const lists = localStorage.getItem(LOCAL_STORAGE_KEY);
 
-    todoLists = !!lists ? JSON.parse(lists) : [
+  todoLists = !!lists
+    ? JSON.parse(lists)
+    : [
         {
-            name: newListInput.value,
-            todos: [
-                {
-                    name: inputField.value,
-                    done: false,
-                },
-            ]
-        }
-    ];
+          name: newListInput.value,
+          todos: [
+            {
+              name: inputField.value,
+              done: false,
+            },
+          ],
+        },
+      ];
 
-    getToDos();
-    initDragAndDrop();
-    renderName();
-    redraw();
-    createSpanFromLS(todoLists);
+  getToDos();
+  initDragAndDrop();
+  renderName();
+  redraw();
+  createSpanFromLS(todoLists);
 };
 
 window.addEventListener('DOMContentLoaded', init);
 
-const changePage = direction => {
-    if (currentIndex + direction >= 0 && currentIndex + direction < todoLists.length) {
-        currentIndex += direction;
-    }
+const changePage = (direction) => {
+  if (
+    currentIndex + direction >= 0 &&
+    currentIndex + direction < todoLists.length
+  ) {
+    currentIndex += direction;
+  }
 
-    currentList = todoLists[currentIndex]
-    localStorage.setItem(CURRENT_INDEX_KEY, currentIndex);
-    redraw();
-}
+  currentList = todoLists[currentIndex];
+  localStorage.setItem(CURRENT_INDEX_KEY, currentIndex);
+  redraw();
+};
 
 const prevPage = () => {
-    changePage(-1);
-    console.log('PREVPAGE')
-}
+  changePage(-1);
+  console.log('PREVPAGE');
+};
 const nextPage = () => {
-    changePage(1)
-    console.log('NEXTPAGE')
-}
+  changePage(1);
+  console.log('NEXTPAGE');
+};
 
 const enterKeyUp = (event) => {
-    // Press enter instead of the + button
-    if (event.key === 'Enter') {
-        addToDo();
-    }
+  // Press enter instead of the + button
+  if (event.key === 'Enter') {
+    addToDo();
+  }
 };
 
 const createSpanFromLS = (_todoLists) => {
-    for (let i = 0; i < _todoLists.length ; i++) {
-        const todos = _todoLists[i].todos;
-        for (let j = 0; j < todos.length; j++) {
-            createTodoElement(todos[j].name);
-        }
+  for (let i = 0; i < _todoLists.length; i++) {
+    const todos = _todoLists[i].todos;
+    for (let j = 0; j < todos.length; j++) {
+      createTodoElement(todos[j].name);
     }
-}
+  }
+};
 
 const createTodoElement = (text) => {
-    // Creates all necessary HTML Elements for a todo
-    //TODO span => todoText
-    const span = document.createElement('span');
-    span.innerText = text;
+  // Creates all necessary HTML Elements for a todo
+  //TODO span => todoText
+  const span = document.createElement('span');
+  span.innerText = text;
 
-    const li = document.createElement('li');
-    li.classList.add('li');
-    li.draggable = true;
+  const li = document.createElement('li');
+  li.classList.add('li');
+  li.draggable = true;
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('checkbox');
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add('checkbox');
 
-    const editToDoButton = document.createElement('button');
-    editToDoButton.addEventListener('click', editToDo);
-    editToDoButton.classList.add('editToDoButton');
-    editToDoButton.classList.add('btn');
-    editToDoButton.classList.add('ripple');
-    editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
+  const editToDoButton = document.createElement('button');
+  editToDoButton.addEventListener('click', editToDo);
+  editToDoButton.classList.add('editToDoButton');
+  editToDoButton.classList.add('btn');
+  editToDoButton.classList.add('ripple');
+  editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
 
-    const deleteToDoButton = document.createElement('button');
-    deleteToDoButton.addEventListener('click', deleteToDo);
-    deleteToDoButton.classList.add('deleteToDoButton');
-    deleteToDoButton.classList.add('btn');
-    deleteToDoButton.classList.add('ripple');
-    deleteToDoButton.innerHTML = '<i class="fas fa-trash"></i>';
+  const deleteToDoButton = document.createElement('button');
+  deleteToDoButton.addEventListener('click', deleteToDo);
+  deleteToDoButton.classList.add('deleteToDoButton');
+  deleteToDoButton.classList.add('btn');
+  deleteToDoButton.classList.add('ripple');
+  deleteToDoButton.innerHTML = '<i class="fas fa-trash"></i>';
 
-    const inputEdit = document.createElement('input');
-    inputEdit.type = 'text';
-    inputEdit.addEventListener('keyup', editKeyUp);
+  const inputEdit = document.createElement('input');
+  inputEdit.type = 'text';
+  inputEdit.addEventListener('keyup', editKeyUp);
 
-    li.appendChild(checkbox);
-    li.appendChild(inputEdit);
-    li.appendChild(span);
-    li.appendChild(editToDoButton);
-    li.appendChild(deleteToDoButton);
-    toDoList?.appendChild(li);
+  li.appendChild(checkbox);
+  li.appendChild(inputEdit);
+  li.appendChild(span);
+  li.appendChild(editToDoButton);
+  li.appendChild(deleteToDoButton);
+  toDoList?.appendChild(li);
 };
 
 const redraw = () => {
-    const todoList = todoLists[currentIndex]
-    //Überschrift
-    //Todos einfügen
-}
+  const todoList = todoLists[currentIndex];
+  //Überschrift
+  //Todos einfügen
+};
 
 const addToDo = () => {
-    // Adds a todo to the list
-    if (inputField.value === '') {
-        inputField.placeholder = 'Trage erst ein To Do ein';
-        inputField.classList.add('placeholder-color');
+  // Adds a todo to the list
+  if (inputField.value === '') {
+    inputField.placeholder = 'Trage erst ein To Do ein';
+    inputField.classList.add('placeholder-color');
 
-        return;
-    } else {
-        inputField.placeholder = 'To Do...';
-        inputField.classList.remove('placeholder-color');
-    }
+    return;
+  } else {
+    inputField.placeholder = 'To Do...';
+    inputField.classList.remove('placeholder-color');
+  }
 
-    createTodoElement(inputField.value);
+  createTodoElement(inputField.value);
 
-    inputField.value = null;
+  inputField.value = null;
 };
 
 const clearLocalStorage = () => {
-    // Remove all keys from the localStorage
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
-    localStorage.removeItem(CURRENT_LIST_KEY);
-    localStorage.removeItem(NAME_KEY);
-    localStorage.removeItem(CURRENT_INDEX_KEY)
-    location.reload();
+  // Remove all keys from the localStorage
+  localStorage.removeItem(LOCAL_STORAGE_KEY);
+  localStorage.removeItem(CURRENT_LIST_KEY);
+  localStorage.removeItem(NAME_KEY);
+  localStorage.removeItem(CURRENT_INDEX_KEY);
+  location.reload();
 };
 
 const changeToDo = (index, value) => {
-    //TODO REFACTOR
-    const toDos = checkLocalStorage();
+  //TODO REFACTOR
+  const toDos = checkLocalStorage();
 
-    toDos[index] = value;
+  toDos[index] = value;
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
 const getToDos = () => {
-    //TODO REFACTOR
-    const currentList = localStorage.getItem(CURRENT_LIST_KEY);
-    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+  //TODO REFACTOR
+  const currentList = localStorage.getItem(CURRENT_LIST_KEY);
+  const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
 
-    for (let i = 0; i < todoLists.length; i++) {
+  for (let i = 0; i < todoLists.length; i++) {}
 
-    }
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
-
-    newListText.innerHTML = 'Current List: ' + currentList;
+  newListText.innerHTML = 'Current List: ' + currentList;
 };
 
 const sendName = (event) => {
-    // Sets the name of the list user
-    event.preventDefault();
+  // Sets the name of the list user
+  event.preventDefault();
 
-    const name = nameInput.value;
+  const name = nameInput.value;
 
-    if (nameInput.value !== '') {
-        endsWithS(name);
-    }
+  if (nameInput.value !== '') {
+    endsWithS(name);
+  }
 
-    localStorage.setItem(NAME_KEY, name);
+  localStorage.setItem(NAME_KEY, name);
 
-    nameInput.value = null;
+  nameInput.value = null;
 };
 
 const renderName = () => {
-    // Load Name of User every reload / start
-    const currentName = localStorage.getItem(NAME_KEY);
+  // Load Name of User every reload / start
+  const currentName = localStorage.getItem(NAME_KEY);
 
-    if (currentName) {
-        endsWithS(currentName);
-    }
+  if (currentName) {
+    endsWithS(currentName);
+  }
 };
 
 const endsWithS = (name) => {
-    // Check if username ends with "S"
-    if (name.endsWith('s')) {
-        toDoListHeader.textContent = name + ' To Do List';
-    } else {
-        toDoListHeader.textContent = name + '\'s To Do List';
-    }
+  // Check if username ends with "S"
+  if (name.endsWith('s')) {
+    toDoListHeader.textContent = name + ' To Do List';
+  } else {
+    toDoListHeader.textContent = name + "'s To Do List";
+  }
 };
 
 const removeToDo = (index) => {
-    //TODO REFACTOR
-    const toDos = checkLocalStorage();
+  //TODO REFACTOR
+  const toDos = checkLocalStorage();
 
-    toDos.splice(index, 1);
+  toDos.splice(index, 1);
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
 const checkLocalStorage = () =>
-    //TODO REFACTOR
-    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {
-        name: newListInput.value,
-        todos: [],
-    };
+  //TODO REFACTOR
+  JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {
+    name: newListInput.value,
+    todos: [],
+  };
 
 const addNewList = () => {
-    //TODO REFACTOR
-    let todoListsObject = {
-        name: newListInput.value,
-        todos: [],
-    };
+  //TODO REFACTOR
+  let todoListsObject = {
+    name: newListInput.value,
+    todos: [],
+  };
 
-    todoLists.push(todoListsObject);
+  todoLists.push(todoListsObject);
 
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
-    newListText.innerHTML = 'Current List: ' + newListInput.value;
-    localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  newListText.innerHTML = 'Current List: ' + newListInput.value;
+  localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
 
-    newListInput.value = null;
+  newListInput.value = null;
 };
 
 const editToDo = (event) => {
-    //TODO REFACTOR
+  //TODO REFACTOR
+  const toDo = event.target.parentElement;
+  const toDoText = toDo.querySelector('span');
+  const inputEdit = toDo.querySelector('input[type="text"]');
+
+  toDo.classList.add('edit');
+  inputEdit.value = toDoText.textContent;
+};
+
+const deleteToDo = (event) => {
+  //TODO REFACTOR
+  removeToDo(getArrayIndex(event.target?.parentElement));
+  event.target.parentElement?.remove();
+
+  deleteToDoMessage();
+};
+
+const deleteToDoMessage = () => {
+  //TODO REFACTOR
+  inputField.placeholder = 'To Do gelöscht';
+  inputField.classList.add('placeholder-color');
+
+  setTimeout(function () {
+    inputField.placeholder = 'To Do...';
+    inputField.classList.remove('placeholder-color');
+  }, 3000);
+};
+
+const editKeyUp = (event) => {
+  //TODO REFACTOR
+  if (event.key === 'Enter') {
     const toDo = event.target.parentElement;
     const toDoText = toDo.querySelector('span');
     const inputEdit = toDo.querySelector('input[type="text"]');
 
-    toDo.classList.add('edit');
-    inputEdit.value = toDoText.textContent;
-};
-
-const deleteToDo = (event) => {
-    //TODO REFACTOR
-    removeToDo(getArrayIndex(event.target?.parentElement));
-    event.target.parentElement?.remove();
-
-    deleteToDoMessage();
-};
-
-const deleteToDoMessage = () => {
-    //TODO REFACTOR
-    inputField.placeholder = 'To Do gelöscht';
-    inputField.classList.add('placeholder-color');
-
-    setTimeout(function () {
-        inputField.placeholder = 'To Do...';
-        inputField.classList.remove('placeholder-color');
-    }, 3000);
-};
-
-const editKeyUp = (event) => {
-    //TODO REFACTOR
-    if (event.key === 'Enter') {
-        const toDo = event.target.parentElement;
-        const toDoText = toDo.querySelector('span');
-        const inputEdit = toDo.querySelector('input[type="text"]');
-
-        if (inputEdit.value === '') {
-            inputEdit.placeholder = 'Trage erst ein To Do ein';
-            inputEdit.classList.add('placeholder-color');
-        } else {
-            toDo.classList.remove('edit');
-        }
-
-        toDoText.textContent = inputEdit.value;
-
-        changeToDo(getArrayIndex(event.target.parentElement), inputEdit.value);
+    if (inputEdit.value === '') {
+      inputEdit.placeholder = 'Trage erst ein To Do ein';
+      inputEdit.classList.add('placeholder-color');
+    } else {
+      toDo.classList.remove('edit');
     }
+
+    toDoText.textContent = inputEdit.value;
+
+    changeToDo(getArrayIndex(event.target.parentElement), inputEdit.value);
+  }
 };
 
 const switchDesign = () => {
-    // Switches Design between Dark and White
-    const root = document.querySelector('html');
-    const switchDesignButton = document.querySelector('button.switch-design');
+  // Switches Design between Dark and White
+  const root = document.querySelector('html');
+  const switchDesignButton = document.querySelector('button.switch-design');
 
-    root.classList.toggle('light');
+  root.classList.toggle('light');
 
-    if (root.classList.contains('light')) {
-        switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
-    } else {
-        switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
-    }
+  if (root.classList.contains('light')) {
+    switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
+  } else {
+    switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
+  }
 };
 
 const initDragAndDrop = () => {
-    // Init drag and drop function
-    toDoList.addEventListener('drop', (event) => {
-        event.preventDefault();
-        const target = getToDoElement(event.target);
+  // Init drag and drop function
+  toDoList.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const target = getToDoElement(event.target);
 
-        if (!target) {
-            return;
-        }
+    if (!target) {
+      return;
+    }
 
-        if (target.style['border-bottom'] !== '') {
-            target.style['border-bottom'] = '';
-            target.classList.remove('dragover-if');
-            target.classList.remove('drop-else');
-            target.classList.remove('dragover-else');
-            target.classList.add('drop-if');
+    if (target.style['border-bottom'] !== '') {
+      target.style['border-bottom'] = '';
+      target.classList.remove('dragover-if');
+      target.classList.remove('drop-else');
+      target.classList.remove('dragover-else');
+      target.classList.add('drop-if');
 
-            target.parentNode.insertBefore(window.dragging, event.target.nextSibling);
-        } else {
-            target.style['border-top'] = '';
-            target.classList.remove('dragover-if');
-            target.classList.remove('drop-if');
-            target.classList.remove('dragover-else');
-            target.classList.add('drop-else');
+      target.parentNode.insertBefore(window.dragging, event.target.nextSibling);
+    } else {
+      target.style['border-top'] = '';
+      target.classList.remove('dragover-if');
+      target.classList.remove('drop-if');
+      target.classList.remove('dragover-else');
+      target.classList.add('drop-else');
 
-            target.parentNode.insertBefore(window.dragging, event.target);
-        }
-    });
+      target.parentNode.insertBefore(window.dragging, event.target);
+    }
+  });
 
-    window.dragging = null;
+  window.dragging = null;
 
-    document.addEventListener('dragstart', (event) => {
-        const target = getToDoElement(event.target);
-        window.dragging = target;
+  document.addEventListener('dragstart', (event) => {
+    const target = getToDoElement(event.target);
+    window.dragging = target;
 
-        event.dataTransfer.setData('text/plain', null);
-        event.dataTransfer.setDragImage(target, 0, 0);
-    });
+    event.dataTransfer.setData('text/plain', null);
+    event.dataTransfer.setDragImage(target, 0, 0);
+  });
 
-    document.addEventListener('dragover', (event) => {
-        event.preventDefault();
+  document.addEventListener('dragover', (event) => {
+    event.preventDefault();
 
-        const target = getToDoElement(event.target);
+    const target = getToDoElement(event.target);
 
-        if (!target) {
-            return;
-        }
+    if (!target) {
+      return;
+    }
 
-        const bounding = target.getBoundingClientRect();
-        const offset = bounding.y + bounding.height / 2;
+    const bounding = target.getBoundingClientRect();
+    const offset = bounding.y + bounding.height / 2;
 
-        if (event.clientY - offset > 0) {
-            target.style['border-bottom'] = 'solid 4px blue';
-            target.style['border-top'] = '';
-            target.classList.add('dragover-if');
-            target.classList.remove('dragover-else');
-        } else {
-            target.style['border-top'] = 'solid 4px blue';
-            target.style['border-bottom'] = '';
-            target.classList.remove('dragover-if');
-            target.classList.add('dragover-else');
-        }
-    });
+    if (event.clientY - offset > 0) {
+      target.style['border-bottom'] = 'solid 4px blue';
+      target.style['border-top'] = '';
+      target.classList.add('dragover-if');
+      target.classList.remove('dragover-else');
+    } else {
+      target.style['border-top'] = 'solid 4px blue';
+      target.style['border-bottom'] = '';
+      target.classList.remove('dragover-if');
+      target.classList.add('dragover-else');
+    }
+  });
 
-    document.addEventListener('dragleave', (event) => {
-        const target = getToDoElement(event.target);
+  document.addEventListener('dragleave', (event) => {
+    const target = getToDoElement(event.target);
 
-        if (!target) {
-            return;
-        }
-        target.style['border-bottom'] = '';
-        target.style['border-top'] = '';
-        target.classList.remove('dragover-if');
-        target.classList.remove('dragover-else');
-        target.classList.add('dragleave');
-    });
+    if (!target) {
+      return;
+    }
+    target.style['border-bottom'] = '';
+    target.style['border-top'] = '';
+    target.classList.remove('dragover-if');
+    target.classList.remove('dragover-else');
+    target.classList.add('dragleave');
+  });
 
-    const getToDoElement = (target) => {
-        if (!target) {
-            return false;
-        }
+  const getToDoElement = (target) => {
+    if (!target) {
+      return false;
+    }
 
-        while (!(target.nodeName === 'LI' || target.nodeName === 'HTML')) {
-            target = target.parentNode;
-        }
+    while (!(target.nodeName === 'LI' || target.nodeName === 'HTML')) {
+      target = target.parentNode;
+    }
 
-        return target.nodeName === 'HTML' ? false : target;
-    };
+    return target.nodeName === 'HTML' ? false : target;
+  };
 };
