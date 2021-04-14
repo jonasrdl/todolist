@@ -20,7 +20,7 @@ let todoLists = [];
 const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
 
-const init = () => {
+const init = (listname, todoname) => {
   // Init function, loads everytime when page gets loaded
   const addToDoButton = document.querySelector('button.addToDo');
   toDoListHeader = document.querySelector('.toDoListHeader');
@@ -33,9 +33,7 @@ const init = () => {
   toDoList = document.getElementById('toDoList');
   newListInput = document.querySelector('input.newListInput');
 
-  // siteLeft.addEventListener('click', changeSiteLeft);
   nameSubmit.addEventListener('click', sendName);
-  // siteRight.addEventListener('click', changeSiteRight);
   addToDoButton.addEventListener('click', addToDo);
   addToDoButton.classList.add('ripple');
   inputField.addEventListener('keyup', enterKeyUp);
@@ -44,14 +42,19 @@ const init = () => {
 
   const lists = localStorage.getItem(LOCAL_STORAGE_KEY);
 
+  if (!lists) {
+    console.log('existiert nicht');
+    return;
+  }
+
   todoLists = !!lists
     ? JSON.parse(lists)
     : [
         {
-          name: newListInput.value,
+          name: null,
           todos: [
             {
-              name: inputField.value,
+              name: null,
               done: false,
             },
           ],
@@ -192,11 +195,9 @@ const saveToDos = () => {
 
 const changeToDo = (index, value) => {
   //TODO REFACTOR
-  const toDos = checkLocalStorage();
-
-  toDos[index] = value;
-
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
+  //const toDos = checkLocalStorage();
+  //toDos[index] = value;
+  //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
 const getToDos = () => {
@@ -206,7 +207,7 @@ const getToDos = () => {
 
   for (let i = 0; i < todoLists.length; i++) {}
 
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  // localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
 
   newListText.innerHTML = 'Current List: ' + currentList;
 };
@@ -246,19 +247,17 @@ const endsWithS = (name) => {
 
 const removeToDo = (index) => {
   //TODO REFACTOR
-  const toDos = checkLocalStorage();
-
-  toDos.splice(index, 1);
-
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
+  // const toDos = checkLocalStorage();
+  //toDos.splice(index, 1);
+  //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
-const checkLocalStorage = () =>
+/* const checkLocalStorage = () =>
   //TODO REFACTOR
   JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || {
     name: newListInput.value,
-    todos: [],
-  };
+    todos: [], 
+  }; */
 
 const addNewList = () => {
   //TODO REFACTOR
