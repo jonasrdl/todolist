@@ -164,6 +164,7 @@ const addToDo = () => {
   }
 
   createTodoElement(inputField.value);
+  saveToDos();
 
   inputField.value = null;
 };
@@ -175,6 +176,18 @@ const clearLocalStorage = () => {
   localStorage.removeItem(NAME_KEY);
   localStorage.removeItem(CURRENT_INDEX_KEY);
   location.reload();
+};
+
+const saveToDos = () => {
+  const currentList = localStorage.getItem(CURRENT_LIST_KEY);
+  const todos = localStorage.getItem(LOCAL_STORAGE_KEY);
+
+  for (let i = 0; i < todoLists.length; i++) {
+    todoLists[i].todos.push({ name: inputField.value, done: false });
+  }
+
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  newListText.innerHTML = 'Current List: ' + currentList;
 };
 
 const changeToDo = (index, value) => {
