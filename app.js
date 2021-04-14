@@ -247,9 +247,11 @@ const renderName = () => {
 const endsWithS = (name) => {
   // Check if username ends with "S"
   if (name.endsWith('s')) {
-    toDoListHeader.textContent = name + ' To Do List';
+    toDoListHeader.innerHTML =
+      name + ' To Do List <i class="fa fa-list" aria-hidden="true"></i>';
   } else {
     toDoListHeader.textContent = name + "'s To Do List";
+    toDoListHeader.innerHTML += '<i class="fa fa-list" aria-hidden="true"></i>';
   }
 };
 
