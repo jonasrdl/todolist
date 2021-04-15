@@ -61,9 +61,8 @@ const init = (listname, todoname) => {
     ? JSON.parse(lists)
     : [
         {
-          name: 'List',
-          todos: [
-          ],
+          name: 'Default',
+          todos: [],
         },
       ];
 
