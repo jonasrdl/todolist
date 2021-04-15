@@ -46,9 +46,11 @@ const init = (listname, todoname) => {
   if (theme === 'white') {
     localStorage.setItem(THEME_KEY, 'white');
     root.classList.add('white');
+    switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
   } else {
     localStorage.setItem(THEME_KEY, 'dark');
     root.classList.remove('white');
+    switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
   }
 
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
