@@ -70,7 +70,7 @@ const init = (listname, todoname) => {
   initDragAndDrop();
   renderName();
   redraw();
-  createSpanFromLS(todoLists);
+  // createSpanFromLS(todoLists);
 };
 
 window.addEventListener('DOMContentLoaded', init);
@@ -90,11 +90,21 @@ const changePage = (direction) => {
 
 const prevPage = () => {
   changePage(-1);
-  console.log(currentIndex);
+
+  console.log(todoLists[currentIndex]);
 };
 const nextPage = () => {
   changePage(1);
-  console.log(currentIndex);
+
+  console.log(todoLists[currentIndex]);
+};
+
+const redraw = () => {
+  const todoList = todoLists[currentIndex];
+  createSpanFromLS(todoLists);
+
+  //Überschrift
+  //Todos einfügen
 };
 
 const enterKeyUp = (event) => {
@@ -151,12 +161,6 @@ const createTodoElement = (text) => {
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
   toDoList?.appendChild(li);
-};
-
-const redraw = () => {
-  const todoList = todoLists[currentIndex];
-  //Überschrift
-  //Todos einfügen
 };
 
 const addToDo = () => {
@@ -244,11 +248,9 @@ const renderName = () => {
 const endsWithS = (name) => {
   // Check if username ends with "S"
   if (name.endsWith('s')) {
-    toDoListHeader.innerHTML =
-      name + ' To Do List <i class="fa fa-list" aria-hidden="true"></i>';
+    toDoListHeader.textContent = name + ' To Do List';
   } else {
     toDoListHeader.textContent = name + "'s To Do List";
-    toDoListHeader.innerHTML += '<i class="fa fa-list" aria-hidden="true"></i>';
   }
 };
 
