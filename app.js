@@ -53,6 +53,11 @@ const init = (listname, todoname) => {
     switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
   }
 
+  if (currentList === 'Default') {
+    console.log('lel');
+    localStorage.setItem(CURRENT_INDEX_KEY, 0);
+  }
+
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
 
   const lists = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -66,7 +71,7 @@ const init = (listname, todoname) => {
         },
       ];
 
-  getToDos();
+  updateListText();
   initDragAndDrop();
   renderName();
   redraw();
@@ -90,11 +95,13 @@ const changePage = (direction) => {
 
 const prevPage = () => {
   changePage(-1);
+  updateListText();
 
   console.log(todoLists[currentIndex]);
 };
 const nextPage = () => {
   changePage(1);
+  updateListText();
 
   console.log(todoLists[currentIndex]);
 };
@@ -199,7 +206,8 @@ const saveToDos = () => {
   }
 
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
-  newListText.innerHTML = 'Current List: ' + currentList;
+  // newListText.innerHTML = 'Current List: ' + currentList;
+  updateListText();
 };
 
 const changeToDo = (index, value) => {
@@ -209,10 +217,12 @@ const changeToDo = (index, value) => {
   //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
 };
 
-const getToDos = () => {
-  const currentList = todoLists[currentIndex].name;
+const updateListText = () => {
+  const cl = todoLists[currentIndex].name;
 
-  newListText.innerHTML = 'Current List: ' + currentList;
+  console.log(cl);
+
+  newListText.innerHTML = 'Current List: ' + cl;
 };
 
 const sendName = (event) => {
