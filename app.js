@@ -210,13 +210,7 @@ const changeToDo = (index, value) => {
 };
 
 const getToDos = () => {
-  //TODO REFACTOR
-  const currentList = localStorage.getItem(CURRENT_LIST_KEY);
-  const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-  for (let i = 0; i < todoLists.length; i++) {}
-
-  // localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  const currentList = todoLists[currentIndex].name;
 
   newListText.innerHTML = 'Current List: ' + currentList;
 };
@@ -239,6 +233,8 @@ const sendName = (event) => {
 const renderName = () => {
   // Load Name of User every reload / start
   const currentName = localStorage.getItem(NAME_KEY);
+
+  console.log(currentName);
 
   if (currentName) {
     endsWithS(currentName);
