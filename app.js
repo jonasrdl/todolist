@@ -21,11 +21,12 @@ let todoLists = [];
 const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
 
-const init = (listname, todoname) => {
+const init = () => {
   // Init function, loads everytime when page gets loaded
   const root = document.querySelector('html');
   const switchDesignButton = document.querySelector('button.switch-design');
   const addToDoButton = document.querySelector('button.addToDo');
+  addToDoButton.classList.add('ripple');
   toDoListHeader = document.querySelector('.toDoListHeader');
   prevPageBtn = document.querySelector('.prevPageBtn');
   nameInput = document.querySelector('.nameInput');
@@ -38,7 +39,6 @@ const init = (listname, todoname) => {
 
   nameSubmit.addEventListener('click', sendName);
   addToDoButton.addEventListener('click', addToDo);
-  addToDoButton.classList.add('ripple');
   inputField.addEventListener('keyup', enterKeyUp);
 
   const theme = localStorage.getItem(THEME_KEY);
@@ -335,6 +335,7 @@ const editKeyUp = (event) => {
 
 const switchDesign = () => {
   // Switches Design between Dark and White
+  // Dark is standard
   const root = document.querySelector('html');
   const switchDesignButton = document.querySelector('button.switch-design');
 
