@@ -54,7 +54,6 @@ const init = (listname, todoname) => {
   }
 
   if (currentList === 'Default') {
-    console.log('lel');
     localStorage.setItem(CURRENT_INDEX_KEY, 0);
   }
 
@@ -219,9 +218,6 @@ const changeToDo = (index, value) => {
 
 const updateListText = () => {
   const cl = todoLists[currentIndex].name;
-
-  console.log(cl);
-
   newListText.innerHTML = 'Current List: ' + cl;
 };
 
@@ -243,8 +239,6 @@ const sendName = (event) => {
 const renderName = () => {
   // Load Name of User every reload / start
   const currentName = localStorage.getItem(NAME_KEY);
-
-  console.log(currentName);
 
   if (currentName) {
     endsWithS(currentName);
@@ -347,11 +341,9 @@ const switchDesign = () => {
   root.classList.toggle('white');
 
   if (root.classList.contains('white')) {
-    console.log('White Mode');
     localStorage.setItem(THEME_KEY, 'white');
     switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
   } else {
-    console.log('Dark Mode');
     localStorage.setItem(THEME_KEY, 'dark');
     switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
   }
