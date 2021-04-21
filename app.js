@@ -53,10 +53,6 @@ const init = () => {
     switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
   }
 
-  if (currentList === 'Default') {
-    localStorage.setItem(CURRENT_INDEX_KEY, 0);
-  }
-
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
 
   const lists = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -95,20 +91,20 @@ const changePage = (direction) => {
 const prevPage = () => {
   changePage(-1);
   updateListText();
-
-  console.log(todoLists[currentIndex]);
 };
+
 const nextPage = () => {
   changePage(1);
   updateListText();
-
-  console.log(todoLists[currentIndex]);
 };
 
 const redraw = () => {
-  const todoList = todoLists[currentIndex];
-  createSpanFromLS(todoLists);
+  //console.log(todoLists[currentIndex].todos);
+  createSpanFromLS(todoLists[currentIndex].todos);
 
+  //createSpanFromLS(todoLists);
+
+  // HTML Update
   //Überschrift
   //Todos einfügen
 };
@@ -122,11 +118,16 @@ const enterKeyUp = (event) => {
 
 const createSpanFromLS = (_todoLists) => {
   for (let i = 0; i < _todoLists.length; i++) {
+    //console.log(_todoLists[currentIndex].name);
+    createTodoElement(_todoLists[currentIndex].name);
+  }
+
+  /* for (let i = 0; i < _todoLists.length; i++) {
     const todos = _todoLists[i].todos;
     for (let j = 0; j < todos.length; j++) {
       createTodoElement(todos[j].name);
     }
-  }
+  } */
 };
 
 const createTodoElement = (text) => {
@@ -197,12 +198,7 @@ const clearLocalStorage = () => {
 };
 
 const saveToDos = () => {
-  const currentList = localStorage.getItem(CURRENT_LIST_KEY);
-  const todos = localStorage.getItem(LOCAL_STORAGE_KEY);
-
-  for (let i = 0; i < todoLists.length; i++) {
-    todoLists[i].todos.push({ name: inputField.value, done: false });
-  }
+  todoLists[currentIndex].todos.push({ name: inputField.value, done: false });
 
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
   // newListText.innerHTML = 'Current List: ' + currentList;
@@ -280,6 +276,8 @@ const addNewList = () => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
   newListText.innerHTML = 'Current List: ' + newListInput.value;
   localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
+
+  redraw();
 
   newListInput.value = null;
 };
