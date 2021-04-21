@@ -118,16 +118,9 @@ const enterKeyUp = (event) => {
 
 const createSpanFromLS = (_todoLists) => {
   for (let i = 0; i < _todoLists.length; i++) {
-    //console.log(_todoLists[currentIndex].name);
+    debugger;
     createTodoElement(_todoLists[currentIndex].name);
   }
-
-  /* for (let i = 0; i < _todoLists.length; i++) {
-    const todos = _todoLists[i].todos;
-    for (let j = 0; j < todos.length; j++) {
-      createTodoElement(todos[j].name);
-    }
-  } */
 };
 
 const createTodoElement = (text) => {
