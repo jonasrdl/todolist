@@ -116,10 +116,10 @@ const enterKeyUp = (event) => {
   }
 };
 
-const createSpanFromLS = (_todoLists) => {
-  for (let i = 0; i < _todoLists.length; i++) {
-    debugger;
-    createTodoElement(_todoLists[currentIndex].name);
+const createSpanFromLS = (todos) => {
+  for (let i = 0; i < todos.length; i++) {
+    createTodoElement(todos[i].name);
+    //createTodoElement(_todoLists[currentIndex]?.name);
   }
 };
 
