@@ -198,15 +198,6 @@ const saveToDos = () => {
   updateListText();
 };
 
-const changeToDo = (event) => {
-  const li = event.target.parentElement; // LI
-  const inputEdit = toDoList.querySelector('input[type="text"]');
-
-  todoLists[currentIndex].todos[getArrayIndex(li)].name = inputEdit.value;
-
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
-};
-
 const updateListText = () => {
   const cl = todoLists[currentIndex].name;
   newListText.innerHTML = 'Current List: ' + cl;
@@ -242,13 +233,6 @@ const endsWithS = (name) => {
   }
 };
 
-const removeToDo = (index) => {
-  //TODO REFACTOR
-  // const toDos = checkLocalStorage();
-  //toDos.splice(index, 1);
-  //localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDos));
-};
-
 const addNewList = () => {
   //TODO REFACTOR
   let todoListsObject = {
@@ -268,6 +252,15 @@ const addNewList = () => {
   newListInput.value = null;
 };
 
+const changeToDo = (event) => {
+  const li = event.target.parentElement; // LI
+  const inputEdit = toDoList.querySelector('input[type="text"]');
+
+  todoLists[currentIndex].todos[getArrayIndex(li)].name = inputEdit.value;
+
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+};
+
 const editToDo = (event) => {
   const toDo = event.target.parentElement;
   const toDoText = toDo.querySelector('span');
@@ -278,15 +271,12 @@ const editToDo = (event) => {
 };
 
 const deleteToDo = (event) => {
-  //TODO REFACTOR
-  removeToDo(getArrayIndex(event.target?.parentElement));
+  removeToDo(event);
   event.target.parentElement?.remove();
-
   deleteToDoMessage();
 };
 
 const deleteToDoMessage = () => {
-  //TODO REFACTOR
   inputField.placeholder = 'To Do gelöscht';
   inputField.classList.add('placeholder-color');
 
@@ -294,6 +284,14 @@ const deleteToDoMessage = () => {
     inputField.placeholder = 'To Do...';
     inputField.classList.remove('placeholder-color');
   }, 3000);
+};
+
+const removeToDo = (event) => {
+  const li = event.target.parentElement;
+
+  todoLists[currentIndex].todos.splice(getArrayIndex(li), 1);
+
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
 };
 
 const editKeyUp = (event) => {
