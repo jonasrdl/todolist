@@ -220,8 +220,16 @@ const sendName = (event) => {
   event.preventDefault();
   const name = nameInput.value;
 
-  if (nameInput.value !== '') {
+  if (!nameInput.value === '') {
     endsWithS(name);
+  } else {
+    nameInput.placeholder = 'Trage erst einen Namen ein';
+    nameInput.classList.add('placeholder-color');
+
+    setTimeout(function () {
+      nameInput.placeholder = 'Your Name...';
+      nameInput.classList.remove('placeholder-color');
+    }, 3000);
   }
 
   localStorage.setItem(NAME_KEY, name);
