@@ -87,6 +87,8 @@ const changePage = (direction) => {
     currentIndex += direction;
   }
 
+  toDoList.innerHTML = '';
+
   currentList = todoLists[currentIndex];
   localStorage.setItem(CURRENT_INDEX_KEY, currentIndex);
   redraw();
