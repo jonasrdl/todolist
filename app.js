@@ -74,7 +74,7 @@ const init = () => {
   initDragAndDrop();
   renderName();
   redraw();
-  // createSpanFromLS(todoLists);
+  // isCheckboxChecked();
 };
 
 window.addEventListener('DOMContentLoaded', init);
@@ -157,13 +157,7 @@ const nextPage = () => {
   updateListText();
 };
 
-const redraw = () => {
-  createSpanFromLS(todoLists[currentIndex].todos);
-
-  // HTML Update
-  //Überschrift
-  //Todos einfügen
-};
+const redraw = () => createSpanFromLS(todoLists[currentIndex].todos);
 
 const addToDo = () => {
   // Adds a todo to the list
@@ -183,6 +177,20 @@ const addToDo = () => {
   inputField.value = null;
 };
 
+/* const isCheckboxChecked = (checkbox) => {
+  checkbox.addEventListener('change', function () {
+    if (checkbox.checked) {
+      console.log(true);
+      console.log(todoLists);
+      return true;
+    } else {
+      console.log(false);
+      console.log(todoLists);
+      return false;
+    }
+  });
+}; */
+
 const clearLocalStorage = () => {
   // Remove all keys from the localStorage
   localStorage.removeItem(LOCAL_STORAGE_KEY);
@@ -193,7 +201,10 @@ const clearLocalStorage = () => {
 };
 
 const saveToDos = () => {
-  todoLists[currentIndex].todos.push({ name: inputField.value, done: false });
+  todoLists[currentIndex].todos.push({
+    name: inputField.value,
+    done: true,
+  });
 
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
   // newListText.innerHTML = 'Current List: ' + currentList;
@@ -257,6 +268,12 @@ const addNewList = () => {
 const changeToDo = (event) => {
   const li = event.target.parentElement; // LI
   const inputEdit = toDoList.querySelector('input[type="text"]');
+
+  if (!inputEdit.value.trim().length) {
+    inputEdit.placeholder = 'Trage erst ein To Do ein';
+    inputEdit.classList.add('placeholder-color');
+    return;
+  }
 
   todoLists[currentIndex].todos[getArrayIndex(li)].name = inputEdit.value;
 
