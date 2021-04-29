@@ -74,10 +74,17 @@ const init = () => {
   initDragAndDrop();
   renderName();
   redraw();
-  // isCheckboxChecked();
+  setDone();
+  checkDone();
 };
 
 window.addEventListener('DOMContentLoaded', init);
+
+const checkDone = (event) => {
+  const checkboxes = toDoList.querySelectorAll('input[type="checkbox"]');
+
+  console.log(checkboxes);
+};
 
 const changePage = (direction) => {
   if (
@@ -161,7 +168,8 @@ const redraw = () => createSpanFromLS(todoLists[currentIndex].todos);
 
 const addToDo = () => {
   // Adds a todo to the list
-  if (inputField.value === '') {
+  if (!inputField.value.trim().length) {
+    inputField.value = null;
     inputField.placeholder = 'Trage erst ein To Do ein';
     inputField.classList.add('placeholder-color');
 
@@ -177,19 +185,33 @@ const addToDo = () => {
   inputField.value = null;
 };
 
-/* const isCheckboxChecked = (checkbox) => {
-  checkbox.addEventListener('change', function () {
-    if (checkbox.checked) {
-      console.log(true);
-      console.log(todoLists);
-      return true;
-    } else {
-      console.log(false);
-      console.log(todoLists);
-      return false;
-    }
+const setDone = () => {
+  const checkboxes = toDoList.querySelectorAll('input[type="checkbox"]');
+
+  if (!checkboxes.length) {
+    return;
+  }
+
+  [...checkboxes].forEach((checkbox) => {
+    checkbox.addEventListener('click', () => {
+      if (checkbox.checked) {
+        todoLists[currentIndex].todos[
+          getArrayIndex(checkbox.parentElement)
+        ].done = true;
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+        console.log(true);
+      } else {
+        todoLists[currentIndex].todos[
+          getArrayIndex(checkbox.parentElement)
+        ].done = false;
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+        console.log(false);
+      }
+    });
   });
-}; */
+
+  //  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+};
 
 const clearLocalStorage = () => {
   // Remove all keys from the localStorage
@@ -203,11 +225,10 @@ const clearLocalStorage = () => {
 const saveToDos = () => {
   todoLists[currentIndex].todos.push({
     name: inputField.value,
-    done: true,
+    done: false,
   });
 
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
-  // newListText.innerHTML = 'Current List: ' + currentList;
   updateListText();
 };
 
@@ -220,16 +241,13 @@ const sendName = (event) => {
   event.preventDefault();
   const name = nameInput.value;
 
-  if (!nameInput.value === '') {
-    endsWithS(name);
-  } else {
+  if (!nameInput.value.trim().length) {
+    nameInput.value = null;
     nameInput.placeholder = 'Trage erst einen Namen ein';
     nameInput.classList.add('placeholder-color');
-
-    setTimeout(function () {
-      nameInput.placeholder = 'Your Name...';
-      nameInput.classList.remove('placeholder-color');
-    }, 3000);
+    return;
+  } else {
+    endsWithS(name);
   }
 
   localStorage.setItem(NAME_KEY, name);
@@ -254,12 +272,19 @@ const endsWithS = (name) => {
   }
 };
 
-const addNewList = () => {
+const addNewList = (name) => {
   //TODO REFACTOR
   let todoListsObject = {
     name: newListInput.value,
     todos: [],
   };
+
+  if (!newListInput.value.trim().length) {
+    newListInput.value = null;
+    newListInput.placeholder = 'Trage erst einen Namen ein';
+    newListInput.classList.add('placeholder-color');
+    return;
+  }
 
   todoLists.push(todoListsObject);
 
@@ -274,7 +299,7 @@ const addNewList = () => {
 };
 
 const changeToDo = (event) => {
-  const li = event.target.parentElement; // LI
+  const li = event.target.parentElement;
   const inputEdit = toDoList.querySelector('input[type="text"]');
 
   if (!inputEdit.value.trim().length) {
