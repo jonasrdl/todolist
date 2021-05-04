@@ -61,8 +61,8 @@ const init = () => {
     : [
         {
           name: 'Default',
-          todos: [],
-        },
+          todos: []
+        }
       ];
 
   if (todoLists[currentIndex].name === 'Default') {
@@ -224,7 +224,7 @@ const clearLocalStorage = () => {
 const saveToDos = () => {
   todoLists[currentIndex].todos.push({
     name: inputField.value,
-    done: false,
+    done: false
   });
 
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
@@ -273,7 +273,7 @@ const endsWithS = (name) => {
 const addNewList = () => {
   let todoListsObject = {
     name: newListInput.value,
-    todos: [],
+    todos: []
   };
 
   if (!newListInput.value.trim().length) {
