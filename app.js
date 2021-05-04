@@ -153,7 +153,7 @@ const createTodoElement = (text) => {
 
   li.appendChild(checkbox);
   li.appendChild(inputEdit);
-  li.appendChild(span);
+  li.appendChild(todoText);
   li.appendChild(editToDoButton);
   li.appendChild(deleteToDoButton);
   toDoList?.appendChild(li);
