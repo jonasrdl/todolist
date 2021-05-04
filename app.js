@@ -270,8 +270,7 @@ const endsWithS = (name) => {
   }
 };
 
-const addNewList = (name) => {
-  //TODO REFACTOR
+const addNewList = () => {
   let todoListsObject = {
     name: newListInput.value,
     todos: [],
