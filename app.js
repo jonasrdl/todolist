@@ -232,8 +232,8 @@ const saveToDos = () => {
 };
 
 const updateListText = () => {
-  const cl = todoLists[currentIndex].name;
-  newListText.innerHTML = 'Current List: ' + cl;
+  const currentList = todoLists[currentIndex].name;
+  newListText.innerHTML = 'Current List: ' + currentList;
 };
 
 const sendName = (event) => {
