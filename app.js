@@ -203,13 +203,11 @@ const setDone = () => {
           getArrayIndex(checkbox.parentElement)
         ].done = true;
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
-        console.log(true);
       } else {
         todoLists[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = false;
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
-        console.log(false);
       }
     });
   });
