@@ -244,6 +244,7 @@ const sendName = (event) => {
     nameInput.value = null;
     nameInput.placeholder = 'Trage erst einen Namen ein';
     nameInput.classList.add('placeholder-color');
+
     return;
   } else {
     endsWithS(name);
