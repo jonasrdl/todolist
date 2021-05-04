@@ -22,7 +22,6 @@ const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
 
 const init = () => {
-  // Init function, loads everytime when page gets loaded
   const root = document.querySelector('html');
   const switchDesignButton = document.querySelector('button.switch-design');
   const addToDoButton = document.querySelector('button.addToDo');
@@ -111,7 +110,6 @@ const changePage = (direction) => {
 };
 
 const enterKeyUp = (event) => {
-  // Press enter instead of the + button
   if (event.key === 'Enter') {
     addToDo();
   }
@@ -124,7 +122,6 @@ const createSpanFromLS = (todos) => {
 };
 
 const createTodoElement = (text) => {
-  // Creates all necessary HTML Elements for a todo
   //TODO span => todoText
   const span = document.createElement('span');
   span.innerText = text;
@@ -176,7 +173,6 @@ const nextPage = () => {
 const redraw = () => createSpanFromLS(todoLists[currentIndex].todos);
 
 const addToDo = () => {
-  // Adds a todo to the list
   if (!inputField.value.trim().length) {
     inputField.value = null;
     inputField.placeholder = 'Trage erst ein To Do ein';
@@ -218,12 +214,9 @@ const setDone = () => {
       }
     });
   });
-
-  //  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
 };
 
 const clearLocalStorage = () => {
-  // Remove all keys from the localStorage
   localStorage.removeItem(LOCAL_STORAGE_KEY);
   localStorage.removeItem(CURRENT_LIST_KEY);
   localStorage.removeItem(NAME_KEY);
@@ -264,7 +257,6 @@ const sendName = (event) => {
 };
 
 const renderName = () => {
-  // Load Name of User every reload / start
   const currentName = localStorage.getItem(NAME_KEY);
 
   if (currentName) {
@@ -273,7 +265,6 @@ const renderName = () => {
 };
 
 const endsWithS = (name) => {
-  // Check if username ends with "S"
   if (name.endsWith('s')) {
     toDoListHeader.textContent = name + ' To Do List';
   } else {
@@ -389,7 +380,6 @@ const switchDesign = () => {
 };
 
 const initDragAndDrop = () => {
-  // Init drag and drop function
   toDoList.addEventListener('drop', (event) => {
     event.preventDefault();
     const target = getToDoElement(event.target);
