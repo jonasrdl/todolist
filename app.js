@@ -280,6 +280,7 @@ const addNewList = () => {
     newListInput.value = null;
     newListInput.placeholder = 'Trage erst einen Namen ein';
     newListInput.classList.add('placeholder-color');
+
     return;
   }
 
@@ -302,6 +303,7 @@ const changeToDo = (event) => {
   if (!inputEdit.value.trim().length) {
     inputEdit.placeholder = 'Trage erst ein To Do ein';
     inputEdit.classList.add('placeholder-color');
+
     return;
   }
 
