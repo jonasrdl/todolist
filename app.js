@@ -122,9 +122,8 @@ const createSpanFromLS = (todos) => {
 };
 
 const createTodoElement = (text) => {
-  //TODO span => todoText
-  const span = document.createElement('span');
-  span.innerText = text;
+  const todoText = document.createElement('span');
+  todoText.innerText = text;
 
   const li = document.createElement('li');
   li.classList.add('li');
