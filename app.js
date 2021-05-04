@@ -80,10 +80,18 @@ const init = () => {
 
 window.addEventListener('DOMContentLoaded', init);
 
-const checkDone = (event) => {
+const checkDone = () => {
   const checkboxes = toDoList.querySelectorAll('input[type="checkbox"]');
 
-  console.log(checkboxes);
+  [...checkboxes].forEach((checkbox) => {
+    if (todoLists[currentIndex].todos[getArrayIndex(checkbox)].done == true) {
+      checkbox.checked = true;
+    } else if (
+      todoLists[currentIndex].todos[getArrayIndex(checkbox)].done == false
+    ) {
+      checkbox.checked = false;
+    }
+  });
 };
 
 const changePage = (direction) => {
@@ -99,6 +107,7 @@ const changePage = (direction) => {
   currentList = todoLists[currentIndex];
   localStorage.setItem(CURRENT_INDEX_KEY, currentIndex);
   redraw();
+  checkDone();
 };
 
 const enterKeyUp = (event) => {
@@ -332,7 +341,7 @@ const deleteToDoMessage = () => {
   inputField.placeholder = 'To Do gelöscht';
   inputField.classList.add('placeholder-color');
 
-  setTimeout(function () {
+  setTimeout(() => {
     inputField.placeholder = 'To Do...';
     inputField.classList.remove('placeholder-color');
   }, 3000);
