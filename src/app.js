@@ -192,9 +192,7 @@ const redraw = () => createTodoText(todoLists[currentIndex].todos);
 
 const addToDo = () => {
   if (!inputField.value.trim().length) {
-    inputField.value = null;
-    inputField.placeholder = 'Trage erst ein To Do ein';
-    inputField.classList.add('placeholder-color');
+    messageIfEmpty(inputField, 'Trage erst ein Todo ein!');
 
     return;
   } else {
@@ -206,6 +204,12 @@ const addToDo = () => {
   saveToDos();
 
   inputField.value = null;
+};
+
+const messageIfEmpty = (element, text) => {
+  element.value = null;
+  element.placeholder = text;
+  element.classList.add('placeholder-color');
 };
 
 const setDone = () => {
@@ -257,9 +261,7 @@ const sendName = (event) => {
   const name = nameInput.value;
 
   if (!nameInput.value.trim().length) {
-    nameInput.value = null;
-    nameInput.placeholder = 'Trage erst einen Namen ein';
-    nameInput.classList.add('placeholder-color');
+    messageIfEmpty(nameInput, 'Trage erst einen Namen ein');
 
     return;
   } else {
