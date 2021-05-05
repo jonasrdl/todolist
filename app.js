@@ -15,7 +15,9 @@ let prevPageBtn;
 let nextPageBtn;
 let nameInput;
 let nameSubmit;
+let newListSubmit;
 let toDoListHeader;
+let clearLocalStorageBtn;
 let todoLists = [];
 
 const getArrayIndex = (element) =>
@@ -35,10 +37,17 @@ const init = () => {
   inputField = document.getElementById('inputField');
   toDoList = document.getElementById('toDoList');
   newListInput = document.querySelector('input.newListInput');
+  newListSubmit = document.querySelector('button.newListSubmit');
+  clearLocalStorageBtn = document.querySelector('button.clearLocalStorageBtn');
 
   nameSubmit.addEventListener('click', sendName);
   addToDoButton.addEventListener('click', addToDo);
   inputField.addEventListener('keyup', enterKeyUp);
+  switchDesignButton.addEventListener('click', switchDesign);
+  prevPageBtn.addEventListener('click', prevPage);
+  nextPageBtn.addEventListener('click', nextPage);
+  newListSubmit.addEventListener('click', addNewList);
+  clearLocalStorageBtn.addEventListener('click', clearLocalStorage);
 
   const theme = localStorage.getItem(THEME_KEY);
 
@@ -270,7 +279,9 @@ const endsWithS = (name) => {
   }
 };
 
-const addNewList = () => {
+const addNewList = (event) => {
+  event.preventDefault();
+
   let todoListsObject = {
     name: newListInput.value,
     todos: []

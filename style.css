@@ -173,7 +173,7 @@ li > input[type='text'] {
   display: none;
 }
 
-.clearLocalStorage {
+.clearLocalStorageBtn {
   font-size: 15px;
   border: 1px solid var(--color-text);
   color: var(--color-text);
@@ -186,11 +186,11 @@ li > input[type='text'] {
   transition: all 0.2s ease;
 }
 
-.clearLocalStorage:hover {
+.clearLocalStorageBtn:hover {
   transition: all 0.2s ease;
 }
 
-.clearLocalStorage:focus {
+.clearLocalStorageBtn:focus {
   outline: none;
 }
 

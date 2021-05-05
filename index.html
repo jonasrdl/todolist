@@ -21,12 +21,12 @@
   <body>
     <h1 class="toDoListHeader">To Do List</h1>
 
-    <button class="switch-design" onclick="switchDesign()">
+    <button class="switch-design">
       <i class="fas fa-sun"></i>
     </button>
 
-    <button class="prevPageBtn btn ripple" onclick="prevPage()"><</button>
-    <button class="nextPageBtn btn ripple" onclick="nextPage()">></button>
+    <button class="prevPageBtn btn ripple"><</button>
+    <button class="nextPageBtn btn ripple">></button>
 
     <form>
       <input
@@ -37,13 +37,7 @@
         autocomplete="off"
         maxlength="30"
       />
-      <button
-        type="submit"
-        class="newListSubmit btn"
-        onclick="event.preventDefault(); addNewList();"
-      >
-        +
-      </button>
+      <button type="submit" class="newListSubmit btn">+</button>
     </form>
     <span class="newListText"></span>
 
@@ -54,7 +48,7 @@
         class="nameInput"
         maxlength="20"
       />
-      <button type="submit" class="nameSubmit btn" onclick="">Send</button>
+      <button type="submit" class="nameSubmit btn">Send</button>
     </form>
 
     <section id="inputContainer">
@@ -67,9 +61,7 @@
       <button class="addToDo">
         <i class="fas fa-plus"></i>
       </button>
-      <button class="clearLocalStorage" onclick="clearLocalStorage()">
-        Clear
-      </button>
+      <button class="clearLocalStorageBtn">Clear</button>
     </section>
 
     <ul id="toDoList"></ul>
