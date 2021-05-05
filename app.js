@@ -309,8 +309,7 @@ const changeToDo = (event) => {
   const inputEdit = toDoList.querySelector('input[type="text"]');
 
   if (!inputEdit.value.trim().length) {
-    inputEdit.placeholder = 'Trage erst ein To Do ein';
-    inputEdit.classList.add('placeholder-color');
+    messageIfEmpty(inputEdit, 'Trage erst ein To Do ein');
 
     return;
   }
