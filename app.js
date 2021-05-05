@@ -271,7 +271,7 @@ const renderName = () => {
 
 const endsWithS = (name) => {
   if (name.endsWith('s')) {
-    toDoListHeader.textContent = name + ' To Do List';
+    toDoListHeader.textContent = name + "' To Do List";
   } else {
     toDoListHeader.textContent = name + "'s To Do List";
   }
