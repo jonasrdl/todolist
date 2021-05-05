@@ -121,7 +121,7 @@ const enterKeyUp = (event) => {
   }
 };
 
-const createSpanFromLS = (todos) => {
+const createTodoText = (todos) => {
   for (let i = 0; i < todos.length; i++) {
     createTodoElement(todos[i].name);
   }
@@ -175,7 +175,7 @@ const nextPage = () => {
   updateListText();
 };
 
-const redraw = () => createSpanFromLS(todoLists[currentIndex].todos);
+const redraw = () => createTodoText(todoLists[currentIndex].todos);
 
 const addToDo = () => {
   if (!inputField.value.trim().length) {
