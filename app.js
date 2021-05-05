@@ -359,8 +359,9 @@ const editKeyUp = (event) => {
     const inputEdit = toDo.querySelector('input[type="text"]');
 
     if (inputEdit.value === '') {
-      inputEdit.placeholder = 'Trage erst ein To Do ein';
-      inputEdit.classList.add('placeholder-color');
+      messageIfEmpty(inputEdit, 'Trage erst ein To Do ein');
+
+      return;
     } else {
       toDo.classList.remove('edit');
     }
