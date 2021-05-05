@@ -1,12 +1,10 @@
 'use strict';
 const LOCAL_STORAGE_KEY = 'todos';
-const CURRENT_LIST_KEY = 'currentlist';
 const NAME_KEY = 'username';
 const CURRENT_INDEX_KEY = 'currentIndex';
 const THEME_KEY = 'theme';
 
 let currentIndex = 0;
-let currentList = null;
 let toDoList;
 let inputField;
 let newListInput;
@@ -112,7 +110,6 @@ const changePage = (direction) => {
 
   toDoList.innerHTML = '';
 
-  currentList = todoLists[currentIndex];
   localStorage.setItem(CURRENT_INDEX_KEY, currentIndex);
   redraw();
   checkDone();
@@ -224,7 +221,6 @@ const setDone = () => {
 
 const clearLocalStorage = () => {
   localStorage.removeItem(LOCAL_STORAGE_KEY);
-  localStorage.removeItem(CURRENT_LIST_KEY);
   localStorage.removeItem(NAME_KEY);
   localStorage.removeItem(CURRENT_INDEX_KEY);
   location.reload();
@@ -299,7 +295,6 @@ const addNewList = (event) => {
 
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
   newListText.innerHTML = 'Current List: ' + newListInput.value;
-  localStorage.setItem(CURRENT_LIST_KEY, newListInput.value);
 
   nextPage();
   redraw();
