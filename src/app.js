@@ -1,4 +1,8 @@
 'use strict';
+import Storage from './components/storage.js';
+
+const storage = new Storage('todos');
+
 const LOCAL_STORAGE_KEY = 'todos';
 const NAME_KEY = 'username';
 const CURRENT_INDEX_KEY = 'currentIndex';
@@ -220,9 +224,7 @@ const setDone = () => {
 };
 
 const clearLocalStorage = () => {
-  localStorage.removeItem(LOCAL_STORAGE_KEY);
-  localStorage.removeItem(NAME_KEY);
-  localStorage.removeItem(CURRENT_INDEX_KEY);
+  storage.clearData();
   location.reload();
 };
 
@@ -269,7 +271,7 @@ const renderName = () => {
 
 const endsWithS = (name) => {
   if (name.endsWith('s')) {
-    toDoListHeader.textContent = name + ' To Do List';
+    toDoListHeader.textContent = name + "' To Do List";
   } else {
     toDoListHeader.textContent = name + "'s To Do List";
   }

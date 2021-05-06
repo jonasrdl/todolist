@@ -15,3 +15,5 @@ class Storage {
     localStorage.removeItem(this.key);
   }
 }
+
+export default Storage;
