@@ -70,7 +70,8 @@ const init = () => {
 
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
 
-  const lists = localStorage.getItem('todos');
+  const lists = todostorage.get();
+  // const lists = localStorage.getItem('todos');
 
   todoLists = !!lists
     ? JSON.parse(lists)

@@ -1,6 +1,6 @@
 export class todoStorage {
   constructor(key) {
-    this.key = key; // Localstorage key
+    this.key = key;
   }
 
   set(data) {
