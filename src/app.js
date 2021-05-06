@@ -226,7 +226,7 @@ const setDone = () => {
         todoLists[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = false;
-        storage.set(todoLists);
+        todostorage.set(todoLists);
       }
     });
   });
@@ -386,11 +386,13 @@ const switchDesign = () => {
 
   if (root.classList.contains('white')) {
     themestorage.set('white');
+
     switchDesignIcon.classList.remove('fa-moon');
     switchDesignIcon.classList.add('fas');
     switchDesignIcon.classList.add('fa-sun');
   } else {
     themestorage.set('dark');
+
     switchDesignIcon.classList.remove('fa-sun');
     switchDesignIcon.classList.add('fas');
     switchDesignIcon.classList.add('fa-moon');
