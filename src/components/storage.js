@@ -1,19 +1,31 @@
-class Storage {
+export class todoStorage {
   constructor(key) {
     this.key = key; // Localstorage key
   }
 
-  setData(data) {
-    localStorage.setItem(this.key, JSON.stringify(data)); //
+  set(data) {
+    localStorage.setItem(this.key, JSON.stringify(data));
   }
 
-  getData() {
+  get() {
     localStorage.getItem(this.key);
   }
 
-  clearData() {
+  clear() {
     localStorage.removeItem(this.key);
   }
 }
 
-export default Storage;
+export class themeStorage {
+  constructor(key) {
+    this.key = key;
+  }
+
+  set(data) {
+    localStorage.setItem(this.key, data);
+  }
+
+  get() {
+    localStorage.getItem(this.key);
+  }
+}

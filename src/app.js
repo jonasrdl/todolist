@@ -1,7 +1,9 @@
 'use strict';
-import Storage from './components/storage.js';
 
-const storage = new Storage('todos');
+import { todoStorage, themeStorage } from './components/storage.js';
+
+const todostorage = new todoStorage('todos');
+const themestorage = new themeStorage('theme');
 
 const LOCAL_STORAGE_KEY = 'todos';
 const NAME_KEY = 'username';
@@ -51,21 +53,24 @@ const init = () => {
   newListSubmit.addEventListener('click', addNewList);
   clearLocalStorageBtn.addEventListener('click', clearLocalStorage);
 
+  // const theme = themestorage.get();
   const theme = localStorage.getItem(THEME_KEY);
 
   if (theme === 'white') {
-    localStorage.setItem(THEME_KEY, 'white');
+    themestorage.set('white');
+    // localStorage.setItem(THEME_KEY, 'white');
     root.classList.add('white');
     switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
   } else {
-    localStorage.setItem(THEME_KEY, 'dark');
+    themestorage.set('dark');
+    // localStorage.setItem(THEME_KEY, 'dark');
     root.classList.remove('white');
     switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
   }
 
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
 
-  const lists = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const lists = localStorage.getItem('todos');
 
   todoLists = !!lists
     ? JSON.parse(lists)
@@ -212,19 +217,19 @@ const setDone = () => {
         todoLists[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = true;
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+        todostorage.set(todoLists);
       } else {
         todoLists[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = false;
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+        storage.set(todoLists);
       }
     });
   });
 };
 
 const clearLocalStorage = () => {
-  storage.clearData();
+  todostorage.clear();
   location.reload();
 };
 
@@ -234,7 +239,7 @@ const saveToDos = () => {
     done: false
   });
 
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  todostorage.set(todoLists);
   updateListText();
 };
 
@@ -295,7 +300,7 @@ const addNewList = (event) => {
 
   todoLists.push(todoListsObject);
 
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  todostorage.set(todoLists);
   newListText.innerHTML = 'Current List: ' + newListInput.value;
 
   nextPage();
@@ -317,7 +322,7 @@ const changeToDo = (event) => {
 
   todoLists[currentIndex].todos[getArrayIndex(li)].name = inputEdit.value;
 
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  todostorage.set(todoLists);
 };
 
 const editToDo = (event) => {
@@ -350,7 +355,7 @@ const removeToDo = (event) => {
 
   todoLists[currentIndex].todos.splice(getArrayIndex(li), 1);
 
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoLists));
+  todostorage.set(todoLists);
 };
 
 const editKeyUp = (event) => {
@@ -378,10 +383,12 @@ const switchDesign = () => {
   root.classList.toggle('white');
 
   if (root.classList.contains('white')) {
-    localStorage.setItem(THEME_KEY, 'white');
+    themestorage.set('white');
+    // localStorage.setItem(THEME_KEY, 'white');
     switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
   } else {
-    localStorage.setItem(THEME_KEY, 'dark');
+    themestorage.set('dark');
+    // localStorage.setItem(THEME_KEY, 'dark');
     switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
   }
 };
