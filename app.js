@@ -122,9 +122,7 @@ const enterKeyUp = (event) => {
 };
 
 const createTodoText = (todos) => {
-  for (let i = 0; i < todos.length; i++) {
-    createTodoElement(todos[i].name);
-  }
+  todos.forEach((todo) => createTodoElement(todo.name));
 };
 
 const createTodoElement = (text) => {
@@ -379,7 +377,7 @@ const switchDesign = () => {
 
   if (root.classList.contains('white')) {
     localStorage.setItem(THEME_KEY, 'white');
-    switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
+    switchDesignButton.innerHTML = '<i class="fas fa-moon"></i>';
   } else {
     localStorage.setItem(THEME_KEY, 'dark');
     switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
