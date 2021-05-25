@@ -1,40 +1,69 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+      rel="stylesheet"
     />
     <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-            integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-            crossorigin="anonymous"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css"/>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do Liste</title>
     <script src="app.js"></script>
-</head>
-<body>
-<h1>Jonas To Do Liste</h1>
+  </head>
+  <body>
+    <h1 class="toDoListHeader">To Do List</h1>
 
-<button class="switch-design" onclick="switchDesign()">
-    <i class="fas fa-sun"></i>
-</button>
+    <button class="switch-design">
+      <i class="fas fa-moon"></i>
+    </button>
 
-<section id="inputContainer">
-    <input type="text" placeholder="To Do..." id="inputField"/>
-    <button class="addToDo">
+    <button class="prevPageBtn btn ripple"><</button>
+    <button class="nextPageBtn btn ripple">></button>
+
+    <form>
+      <input
+        type="text"
+        placeholder="New list name... (max. 30)"
+        class="newListInput"
+        id="newListInput"
+        autocomplete="off"
+        maxlength="30"
+      />
+      <button type="submit" class="newListSubmit btn">+</button>
+    </form>
+    <span class="newListText"></span>
+
+    <form>
+      <input
+        type="text"
+        placeholder="Your Name..."
+        class="nameInput"
+        maxlength="20"
+      />
+      <button type="submit" class="nameSubmit btn">Send</button>
+    </form>
+
+    <section id="inputContainer">
+      <input
+        type="text"
+        placeholder="To Do..."
+        id="inputField"
+        autocomplete="off"
+      />
+      <button class="addToDo">
         <i class="fas fa-plus"></i>
-    </button>
-    <button class="clearLocalStorage" onclick="clearLocalStorage()">
-        Clear
-    </button>
-</section>
+      </button>
+      <button class="clearLocalStorageBtn">Clear</button>
+    </section>
 
-<ul id="toDoList"></ul>
-</body>
+    <ul id="toDoList"></ul>
+  </body>
 </html>
