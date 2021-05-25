@@ -135,9 +135,7 @@ const enterKeyUp = (event) => {
 };
 
 const createTodoText = (todos) => {
-  for (let i = 0; i < todos.length; i++) {
-    createTodoElement(todos[i].name);
-  }
+  todos.forEach((todo) => createTodoElement(todo.name));
 };
 
 const createTodoElement = (text) => {
