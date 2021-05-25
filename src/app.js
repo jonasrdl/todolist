@@ -54,7 +54,6 @@ const init = () => {
   newListSubmit.addEventListener('click', addNewList);
   clearLocalStorageBtn.addEventListener('click', clearLocalStorage);
 
-  // const theme = themestorage.get();
   const theme = localStorage.getItem(THEME_KEY);
 
   if (theme === 'white') {
@@ -134,9 +133,8 @@ const enterKeyUp = (event) => {
   }
 };
 
-const createTodoText = (todos) => {
+const createTodoText = (todos) =>
   todos.forEach((todo) => createTodoElement(todo.name));
-};
 
 const createTodoElement = (text) => {
   const todoText = document.createElement('span');
