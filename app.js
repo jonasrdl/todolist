@@ -24,6 +24,7 @@ const getArrayIndex = (element) =>
 const init = () => {
   const root = document.querySelector('html');
   const switchDesignButton = document.querySelector('button.switch-design');
+  const switchDesignIcon = document.querySelector('button.switch-design i');
   const addToDoButton = document.querySelector('button.addToDo');
   addToDoButton.classList.add('ripple');
   toDoListHeader = document.querySelector('.toDoListHeader');
@@ -51,12 +52,18 @@ const init = () => {
 
   if (theme === 'white') {
     localStorage.setItem(THEME_KEY, 'white');
+
     root.classList.add('white');
-    switchDesignButton.innerHTML = '<i class="far fa-moon"></i>';
+    switchDesignIcon.classList.remove('fa-moon');
+    switchDesignIcon.classList.add('fas');
+    switchDesignIcon.classList.add('fa-sun');
   } else {
     localStorage.setItem(THEME_KEY, 'dark');
+
     root.classList.remove('white');
-    switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
+    switchDesignIcon.classList.remove('fa-sun');
+    switchDesignIcon.classList.add('fas');
+    switchDesignIcon.classList.add('fa-moon');
   }
 
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
@@ -121,9 +128,8 @@ const enterKeyUp = (event) => {
   }
 };
 
-const createTodoText = (todos) => {
+const createTodoText = (todos) =>
   todos.forEach((todo) => createTodoElement(todo.name));
-};
 
 const createTodoElement = (text) => {
   const todoText = document.createElement('span');
@@ -371,16 +377,22 @@ const editKeyUp = (event) => {
 
 const switchDesign = () => {
   const root = document.querySelector('html');
-  const switchDesignButton = document.querySelector('button.switch-design');
+  const switchDesignIcon = document.querySelector('button.switch-design i');
 
   root.classList.toggle('white');
 
   if (root.classList.contains('white')) {
     localStorage.setItem(THEME_KEY, 'white');
-    switchDesignButton.innerHTML = '<i class="fas fa-moon"></i>';
+
+    switchDesignIcon.classList.remove('fa-moon');
+    switchDesignIcon.classList.add('fas');
+    switchDesignIcon.classList.add('fa-sun');
   } else {
     localStorage.setItem(THEME_KEY, 'dark');
-    switchDesignButton.innerHTML = '<i class="fas fa-sun"></i>';
+
+    switchDesignIcon.classList.remove('fa-sun');
+    switchDesignIcon.classList.add('fas');
+    switchDesignIcon.classList.add('fa-moon');
   }
 };
 
