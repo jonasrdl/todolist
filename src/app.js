@@ -59,14 +59,12 @@ const init = () => {
 
   if (theme === 'white') {
     themestorage.set('white');
-    // localStorage.setItem(THEME_KEY, 'white');
     root.classList.add('white');
     switchDesignIcon.classList.remove('fa-moon');
     switchDesignIcon.classList.add('fas');
     switchDesignIcon.classList.add('fa-sun');
   } else {
     themestorage.set('dark');
-    // localStorage.setItem(THEME_KEY, 'dark');
     root.classList.remove('white');
     switchDesignIcon.classList.remove('fa-sun');
     switchDesignIcon.classList.add('fas');
@@ -390,13 +388,11 @@ const switchDesign = () => {
 
   if (root.classList.contains('white')) {
     themestorage.set('white');
-    // localStorage.setItem(THEME_KEY, 'white');
     switchDesignIcon.classList.remove('fa-moon');
     switchDesignIcon.classList.add('fas');
     switchDesignIcon.classList.add('fa-sun');
   } else {
     themestorage.set('dark');
-    // localStorage.setItem(THEME_KEY, 'dark');
     switchDesignIcon.classList.remove('fa-sun');
     switchDesignIcon.classList.add('fas');
     switchDesignIcon.classList.add('fa-moon');
