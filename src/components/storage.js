@@ -4,7 +4,7 @@ export class Storage {
   }
 
   set(data) {
-    localStorage.setItem(this.key, JSON.stringify(data));
+    localStorage.setItem(this.key, data);
   }
 
   get() {
