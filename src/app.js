@@ -4,10 +4,8 @@ import { Storage } from './components/storage.js';
 
 const todostorage = new Storage('todos');
 const themestorage = new Storage('theme');
-
-const NAME_KEY = 'username';
-const CURRENT_INDEX_KEY = 'currentIndex';
-const THEME_KEY = 'theme';
+const indexstorage = new Storage('currentIndex');
+const namestorage = new Storage('username');
 
 let currentIndex = 0;
 let toDoList;
@@ -53,7 +51,7 @@ const init = () => {
   newListSubmit.addEventListener('click', addNewList);
   clearLocalStorageBtn.addEventListener('click', clearLocalStorage);
 
-  const theme = localStorage.getItem(THEME_KEY);
+  const theme = themestorage.get();
 
   if (theme === 'white') {
     themestorage.set('white');
@@ -69,7 +67,7 @@ const init = () => {
     switchDesignIcon.classList.add('fa-moon');
   }
 
-  currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
+  currentIndex = +indexstorage.get() || 0;
 
   const lists = todostorage.get();
 
@@ -82,9 +80,8 @@ const init = () => {
         }
       ];
 
-  debugger;
   if (todoLists[currentIndex].name === 'Default') {
-    localStorage.setItem(CURRENT_INDEX_KEY, 0);
+    indexstorage.set(0);
   }
 
   updateListText();
@@ -220,12 +217,12 @@ const setDone = () => {
         todoLists[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = true;
-        todostorage.set(todoLists);
+        todostorage.set(JSON.stringify(todoLists));
       } else {
         todoLists[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = false;
-        todostorage.set(todoLists);
+        todostorage.set(JSON.stringify(todoLists));
       }
     });
   });
@@ -242,7 +239,7 @@ const saveToDos = () => {
     done: false
   });
 
-  todostorage.set(todoLists);
+  todostorage.set(JSON.stringify(todoLists));
   updateListText();
 };
 
@@ -263,12 +260,12 @@ const sendName = (event) => {
     endsWithS(name);
   }
 
-  localStorage.setItem(NAME_KEY, name);
+  namestorage.set(name);
   nameInput.value = null;
 };
 
 const renderName = () => {
-  const currentName = localStorage.getItem(NAME_KEY);
+  const currentName = namestorage.get();
 
   if (currentName) {
     endsWithS(currentName);
@@ -301,7 +298,7 @@ const addNewList = (event) => {
 
   todoLists.push(todoListsObject);
 
-  todostorage.set(todoLists);
+  todostorage.set(JSON.stringify(todoLists));
   newListText.innerHTML = 'Current List: ' + newListInput.value;
 
   nextPage();
@@ -322,7 +319,7 @@ const changeToDo = (event) => {
 
   todoLists[currentIndex].todos[getArrayIndex(li)].name = inputEdit.value;
 
-  todostorage.set(todoLists);
+  todostorage.set(JSON.stringify(todoLists));
 };
 
 const editToDo = (event) => {
@@ -355,7 +352,7 @@ const removeToDo = (event) => {
 
   todoLists[currentIndex].todos.splice(getArrayIndex(li), 1);
 
-  todostorage.set(todoLists);
+  todostorage.set(JSON.stringify(todoLists));
 };
 
 const editKeyUp = (event) => {
