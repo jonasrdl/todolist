@@ -152,7 +152,7 @@ const createTodoElement = (text) => {
   editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
 
   const deleteToDoButton = document.createElement('button');
-  deleteToDoButton.addEventListener('click', deleteToDo);
+  deleteToDoButton.addEventListener('click', todo.delete);
   deleteToDoButton.classList.add('deleteToDoButton');
   deleteToDoButton.classList.add('btn');
   deleteToDoButton.classList.add('ripple');
@@ -307,13 +307,7 @@ const addNewList = (event) => {
   newListInput.value = null;
 };
 
-const deleteToDo = (event) => {
-  removeToDo(event);
-  event.target.parentElement?.remove();
-  deleteToDoMessage();
-};
-
-const deleteToDoMessage = () => {
+export const deleteToDoMessage = () => {
   inputField.placeholder = 'To Do gelöscht';
   inputField.classList.add('placeholder-color');
 
@@ -323,7 +317,7 @@ const deleteToDoMessage = () => {
   }, 3000);
 };
 
-const removeToDo = (event) => {
+export const removeToDo = (event) => {
   const li = event.target.parentElement;
 
   todoLists[currentIndex].todos.splice(getArrayIndex(li), 1);

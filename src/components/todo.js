@@ -1,5 +1,4 @@
-import { getArrayIndex } from '../app.js';
-
+import { getArrayIndex, deleteToDoMessage, removeToDo } from '../app.js';
 export class Todo {
   constructor() {}
 
@@ -27,5 +26,11 @@ export class Todo {
     todoLists[currentIndex].todos[getArrayIndex(li)].name = inputEdit.value;
 
     localStorage.setItem('todos', JSON.stringify(todoLists));
+  }
+
+  delete() {
+    removeToDo(event);
+    event.target.parentElement?.remove();
+    deleteToDoMessage();
   }
 }
