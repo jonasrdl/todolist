@@ -82,6 +82,7 @@ const init = () => {
         }
       ];
 
+  debugger;
   if (todoLists[currentIndex].name === 'Default') {
     localStorage.setItem(CURRENT_INDEX_KEY, 0);
   }
@@ -120,7 +121,7 @@ const changePage = (direction) => {
 
   toDoList.innerHTML = '';
 
-  localStorage.setItem(CURRENT_INDEX_KEY, currentIndex);
+  indexstorage.set(currentIndex);
   redraw();
   checkDone();
 };
