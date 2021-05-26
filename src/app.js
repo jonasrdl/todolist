@@ -1,12 +1,5 @@
 'use strict';
 
-import { Storage } from './components/storage.js';
-
-const todostorage = new Storage('todos');
-const themestorage = new Storage('theme');
-const indexstorage = new Storage('currentIndex');
-const namestorage = new Storage('username');
-
 let currentIndex = 0;
 let toDoList;
 let inputField;
@@ -21,7 +14,16 @@ let toDoListHeader;
 let clearLocalStorageBtn;
 let todoLists = [];
 
-const getArrayIndex = (element) =>
+import { Storage } from './components/storage.js';
+import { Todo } from './components/todo.js';
+
+const todostorage = new Storage('todos');
+const themestorage = new Storage('theme');
+const indexstorage = new Storage('currentIndex');
+const namestorage = new Storage('username');
+const todo = new Todo();
+
+export const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
 
 const init = () => {
@@ -143,7 +145,7 @@ const createTodoElement = (text) => {
   checkbox.classList.add('checkbox');
 
   const editToDoButton = document.createElement('button');
-  editToDoButton.addEventListener('click', editToDo);
+  editToDoButton.addEventListener('click', todo.edit);
   editToDoButton.classList.add('editToDoButton');
   editToDoButton.classList.add('btn');
   editToDoButton.classList.add('ripple');
@@ -305,30 +307,6 @@ const addNewList = (event) => {
   newListInput.value = null;
 };
 
-const changeToDo = (event) => {
-  const li = event.target.parentElement;
-  const inputEdit = toDoList.querySelector('input[type="text"]');
-
-  if (!inputEdit.value.trim().length) {
-    messageIfEmpty(inputEdit, 'Trage erst ein To Do ein');
-
-    return;
-  }
-
-  todoLists[currentIndex].todos[getArrayIndex(li)].name = inputEdit.value;
-
-  todostorage.set(JSON.stringify(todoLists));
-};
-
-const editToDo = (event) => {
-  const toDo = event.target.parentElement;
-  const toDoText = toDo.querySelector('span');
-  const inputEdit = toDo.querySelector('input[type="text"]');
-
-  toDo.classList.add('edit');
-  inputEdit.value = toDoText.textContent;
-};
-
 const deleteToDo = (event) => {
   removeToDo(event);
   event.target.parentElement?.remove();
@@ -363,12 +341,13 @@ const editKeyUp = (event) => {
       messageIfEmpty(inputEdit, 'Trage erst ein To Do ein');
 
       return;
-    } else {
-      toDo.classList.remove('edit');
     }
 
+    console.log('okö');
+    toDo.classList.remove('edit');
+
     toDoText.textContent = inputEdit.value;
-    changeToDo(event);
+    todo.change(todoLists, currentIndex);
   }
 };
 
