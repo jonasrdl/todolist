@@ -1,11 +1,10 @@
 'use strict';
 
-import { todoStorage, themeStorage } from './components/storage.js';
+import { Storage } from './components/storage.js';
 
-const todostorage = new todoStorage('todos');
-const themestorage = new themeStorage('theme');
+const todostorage = new Storage('todos');
+const themestorage = new Storage('theme');
 
-const LOCAL_STORAGE_KEY = 'todos';
 const NAME_KEY = 'username';
 const CURRENT_INDEX_KEY = 'currentIndex';
 const THEME_KEY = 'theme';
@@ -72,8 +71,7 @@ const init = () => {
 
   currentIndex = +localStorage.getItem(CURRENT_INDEX_KEY) || 0;
 
-  //TODO const lists = todostorage.get();
-  const lists = localStorage.getItem('todos');
+  const lists = todostorage.get();
 
   todoLists = !!lists
     ? JSON.parse(lists)

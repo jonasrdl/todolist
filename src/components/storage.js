@@ -1,4 +1,4 @@
-export class todoStorage {
+export class Storage {
   constructor(key) {
     this.key = key;
   }
@@ -8,24 +8,10 @@ export class todoStorage {
   }
 
   get() {
-    localStorage.getItem(this.key);
+    return localStorage.getItem(this.key);
   }
 
   clear() {
     localStorage.removeItem(this.key);
-  }
-}
-
-export class themeStorage {
-  constructor(key) {
-    this.key = key;
-  }
-
-  set(data) {
-    localStorage.setItem(this.key, data);
-  }
-
-  get() {
-    localStorage.getItem(this.key);
   }
 }
