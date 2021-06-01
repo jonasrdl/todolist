@@ -21,7 +21,7 @@ const todostorage = new Storage('todos');
 const themestorage = new Storage('theme');
 const indexstorage = new Storage('currentIndex');
 const namestorage = new Storage('username');
-const todo = new Todo();
+const todos = [];
 
 export const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
@@ -133,41 +133,10 @@ const createTodoText = (todos) =>
   todos.forEach((todo) => createTodoElement(todo.name));
 
 const createTodoElement = (text) => {
-  const todoText = document.createElement('span');
-  todoText.innerText = text;
+  const todo = new Todo(text);
 
-  const li = document.createElement('li');
-  li.classList.add('li');
-  li.draggable = true;
-
-  const checkbox = document.createElement('input');
-  checkbox.type = 'checkbox';
-  checkbox.classList.add('checkbox');
-
-  const editToDoButton = document.createElement('button');
-  editToDoButton.addEventListener('click', todo.edit);
-  editToDoButton.classList.add('editToDoButton');
-  editToDoButton.classList.add('btn');
-  editToDoButton.classList.add('ripple');
-  editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
-
-  const deleteToDoButton = document.createElement('button');
-  deleteToDoButton.addEventListener('click', todo.delete);
-  deleteToDoButton.classList.add('deleteToDoButton');
-  deleteToDoButton.classList.add('btn');
-  deleteToDoButton.classList.add('ripple');
-  deleteToDoButton.innerHTML = '<i class="fas fa-trash"></i>';
-
-  const inputEdit = document.createElement('input');
-  inputEdit.type = 'text';
-  inputEdit.addEventListener('keyup', editKeyUp);
-
-  li.appendChild(checkbox);
-  li.appendChild(inputEdit);
-  li.appendChild(todoText);
-  li.appendChild(editToDoButton);
-  li.appendChild(deleteToDoButton);
-  toDoList?.appendChild(li);
+  toDoList?.appendChild(todo.ref);
+  todos.push(todo);
 };
 
 const prevPage = () => {
@@ -325,25 +294,7 @@ export const removeToDo = (event) => {
   todostorage.set(JSON.stringify(todoLists));
 };
 
-const editKeyUp = (event) => {
-  if (event.key === 'Enter') {
-    const toDo = event.target.parentElement;
-    const toDoText = toDo.querySelector('span');
-    const inputEdit = toDo.querySelector('input[type="text"]');
-
-    if (inputEdit.value === '') {
-      messageIfEmpty(inputEdit, 'Trage erst ein To Do ein');
-
-      return;
-    }
-
-    console.log('okö');
-    toDo.classList.remove('edit');
-
-    toDoText.textContent = inputEdit.value;
-    todo.change(todoLists, currentIndex);
-  }
-};
+const editKeyUp = (event) => {};
 
 const switchDesign = () => {
   const root = document.querySelector('html');
