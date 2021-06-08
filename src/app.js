@@ -12,7 +12,7 @@ let nameSubmit;
 let newListSubmit;
 let toDoListHeader;
 let clearLocalStorageBtn;
-let todoLists = [];
+export let todoLists = [];
 
 import { Storage } from './components/storage.js';
 import { Todo } from './components/todo.js';
