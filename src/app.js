@@ -16,11 +16,13 @@ let todoLists = [];
 
 import { Storage } from './components/storage.js';
 import { Todo } from './components/todo.js';
+import { Todolist } from './components/Todolist.js';
 
 const todostorage = new Storage('todos');
 const themestorage = new Storage('theme');
 const indexstorage = new Storage('currentIndex');
 const namestorage = new Storage('username');
+const todolist = new Todolist();
 const todos = [];
 
 export const getArrayIndex = (element) =>
@@ -153,7 +155,7 @@ const redraw = () => createTodoText(todoLists[currentIndex].todos);
 
 const addToDo = () => {
   if (!inputField.value.trim().length) {
-    messageIfEmpty(inputField, 'Trage erst ein Todo ein!');
+    todolist.messageIfEmpty(inputField, 'Trage erst ein Todo ein!');
 
     return;
   } else {
@@ -165,12 +167,6 @@ const addToDo = () => {
   saveToDos();
 
   inputField.value = null;
-};
-
-const messageIfEmpty = (element, text) => {
-  element.value = null;
-  element.placeholder = text;
-  element.classList.add('placeholder-color');
 };
 
 const setDone = () => {
@@ -222,7 +218,7 @@ const sendName = (event) => {
   const name = nameInput.value;
 
   if (!nameInput.value.trim().length) {
-    messageIfEmpty(nameInput, 'Trage erst einen Namen ein');
+    todolist.messageIfEmpty(nameInput, 'Trage erst einen Namen ein!');
 
     return;
   } else {
