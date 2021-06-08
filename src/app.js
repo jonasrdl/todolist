@@ -14,8 +14,8 @@ let toDoListHeader;
 let clearLocalStorageBtn;
 export let todoLists = [];
 
-import { Storage } from './components/storage.js';
-import { Todo } from './components/todo.js';
+import { Storage } from './components/Storage.js';
+import { Todo } from './components/Todo.js';
 import { Todolist } from './components/Todolist.js';
 
 const todostorage = new Storage('todos');

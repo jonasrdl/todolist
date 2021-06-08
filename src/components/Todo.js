@@ -1,4 +1,4 @@
-import { Storage } from './storage.js';
+import { Storage } from './Storage.js';
 import { Todolist } from './Todolist.js';
 import { getArrayIndex } from '../app.js';
 
@@ -53,7 +53,6 @@ export class Todo {
   }
 
   edit() {
-    console.log(this.ref);
     const toDoText = this.ref.querySelector('span');
     const inputEdit = this.ref.querySelector('input[type="text"]');
 
@@ -81,8 +80,6 @@ export class Todo {
 
       todoLists[Number(currentIndex)].todos[getArrayIndex(this.ref)].name =
         inputEdit.value;
-
-      console.log(todoLists);
 
       todostorage.set(JSON.stringify(todoLists));
     }

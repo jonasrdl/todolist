@@ -1,4 +1,4 @@
-import { Storage } from '../components/storage.js';
+import { Storage } from './Storage.js';
 const todostorage = new Storage('todos');
 const indexstorage = new Storage('currentIndex');
 
