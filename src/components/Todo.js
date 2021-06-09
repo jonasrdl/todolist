@@ -1,19 +1,13 @@
-import { Storage } from './Storage.js';
-import { Todolist } from './Todolist.js';
-import { getArrayIndex } from '../app.js';
-
-const todolist = new Todolist();
-const indexstorage = new Storage('currentIndex');
-const todostorage = new Storage('todos');
+import Eventbus from '../../eventbus.js';
 
 export class Todo {
-  constructor(text) {
-    this.create(text);
+  constructor(name, done) {
+    this.create(name, done);
   }
 
-  create(text) {
+  create(name, done) {
     const todoText = document.createElement('span');
-    todoText.innerText = text;
+    todoText.innerText = name;
 
     const li = document.createElement('li');
     li.classList.add('li');
@@ -21,6 +15,7 @@ export class Todo {
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.checked = !!done;
     checkbox.classList.add('checkbox');
 
     const editToDoButton = document.createElement('button');
@@ -31,9 +26,9 @@ export class Todo {
     editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
 
     const deleteToDoButton = document.createElement('button');
-    deleteToDoButton.addEventListener('click', () =>
-      todolist.deleteTodo(this.ref)
-    );
+    deleteToDoButton.addEventListener('click', () => {
+      Eventbus.emit('deleteToDo', this); // todo klein
+    });
     deleteToDoButton.classList.add('deleteToDoButton');
     deleteToDoButton.classList.add('btn');
     deleteToDoButton.classList.add('ripple');
@@ -61,15 +56,12 @@ export class Todo {
   }
 
   saveEdit(event) {
-    const currentIndex = indexstorage.get();
-    const todoLists = JSON.parse(localStorage.getItem('todos'));
-
     if (event.key === 'Enter') {
       const toDoText = this.ref.querySelector('span');
       const inputEdit = this.ref.querySelector('input[type="text"]');
 
       if (inputEdit.value === '') {
-        todolist.messageIfEmpty(inputEdit, 'Feld darf nicht leer sein!');
+        //todolist.messageIfEmpty(inputEdit, 'Feld darf nicht leer sein!');
 
         return;
       }
@@ -77,11 +69,6 @@ export class Todo {
       this.ref.classList.remove('edit');
 
       toDoText.textContent = inputEdit.value;
-
-      todoLists[Number(currentIndex)].todos[getArrayIndex(this.ref)].name =
-        inputEdit.value;
-
-      todostorage.set(JSON.stringify(todoLists));
     }
   }
 }
