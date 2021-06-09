@@ -1,7 +1,9 @@
 'use strict';
 
+let todoLists = [];
+
 let currentIndex = 0;
-let toDoList;
+let listView;
 let inputField;
 let newListInput;
 let newListText;
@@ -12,7 +14,7 @@ let nameSubmit;
 let newListSubmit;
 let toDoListHeader;
 let clearLocalStorageBtn;
-export let todoLists = [];
+let fromStorage = [];
 
 import { Storage } from './components/Storage.js';
 import { Todo } from './components/Todo.js';
@@ -22,13 +24,13 @@ const todostorage = new Storage('todos');
 const themestorage = new Storage('theme');
 const indexstorage = new Storage('currentIndex');
 const namestorage = new Storage('username');
-const todolist = new Todolist();
-const todos = [];
 
-export const getArrayIndex = (element) =>
+const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
 
 const init = () => {
+  listView = document.getElementById('listView');
+
   const root = document.querySelector('html');
   const switchDesignButton = document.querySelector('button.switch-design');
   const switchDesignIcon = document.querySelector('button.switch-design i');
@@ -41,7 +43,6 @@ const init = () => {
   nextPageBtn = document.querySelector('.nextPageBtn');
   newListText = document.querySelector('span.newListText');
   inputField = document.getElementById('inputField');
-  toDoList = document.getElementById('toDoList');
   newListInput = document.querySelector('input.newListInput');
   newListSubmit = document.querySelector('button.newListSubmit');
   clearLocalStorageBtn = document.querySelector('button.clearLocalStorageBtn');
@@ -73,7 +74,7 @@ const init = () => {
 
   const lists = todostorage.get();
 
-  todoLists = !!lists
+  fromStorage = !!lists
     ? JSON.parse(lists)
     : [
         {
@@ -82,28 +83,42 @@ const init = () => {
         }
       ];
 
-  if (todoLists[currentIndex].name === 'Default') {
+  if (fromStorage[currentIndex].name === 'Default') {
     indexstorage.set(0);
   }
 
-  updateListText();
-  initDragAndDrop();
-  renderName();
-  redraw();
-  setDone();
-  checkDone();
+  // updateListText();
+  // initDragAndDrop();
+  // renderName();
+  // redraw();
+  // setDone();
+  // checkDone();
+  create();
 };
 
 window.addEventListener('DOMContentLoaded', init);
 
+const create = () => {
+  todoLists = fromStorage.map((list) => {
+    const todoList = new Todolist(list.name, listView);
+    list.todos.forEach(({ name, done }) => {
+      todoList.addTodo({ name, done });
+    });
+    return todoList;
+  });
+  todoLists[0].create();
+};
+
+// -- OLD STUFF --
+
 const checkDone = () => {
-  const checkboxes = toDoList.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
 
   [...checkboxes].forEach((checkbox) => {
-    if (todoLists[currentIndex].todos[getArrayIndex(checkbox)].done == true) {
+    if (fromStorage[currentIndex].todos[getArrayIndex(checkbox)].done == true) {
       checkbox.checked = true;
     } else if (
-      todoLists[currentIndex].todos[getArrayIndex(checkbox)].done == false
+      fromStorage[currentIndex].todos[getArrayIndex(checkbox)].done == false
     ) {
       checkbox.checked = false;
     }
@@ -113,12 +128,12 @@ const checkDone = () => {
 const changePage = (direction) => {
   if (
     currentIndex + direction >= 0 &&
-    currentIndex + direction < todoLists.length
+    currentIndex + direction < fromStorage.length
   ) {
     currentIndex += direction;
   }
 
-  toDoList.innerHTML = '';
+  listView.innerHTML = '';
 
   indexstorage.set(currentIndex);
   redraw();
@@ -137,7 +152,7 @@ const createTodoText = (todos) =>
 const createTodoElement = (text) => {
   const todo = new Todo(text);
 
-  toDoList?.appendChild(todo.ref);
+  listView?.appendChild(todo.ref);
   todos.push(todo);
 };
 
@@ -151,7 +166,7 @@ const nextPage = () => {
   updateListText();
 };
 
-const redraw = () => createTodoText(todoLists[currentIndex].todos);
+const redraw = () => createTodoText(fromStorage[currentIndex].todos);
 
 const addToDo = () => {
   if (!inputField.value.trim().length) {
@@ -170,7 +185,7 @@ const addToDo = () => {
 };
 
 const setDone = () => {
-  const checkboxes = toDoList.querySelectorAll('input[type="checkbox"]');
+  const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
 
   if (!checkboxes.length) {
     return;
@@ -179,15 +194,15 @@ const setDone = () => {
   [...checkboxes].forEach((checkbox) => {
     checkbox.addEventListener('click', () => {
       if (checkbox.checked) {
-        todoLists[currentIndex].todos[
+        fromStorage[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = true;
-        todostorage.set(JSON.stringify(todoLists));
+        todostorage.set(JSON.stringify(fromStorage));
       } else {
-        todoLists[currentIndex].todos[
+        fromStorage[currentIndex].todos[
           getArrayIndex(checkbox.parentElement)
         ].done = false;
-        todostorage.set(JSON.stringify(todoLists));
+        todostorage.set(JSON.stringify(fromStorage));
       }
     });
   });
@@ -199,17 +214,17 @@ const clearLocalStorage = () => {
 };
 
 const saveToDos = () => {
-  todoLists[currentIndex].todos.push({
+  fromStorage[currentIndex].todos.push({
     name: inputField.value,
     done: false
   });
 
-  todostorage.set(JSON.stringify(todoLists));
+  todostorage.set(JSON.stringify(fromStorage));
   updateListText();
 };
 
 const updateListText = () => {
-  const currentList = todoLists[currentIndex].name;
+  const currentList = fromStorage[currentIndex].name;
   newListText.innerHTML = 'Current List: ' + currentList;
 };
 
@@ -261,9 +276,9 @@ const addNewList = (event) => {
     return;
   }
 
-  todoLists.push(todoListsObject);
+  fromStorage.push(todoListsObject);
 
-  todostorage.set(JSON.stringify(todoLists));
+  todostorage.set(JSON.stringify(fromStorage));
   newListText.innerHTML = 'Current List: ' + newListInput.value;
 
   nextPage();
@@ -285,9 +300,9 @@ export const deleteToDoMessage = () => {
 export const removeToDo = (event) => {
   const li = event.target.parentElement;
 
-  todoLists[currentIndex].todos.splice(getArrayIndex(li), 1);
+  fromStorage[currentIndex].todos.splice(getArrayIndex(li), 1);
 
-  todostorage.set(JSON.stringify(todoLists));
+  todostorage.set(JSON.stringify(fromStorage));
 };
 
 const editKeyUp = (event) => {};
@@ -312,7 +327,7 @@ const switchDesign = () => {
 };
 
 const initDragAndDrop = () => {
-  toDoList.addEventListener('drop', (event) => {
+  listView.addEventListener('drop', (event) => {
     event.preventDefault();
     const target = getToDoElement(event.target);
 
