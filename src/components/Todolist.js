@@ -1,9 +1,31 @@
-import { Storage } from './Storage.js';
-const todostorage = new Storage('todos');
-const indexstorage = new Storage('currentIndex');
+import Eventbus from '../../eventbus.js';
+import { Todo } from './Todo.js';
 
 export class Todolist {
-  constructor() {}
+  constructor(name, ref) {
+    this.todos = [];
+    this.name = name;
+    this.ref = ref;
+
+    Eventbus.on('deleteToDo', (todo) => {
+      this.deleteTodo(todo);
+    });
+  }
+
+  addTodo({ name, done } = { name: 'no_name', done: false }) {
+    this.todos.push(new Todo(name, done));
+  }
+
+  set list(todos) {
+    this.todos = todos;
+  }
+
+  create() {
+    this.ref.innerHTML = '';
+    this.todos.forEach((todo) => {
+      this.ref.append(todo.ref);
+    });
+  }
 
   messageIfEmpty(element, text) {
     element.value = null;
@@ -11,13 +33,10 @@ export class Todolist {
     element.classList.add('placeholder-color');
   }
 
-  deleteTodo(ref) {
-    const currentIndex = indexstorage.get();
-    const todoLists = JSON.parse(localStorage.getItem('todos'));
-    const list = document.getElementById('toDoList');
+  deleteTodo(todo) {
+    const i = this.todos.findIndex((t) => t === todo);
 
-    list.removeChild(ref); // Remove it from HTML
-    todoLists[Number(currentIndex)].todos.splice(ref, 1); // Removing from the reserved array
-    todostorage.set(JSON.stringify(todoLists)); // Removing from Localstorage (soon => todostorage instead of localstorage)
+    this.todos.splice(i, 1);
+    todo.ref.remove();
   }
 }
