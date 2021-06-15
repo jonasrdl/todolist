@@ -1,5 +1,5 @@
 import Eventbus from '../../eventbus.js';
-import { Todo } from './Todo.js';
+import {Todo} from "./Todo.js";
 
 export class Todolist {
   constructor(name, ref) {
@@ -7,13 +7,15 @@ export class Todolist {
     this.name = name;
     this.ref = ref;
 
-    Eventbus.on('deleteToDo', (todo) => {
+    Eventbus.on('deleteTodo', (todo) => {
       this.deleteTodo(todo);
     });
   }
-
   addTodo({ name, done } = { name: 'no_name', done: false }) {
-    this.todos.push(new Todo(name, done));
+    const todo = new Todo(name, done);
+
+    this.todos.push(todo);
+    this.ref.appendChild(todo.ref);
   }
 
   set list(todos) {
