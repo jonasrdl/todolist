@@ -2,7 +2,11 @@ import Eventbus from '../../eventbus.js';
 
 export class Todo {
   constructor(name, done) {
+    this.name = name;
+    this.done = !!done;
     this.create(name, done);
+
+    this.ref.addEventListener('change', () => Eventbus.emit('change', this));
   }
 
   create(name, done) {
@@ -18,21 +22,21 @@ export class Todo {
     checkbox.checked = !!done;
     checkbox.classList.add('checkbox');
 
-    const editToDoButton = document.createElement('button');
-    editToDoButton.addEventListener('click', () => this.edit());
-    editToDoButton.classList.add('editToDoButton');
-    editToDoButton.classList.add('btn');
-    editToDoButton.classList.add('ripple');
-    editToDoButton.innerHTML = '<i class="fas fa-pen"></i>';
+    const editTodoButton = document.createElement('button');
+    editTodoButton.addEventListener('click', () => this.edit());
+    editTodoButton.classList.add('editToDoButton');
+    editTodoButton.classList.add('btn');
+    editTodoButton.classList.add('ripple');
+    editTodoButton.innerHTML = '<i class="fas fa-pen"></i>';
 
-    const deleteToDoButton = document.createElement('button');
-    deleteToDoButton.addEventListener('click', () => {
-      Eventbus.emit('deleteToDo', this); // todo klein
+    const deleteTodoButton = document.createElement('button');
+    deleteTodoButton.addEventListener('click', () => {
+      Eventbus.emit('deleteTodo', this);
     });
-    deleteToDoButton.classList.add('deleteToDoButton');
-    deleteToDoButton.classList.add('btn');
-    deleteToDoButton.classList.add('ripple');
-    deleteToDoButton.innerHTML = '<i class="fas fa-trash"></i>';
+    deleteTodoButton.classList.add('deleteToDoButton');
+    deleteTodoButton.classList.add('btn');
+    deleteTodoButton.classList.add('ripple');
+    deleteTodoButton.innerHTML = '<i class="fas fa-trash"></i>';
 
     const inputEdit = document.createElement('input');
     inputEdit.type = 'text';
@@ -41,23 +45,24 @@ export class Todo {
     li.appendChild(checkbox);
     li.appendChild(inputEdit);
     li.appendChild(todoText);
-    li.appendChild(editToDoButton);
-    li.appendChild(deleteToDoButton);
+    li.appendChild(editTodoButton);
+    li.appendChild(deleteTodoButton);
 
     this.ref = li;
   }
 
   edit() {
-    const toDoText = this.ref.querySelector('span');
+    console.log('edit');
+    const todoText = this.ref.querySelector('span');
     const inputEdit = this.ref.querySelector('input[type="text"]');
 
     this.ref.classList.add('edit');
-    inputEdit.value = toDoText.textContent;
+    inputEdit.value = todoText.textContent;
   }
 
   saveEdit(event) {
     if (event.key === 'Enter') {
-      const toDoText = this.ref.querySelector('span');
+      const todoText = this.ref.querySelector('span');
       const inputEdit = this.ref.querySelector('input[type="text"]');
 
       if (inputEdit.value === '') {
@@ -68,7 +73,7 @@ export class Todo {
 
       this.ref.classList.remove('edit');
 
-      toDoText.textContent = inputEdit.value;
+      todoText.textContent = inputEdit.value;
     }
   }
 }
