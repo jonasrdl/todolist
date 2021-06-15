@@ -12,10 +12,11 @@ let nextPageBtn;
 let nameInput;
 let nameSubmit;
 let newListSubmit;
-let toDoListHeader;
+let todoListHeader;
 let clearLocalStorageBtn;
 let fromStorage = [];
 
+import Eventbus from '../eventbus.js';
 import { Storage } from './components/Storage.js';
 import { Todo } from './components/Todo.js';
 import { Todolist } from './components/Todolist.js';
@@ -34,9 +35,9 @@ const init = () => {
   const root = document.querySelector('html');
   const switchDesignButton = document.querySelector('button.switch-design');
   const switchDesignIcon = document.querySelector('button.switch-design i');
-  const addToDoButton = document.querySelector('button.addToDo');
-  addToDoButton.classList.add('ripple');
-  toDoListHeader = document.querySelector('.toDoListHeader');
+  const addTodoButton = document.querySelector('button.addToDo');
+  addTodoButton.classList.add('ripple');
+  todoListHeader = document.querySelector('.toDoListHeader');
   prevPageBtn = document.querySelector('.prevPageBtn');
   nameInput = document.querySelector('.nameInput');
   nameSubmit = document.querySelector('.nameSubmit');
@@ -48,7 +49,7 @@ const init = () => {
   clearLocalStorageBtn = document.querySelector('button.clearLocalStorageBtn');
 
   nameSubmit.addEventListener('click', sendName);
-  addToDoButton.addEventListener('click', addToDo);
+  addTodoButton.addEventListener('click', addTodo);
   inputField.addEventListener('keyup', enterKeyUp);
   switchDesignButton.addEventListener('click', switchDesign);
   prevPageBtn.addEventListener('click', prevPage);
@@ -83,7 +84,7 @@ const init = () => {
         }
       ];
 
-  if (fromStorage[currentIndex].name === 'Default') {
+  if (!fromStorage[currentIndex].name === 'Default') {
     indexstorage.set(0);
   }
 
@@ -109,20 +110,18 @@ const create = () => {
   todoLists[0].create();
 };
 
+const change = () => {
+  todostorage.set(todoLists.map(({name, todos}) => ({name, todos: todos.map(({name, done}) => ({name, done}))})));
+};
+
+Eventbus.on('change', change);
+
 // -- OLD STUFF --
 
 const checkDone = () => {
   const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
 
-  [...checkboxes].forEach((checkbox) => {
-    if (fromStorage[currentIndex].todos[getArrayIndex(checkbox)].done == true) {
-      checkbox.checked = true;
-    } else if (
-      fromStorage[currentIndex].todos[getArrayIndex(checkbox)].done == false
-    ) {
-      checkbox.checked = false;
-    }
-  });
+  [...checkboxes].forEach((checkbox) => checkbox.checked = fromStorage[currentIndex].todos[getArrayIndex(checkbox)].done);
 };
 
 const changePage = (direction) => {
@@ -142,18 +141,16 @@ const changePage = (direction) => {
 
 const enterKeyUp = (event) => {
   if (event.key === 'Enter') {
-    addToDo();
+    addTodo();
   }
 };
 
-const createTodoText = (todos) =>
-  todos.forEach((todo) => createTodoElement(todo.name));
+const createTodoText = (todos) => {
+    todos.forEach((todo) => createTodoElement(todo.name));
+}
 
-const createTodoElement = (text) => {
-  const todo = new Todo(text);
-
-  listView?.appendChild(todo.ref);
-  todos.push(todo);
+const createTodoElement = (name, done) => {
+  todoLists[0].addTodo({ name, done });
 };
 
 const prevPage = () => {
@@ -168,9 +165,8 @@ const nextPage = () => {
 
 const redraw = () => createTodoText(fromStorage[currentIndex].todos);
 
-const addToDo = () => {
+const addTodo = () => {
   if (!inputField.value.trim().length) {
-    todolist.messageIfEmpty(inputField, 'Trage erst ein Todo ein!');
 
     return;
   } else {
@@ -179,7 +175,7 @@ const addToDo = () => {
   }
 
   createTodoElement(inputField.value);
-  saveToDos();
+  saveTodos();
 
   inputField.value = null;
 };
@@ -213,13 +209,13 @@ const clearLocalStorage = () => {
   location.reload();
 };
 
-const saveToDos = () => {
+const saveTodos = () => {
   fromStorage[currentIndex].todos.push({
     name: inputField.value,
     done: false
   });
 
-  todostorage.set(JSON.stringify(fromStorage));
+  todostorage.set(fromStorage);
   updateListText();
 };
 
@@ -254,9 +250,9 @@ const renderName = () => {
 
 const endsWithS = (name) => {
   if (name.endsWith('s')) {
-    toDoListHeader.textContent = name + "' To Do List";
+    todoListHeader.textContent = name + "' To Do List";
   } else {
-    toDoListHeader.textContent = name + "'s To Do List";
+    todoListHeader.textContent = name + "'s To Do List";
   }
 };
 
@@ -278,7 +274,7 @@ const addNewList = (event) => {
 
   fromStorage.push(todoListsObject);
 
-  todostorage.set(JSON.stringify(fromStorage));
+  todostorage.set(fromStorage);
   newListText.innerHTML = 'Current List: ' + newListInput.value;
 
   nextPage();
@@ -287,7 +283,7 @@ const addNewList = (event) => {
   newListInput.value = null;
 };
 
-export const deleteToDoMessage = () => {
+export const deleteTodoMessage = () => {
   inputField.placeholder = 'To Do gelöscht';
   inputField.classList.add('placeholder-color');
 
@@ -297,15 +293,13 @@ export const deleteToDoMessage = () => {
   }, 3000);
 };
 
-export const removeToDo = (event) => {
+export const removeTodo = (event) => {
   const li = event.target.parentElement;
 
   fromStorage[currentIndex].todos.splice(getArrayIndex(li), 1);
 
-  todostorage.set(JSON.stringify(fromStorage));
+  todostorage.set(fromStorage);
 };
-
-const editKeyUp = (event) => {};
 
 const switchDesign = () => {
   const root = document.querySelector('html');
@@ -329,7 +323,7 @@ const switchDesign = () => {
 const initDragAndDrop = () => {
   listView.addEventListener('drop', (event) => {
     event.preventDefault();
-    const target = getToDoElement(event.target);
+    const target = getTodoElement(event.target);
 
     if (!target) {
       return;
@@ -357,7 +351,7 @@ const initDragAndDrop = () => {
   window.dragging = null;
 
   document.addEventListener('dragstart', (event) => {
-    const target = getToDoElement(event.target);
+    const target = getTodoElement(event.target);
     window.dragging = target;
 
     event.dataTransfer.setData('text/plain', null);
@@ -367,7 +361,7 @@ const initDragAndDrop = () => {
   document.addEventListener('dragover', (event) => {
     event.preventDefault();
 
-    const target = getToDoElement(event.target);
+    const target = getTodoElement(event.target);
 
     if (!target) {
       return;
@@ -390,7 +384,7 @@ const initDragAndDrop = () => {
   });
 
   document.addEventListener('dragleave', (event) => {
-    const target = getToDoElement(event.target);
+    const target = getTodoElement(event.target);
 
     if (!target) {
       return;
@@ -402,7 +396,7 @@ const initDragAndDrop = () => {
     target.classList.add('dragleave');
   });
 
-  const getToDoElement = (target) => {
+  const getTodoElement = (target) => {
     if (!target) {
       return false;
     }
