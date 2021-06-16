@@ -1,7 +1,15 @@
 'use strict';
 
-let todoLists = [];
+import Eventbus from '../eventbus.js';
+import { Storage } from './components/Storage.js';
+import { Todolist } from './components/Todolist.js';
 
+const todostorage = new Storage('todos');
+const themestorage = new Storage('theme');
+const indexstorage = new Storage('currentIndex');
+const namestorage = new Storage('username');
+
+let todoLists = [];
 let currentIndex = 0;
 let listView;
 let inputField;
@@ -15,16 +23,6 @@ let newListSubmit;
 let todoListHeader;
 let clearLocalStorageBtn;
 let fromStorage = [];
-
-import Eventbus from '../eventbus.js';
-import { Storage } from './components/Storage.js';
-import { Todo } from './components/Todo.js';
-import { Todolist } from './components/Todolist.js';
-
-const todostorage = new Storage('todos');
-const themestorage = new Storage('theme');
-const indexstorage = new Storage('currentIndex');
-const namestorage = new Storage('username');
 
 const getArrayIndex = (element) =>
   [...element.parentNode.children].findIndex((child) => child === element);
@@ -114,6 +112,7 @@ const change = () => {
   todostorage.set(todoLists.map(({name, todos}) => ({name, todos: todos.map(({name, done}) => ({name, done}))})));
 };
 
+Eventbus.on('deleteTodo', change)
 Eventbus.on('change', change);
 
 // -- OLD STUFF --
@@ -133,8 +132,8 @@ const changePage = (direction) => {
   }
 
   listView.innerHTML = '';
-
   indexstorage.set(currentIndex);
+
   redraw();
   checkDone();
 };
@@ -178,30 +177,6 @@ const addTodo = () => {
   saveTodos();
 
   inputField.value = null;
-};
-
-const setDone = () => {
-  const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
-
-  if (!checkboxes.length) {
-    return;
-  }
-
-  [...checkboxes].forEach((checkbox) => {
-    checkbox.addEventListener('click', () => {
-      if (checkbox.checked) {
-        fromStorage[currentIndex].todos[
-          getArrayIndex(checkbox.parentElement)
-        ].done = true;
-        todostorage.set(JSON.stringify(fromStorage));
-      } else {
-        fromStorage[currentIndex].todos[
-          getArrayIndex(checkbox.parentElement)
-        ].done = false;
-        todostorage.set(JSON.stringify(fromStorage));
-      }
-    });
-  });
 };
 
 const clearLocalStorage = () => {
@@ -281,24 +256,6 @@ const addNewList = (event) => {
   redraw();
 
   newListInput.value = null;
-};
-
-export const deleteTodoMessage = () => {
-  inputField.placeholder = 'To Do gelöscht';
-  inputField.classList.add('placeholder-color');
-
-  setTimeout(() => {
-    inputField.placeholder = 'To Do...';
-    inputField.classList.remove('placeholder-color');
-  }, 3000);
-};
-
-export const removeTodo = (event) => {
-  const li = event.target.parentElement;
-
-  fromStorage[currentIndex].todos.splice(getArrayIndex(li), 1);
-
-  todostorage.set(fromStorage);
 };
 
 const switchDesign = () => {
