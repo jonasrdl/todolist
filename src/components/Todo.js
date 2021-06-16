@@ -55,7 +55,6 @@ export class Todo {
   }
 
   edit() {
-    console.log('edit');
     const todoText = this.ref.querySelector('span');
     const inputEdit = this.ref.querySelector('input[type="text"]');
 
@@ -78,13 +77,9 @@ export class Todo {
       this.ref.classList.remove('edit');
 
       todoText.textContent = inputEdit.value;
-      console.log(this.name)
       this.name = inputEdit.value;
+
       Eventbus.emit('change', this);
-      console.log(this.name)
-
-      //TODO change funktion wird als erstes aufgerufen
-
     }
   }
 }
