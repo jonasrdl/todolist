@@ -5,8 +5,6 @@ export class Todo {
     this.name = name;
     this.done = !!done;
     this.create(name, done);
-
-    this.ref.addEventListener('change', () => Eventbus.emit('change', this));
   }
 
   create(name, done) {
@@ -51,6 +49,11 @@ export class Todo {
     this.ref = li;
   }
 
+  emptyInput(element, msg) {
+    element.classList.add('placeholder-color');
+    element.placeholder = msg;
+  }
+
   edit() {
     console.log('edit');
     const todoText = this.ref.querySelector('span');
@@ -65,8 +68,9 @@ export class Todo {
       const todoText = this.ref.querySelector('span');
       const inputEdit = this.ref.querySelector('input[type="text"]');
 
-      if (inputEdit.value === '') {
-        //todolist.messageIfEmpty(inputEdit, 'Feld darf nicht leer sein!');
+      if (inputEdit.value === '' || !inputEdit.value.trim().length) {
+        inputEdit.value = null;
+        this.emptyInput(inputEdit, 'Trage etwas ein!')
 
         return;
       }
@@ -74,6 +78,13 @@ export class Todo {
       this.ref.classList.remove('edit');
 
       todoText.textContent = inputEdit.value;
+      console.log(this.name)
+      this.name = inputEdit.value;
+      Eventbus.emit('change', this);
+      console.log(this.name)
+
+      //TODO change funktion wird als erstes aufgerufen
+
     }
   }
 }
