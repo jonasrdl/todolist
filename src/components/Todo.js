@@ -17,6 +17,7 @@ export class Todo {
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    checkbox.addEventListener('click', () => this.check());
     checkbox.checked = !!done;
     checkbox.classList.add('checkbox');
 
@@ -81,5 +82,12 @@ export class Todo {
 
       Eventbus.emit('change', this);
     }
+  }
+
+  check() {
+    const checkbox = this.ref.querySelector('input[type="checkbox"]');
+
+    this.done = !!checkbox.checked;
+    Eventbus.emit('change', this);
   }
 }
