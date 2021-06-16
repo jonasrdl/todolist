@@ -11,6 +11,7 @@ export class Todolist {
       this.deleteTodo(todo);
     });
   }
+
   addTodo({ name, done } = { name: 'no_name', done: false }) {
     const todo = new Todo(name, done);
 
