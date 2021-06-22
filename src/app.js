@@ -211,11 +211,7 @@ const sendName = (event) => {
 };
 
 const endsWithS = (name) => {
-  if (name.endsWith('s')) {
-    todoListHeader.textContent = name + "' To Do List";
-  } else {
-    todoListHeader.textContent = name + "'s To Do List";
-  }
+  name.endsWith('s') ? todoListHeader.textContent = name + "' To Do List" : todoListHeader.textContent = name + "'s To Do List";
 };
 
 const addNewList = (event) => {
