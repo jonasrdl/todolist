@@ -89,7 +89,6 @@ const init = () => {
   // updateListText();
   // initDragAndDrop();
   // renderName();
-  // redraw();
   // setDone();
   // checkDone();
   create();
@@ -105,7 +104,7 @@ const create = () => {
     });
     return todoList;
   });
-  todoLists[0].create();
+  todoLists[currentIndex].create();
 };
 
 const change = () => {
@@ -120,23 +119,34 @@ Eventbus.on('change', change);
 const checkDone = () => {
   const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
 
-  [...checkboxes].forEach((checkbox) => checkbox.checked = fromStorage[currentIndex].todos[getArrayIndex(checkbox)].done);
+  [...checkboxes].forEach((checkbox) => checkbox.checked = todoLists[currentIndex].todos[getArrayIndex(checkbox)].done);
 };
 
-const changePage = (direction) => {
-  if (
-    currentIndex + direction >= 0 &&
-    currentIndex + direction < fromStorage.length
-  ) {
-    currentIndex += direction;
+const updateListText = () => {
+  const currentList = todoLists[currentIndex].name;
+  newListText.innerHTML = 'Current List: ' + currentList;
+};
+
+const setPage = (index) => {
+  if (index >= todoLists.length || index < 0) {
+    return;
   }
 
-  listView.innerHTML = '';
-  indexstorage.set(currentIndex);
+  todoLists[index].create();
+  currentIndex = index;
+  indexstorage.set(index);
 
-  redraw();
-  checkDone();
+  updateListText();
+}
+
+const changePage = (direction, index = currentIndex + direction) => {
+  if (index >= 0 && index < todoLists.length) {
+    setPage(index);
+  }
 };
+
+const prevPage = () => changePage(-1);
+const nextPage = () => changePage(1);
 
 const enterKeyUp = (event) => {
   if (event.key === 'Enter') {
@@ -144,25 +154,13 @@ const enterKeyUp = (event) => {
   }
 };
 
-const createTodoText = (todos) => {
-    todos.forEach((todo) => createTodoElement(todo.name));
-}
-
 const createTodoElement = (name, done) => {
-  todoLists[0].addTodo({ name, done });
+  todoLists[currentIndex].addTodo({ name, done });
 };
 
-const prevPage = () => {
-  changePage(-1);
-  updateListText();
-};
 
-const nextPage = () => {
-  changePage(1);
-  updateListText();
-};
 
-const redraw = () => createTodoText(fromStorage[currentIndex].todos);
+
 
 const addTodo = () => {
   if (!inputField.value.trim().length) {
@@ -174,7 +172,7 @@ const addTodo = () => {
   }
 
   createTodoElement(inputField.value);
-  saveTodos();
+  Eventbus.emit('change');
 
   inputField.value = null;
 };
@@ -194,10 +192,7 @@ const saveTodos = () => {
   updateListText();
 };
 
-const updateListText = () => {
-  const currentList = fromStorage[currentIndex].name;
-  newListText.innerHTML = 'Current List: ' + currentList;
-};
+
 
 const sendName = (event) => {
   event.preventDefault();
@@ -215,14 +210,6 @@ const sendName = (event) => {
   nameInput.value = null;
 };
 
-const renderName = () => {
-  const currentName = namestorage.get();
-
-  if (currentName) {
-    endsWithS(currentName);
-  }
-};
-
 const endsWithS = (name) => {
   if (name.endsWith('s')) {
     todoListHeader.textContent = name + "' To Do List";
@@ -234,11 +221,6 @@ const endsWithS = (name) => {
 const addNewList = (event) => {
   event.preventDefault();
 
-  let todoListsObject = {
-    name: newListInput.value,
-    todos: []
-  };
-
   if (!newListInput.value.trim().length) {
     newListInput.value = null;
     newListInput.placeholder = 'Trage erst einen Namen ein';
@@ -247,13 +229,12 @@ const addNewList = (event) => {
     return;
   }
 
-  fromStorage.push(todoListsObject);
+  todoLists.push(new Todolist(newListInput.value, listView));
+  Eventbus.emit('change');
 
-  todostorage.set(fromStorage);
   newListText.innerHTML = 'Current List: ' + newListInput.value;
 
-  nextPage();
-  redraw();
+  setPage(todoLists.length - 1);
 
   newListInput.value = null;
 };

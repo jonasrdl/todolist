@@ -80,7 +80,7 @@ export class Todo {
       todoText.textContent = inputEdit.value;
       this.name = inputEdit.value;
 
-      Eventbus.emit('change', this);
+      Eventbus.emit('change');
     }
   }
 
@@ -88,6 +88,6 @@ export class Todo {
     const checkbox = this.ref.querySelector('input[type="checkbox"]');
 
     this.done = !!checkbox.checked;
-    Eventbus.emit('change', this);
+    Eventbus.emit('change');
   }
 }

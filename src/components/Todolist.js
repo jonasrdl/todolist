@@ -19,10 +19,6 @@ export class Todolist {
     this.ref.appendChild(todo.ref);
   }
 
-  set list(todos) {
-    this.todos = todos;
-  }
-
   create() {
     this.ref.innerHTML = '';
     this.todos.forEach((todo) => {
@@ -39,7 +35,12 @@ export class Todolist {
   deleteTodo(todo) {
     const i = this.todos.findIndex((t) => t === todo);
 
+    if (i === -1) {
+      return;
+    }
+
     this.todos.splice(i, 1);
     todo.ref.remove();
+    Eventbus.emit('change');
   }
 }
