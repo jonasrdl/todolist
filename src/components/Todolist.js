@@ -26,12 +26,6 @@ export class Todolist {
     });
   }
 
-  messageIfEmpty(element, text) {
-    element.value = null;
-    element.placeholder = text;
-    element.classList.add('placeholder-color');
-  }
-
   deleteTodo(todo) {
     const i = this.todos.findIndex((t) => t === todo);
 
