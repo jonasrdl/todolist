@@ -9,7 +9,7 @@ const store = {
     todo: new Storage('todos'),
     theme: new Storage('theme'),
     index: new Storage('currentIndex'),
-    name: new Storage('username'),
+    name: new Storage('username')
 }
 
 const page = {}
