@@ -10,8 +10,4 @@ export class Storage {
   get() {
     return localStorage.getItem(this.key);
   }
-
-  clear() {
-    localStorage.removeItem(this.key);
-  }
 }

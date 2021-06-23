@@ -5,12 +5,12 @@ import { Storage } from './components/Storage.js';
 import { Todolist } from './components/Todolist.js';
 import { Pagination } from "./components/Pagination.js";
 
-let todolistPagination;
 const todostorage = new Storage('todos');
 const themestorage = new Storage('theme');
 const indexstorage = new Storage('currentIndex');
 const namestorage = new Storage('username');
 
+let todolistPagination;
 let todoLists = [];
 let listView;
 let inputField;
@@ -22,11 +22,7 @@ let nameInput;
 let nameSubmit;
 let newListSubmit;
 let todoListHeader;
-let clearLocalStorageBtn;
 let fromStorage = [];
-
-/* const getArrayIndex = (element) =>
-  [...element.parentNode.children].findIndex((child) => child === element); */
 
 const init = () => {
   listView = document.getElementById('listView');
@@ -45,7 +41,6 @@ const init = () => {
   inputField = document.getElementById('inputField');
   newListInput = document.querySelector('input.newListInput');
   newListSubmit = document.querySelector('button.newListSubmit');
-  clearLocalStorageBtn = document.querySelector('button.clearLocalStorageBtn');
 
   nameSubmit.addEventListener('click', sendName);
   addTodoButton.addEventListener('click', addTodo);
@@ -58,7 +53,6 @@ const init = () => {
     todolistPagination.nextPage();
   })
   newListSubmit.addEventListener('click', addNewList);
-  clearLocalStorageBtn.addEventListener('click', clearLocalStorage);
 
   const theme = themestorage.get();
 
@@ -91,11 +85,6 @@ const init = () => {
     indexstorage.set(0);
   }
 
-  // updateListText();
-  // initDragAndDrop();
-  // renderName();
-  // setDone();
-  // checkDone();
   create();
 };
 
@@ -132,35 +121,6 @@ const updateListText = () => {
   newListText.innerHTML = 'Current List: ' + currentList;
 };
 
-// -- OLD STUFF --
-
-/* const checkDone = () => {
-  const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
-
-  [...checkboxes].forEach((checkbox) => checkbox.checked = todoLists[currentIndex].todos[getArrayIndex(checkbox)].done);
-}; */
-/*
-const setPage = (index) => {
-  if (index >= todoLists.length || index < 0) {
-    return;
-  }
-
-  todoLists[index].create();
-  currentIndex = index;
-  indexstorage.set(index);
-
-  updateListText();
-}
-
-const changePage = (direction, index = currentIndex + direction) => {
-  if (index >= 0 && index < todoLists.length) {
-    setPage(index);
-  }
-};
-
-const prevPage = () => changePage(-1);
-const nextPage = () => changePage(1); */
-
 const enterKeyUp = (event) => {
   if (event.key === 'Enter') {
     addTodo();
@@ -186,29 +146,14 @@ const addTodo = () => {
   inputField.value = null;
 };
 
-const clearLocalStorage = () => {
-  todostorage.clear();
-  indexstorage.clear();
-  namestorage.clear();
-  location.reload();
-};
-
-/* const saveTodos = () => {
-  fromStorage[currentIndex].todos.push({
-    name: inputField.value,
-    done: false
-  });
-
-  todostorage.set(fromStorage);
-  updateListText();
-}; */
-
 const sendName = (event) => {
   event.preventDefault();
   const name = nameInput.value;
 
   if (!nameInput.value.trim().length) {
-    //todolist.messageIfEmpty(nameInput, 'Trage erst einen Namen ein!');
+    nameInput.value = null;
+    nameInput.placeholder = 'Trage erst einen Namen ein';
+    nameInput.classList.add('placeholder-color');
 
     return;
   } else {
