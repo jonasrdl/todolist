@@ -161,9 +161,9 @@ const sendName = (event) => {
     nameInput.classList.add('placeholder-color');
 
     return;
-  } else {
-    endsWithS(name);
   }
+
+  endsWithS(name);
 
   namestorage.set(name);
   nameInput.value = null;
