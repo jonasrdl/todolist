@@ -54,6 +54,11 @@ const init = () => {
   })
   newListSubmit.addEventListener('click', addNewList);
 
+  if (!indexstorage.get()) {
+    indexstorage.set(0);
+    newListText.innerHTML = 'Current List: Default';
+  }
+
   const theme = themestorage.get();
 
   if (theme === 'white') {
@@ -83,6 +88,7 @@ const init = () => {
 
   if (fromStorage[todolistPagination.currentPage].name !== 'Default') {
     indexstorage.set(0);
+    updateListText();
   }
 
   create();
