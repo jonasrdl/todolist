@@ -3,14 +3,15 @@
 import Eventbus from '../eventbus.js';
 import { Storage } from './components/Storage.js';
 import { Todolist } from './components/Todolist.js';
+import { Pagination } from "./components/Pagination.js";
 
+let todolistPagination;
 const todostorage = new Storage('todos');
 const themestorage = new Storage('theme');
 const indexstorage = new Storage('currentIndex');
 const namestorage = new Storage('username');
 
 let todoLists = [];
-let currentIndex = 0;
 let listView;
 let inputField;
 let newListInput;
@@ -24,8 +25,8 @@ let todoListHeader;
 let clearLocalStorageBtn;
 let fromStorage = [];
 
-const getArrayIndex = (element) =>
-  [...element.parentNode.children].findIndex((child) => child === element);
+/* const getArrayIndex = (element) =>
+  [...element.parentNode.children].findIndex((child) => child === element); */
 
 const init = () => {
   listView = document.getElementById('listView');
@@ -50,8 +51,12 @@ const init = () => {
   addTodoButton.addEventListener('click', addTodo);
   inputField.addEventListener('keyup', enterKeyUp);
   switchDesignButton.addEventListener('click', switchDesign);
-  prevPageBtn.addEventListener('click', prevPage);
-  nextPageBtn.addEventListener('click', nextPage);
+  prevPageBtn.addEventListener('click', () => {
+    todolistPagination.prevPage();
+  })
+  nextPageBtn.addEventListener('click', () => {
+    todolistPagination.nextPage();
+  })
   newListSubmit.addEventListener('click', addNewList);
   clearLocalStorageBtn.addEventListener('click', clearLocalStorage);
 
@@ -69,8 +74,6 @@ const init = () => {
     switchDesignIcon.classList.add('fa-moon');
   }
 
-  currentIndex = +indexstorage.get() || 0;
-
   const lists = todostorage.get();
 
   fromStorage = !!lists
@@ -82,7 +85,9 @@ const init = () => {
         }
       ];
 
-  if (!fromStorage[currentIndex].name === 'Default') {
+  todolistPagination = new Pagination(0, +indexstorage.get());
+
+  if (fromStorage[todolistPagination.currentPage].name !== 'Default') {
     indexstorage.set(0);
   }
 
@@ -104,7 +109,9 @@ const create = () => {
     });
     return todoList;
   });
-  todoLists[currentIndex].create();
+
+  todolistPagination.addMaxPage(todoLists.length - 1);
+  todoLists[todolistPagination.currentPage].create();
 };
 
 const change = () => {
@@ -113,20 +120,26 @@ const change = () => {
 
 Eventbus.on('deleteTodo', change)
 Eventbus.on('change', change);
+Eventbus.on('pageChange', (index) => {
+  todoLists[index].create();
+  indexstorage.set(index);
 
-// -- OLD STUFF --
-
-const checkDone = () => {
-  const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
-
-  [...checkboxes].forEach((checkbox) => checkbox.checked = todoLists[currentIndex].todos[getArrayIndex(checkbox)].done);
-};
+  updateListText();
+})
 
 const updateListText = () => {
-  const currentList = todoLists[currentIndex].name;
+  const currentList = todoLists[todolistPagination.currentPage].name;
   newListText.innerHTML = 'Current List: ' + currentList;
 };
 
+// -- OLD STUFF --
+
+/* const checkDone = () => {
+  const checkboxes = listView.querySelectorAll('input[type="checkbox"]');
+
+  [...checkboxes].forEach((checkbox) => checkbox.checked = todoLists[currentIndex].todos[getArrayIndex(checkbox)].done);
+}; */
+/*
 const setPage = (index) => {
   if (index >= todoLists.length || index < 0) {
     return;
@@ -146,7 +159,7 @@ const changePage = (direction, index = currentIndex + direction) => {
 };
 
 const prevPage = () => changePage(-1);
-const nextPage = () => changePage(1);
+const nextPage = () => changePage(1); */
 
 const enterKeyUp = (event) => {
   if (event.key === 'Enter') {
@@ -155,12 +168,8 @@ const enterKeyUp = (event) => {
 };
 
 const createTodoElement = (name, done) => {
-  todoLists[currentIndex].addTodo({ name, done });
+  todoLists[todolistPagination.currentPage].addTodo({ name, done });
 };
-
-
-
-
 
 const addTodo = () => {
   if (!inputField.value.trim().length) {
@@ -179,10 +188,12 @@ const addTodo = () => {
 
 const clearLocalStorage = () => {
   todostorage.clear();
+  indexstorage.clear();
+  namestorage.clear();
   location.reload();
 };
 
-const saveTodos = () => {
+/* const saveTodos = () => {
   fromStorage[currentIndex].todos.push({
     name: inputField.value,
     done: false
@@ -190,16 +201,14 @@ const saveTodos = () => {
 
   todostorage.set(fromStorage);
   updateListText();
-};
-
-
+}; */
 
 const sendName = (event) => {
   event.preventDefault();
   const name = nameInput.value;
 
   if (!nameInput.value.trim().length) {
-    todolist.messageIfEmpty(nameInput, 'Trage erst einen Namen ein!');
+    //todolist.messageIfEmpty(nameInput, 'Trage erst einen Namen ein!');
 
     return;
   } else {
@@ -228,10 +237,10 @@ const addNewList = (event) => {
   todoLists.push(new Todolist(newListInput.value, listView));
   Eventbus.emit('change');
 
+  todolistPagination.addMaxPage();
+  todolistPagination.setPage(todoLists.length - 1);
+
   newListText.innerHTML = 'Current List: ' + newListInput.value;
-
-  setPage(todoLists.length - 1);
-
   newListInput.value = null;
 };
 
