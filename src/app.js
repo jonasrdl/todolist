@@ -113,7 +113,6 @@ const change = () => {
   todostorage.set(todoLists.map(({name, todos}) => ({name, todos: todos.map(({name, done}) => ({name, done}))})));
 };
 
-Eventbus.on('deleteTodo', change)
 Eventbus.on('change', change);
 Eventbus.on('pageChange', (index) => {
   todoLists[index].create();
