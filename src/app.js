@@ -140,10 +140,10 @@ const addTodo = () => {
   if (!inputField.value.trim().length) {
 
     return;
-  } else {
-    inputField.placeholder = 'To Do...';
-    inputField.classList.remove('placeholder-color');
   }
+
+  inputField.placeholder = 'To Do...';
+  inputField.classList.remove('placeholder-color');
 
   createTodoElement(inputField.value);
   Eventbus.emit('change');
