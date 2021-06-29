@@ -88,7 +88,6 @@ const init = () => {
 
   if (fromStorage[todolistPagination.currentPage].name !== 'Default') {
     indexstorage.set(0);
-    updateListText();
   }
 
   create();
@@ -115,16 +114,13 @@ const change = () => {
 
 Eventbus.on('change', change);
 Eventbus.on('pageChange', (index) => {
+  const currentList = todoLists[todolistPagination.currentPage].name;
+
   todoLists[index].create();
   indexstorage.set(index);
 
-  updateListText();
-})
-
-const updateListText = () => {
-  const currentList = todoLists[todolistPagination.currentPage].name;
   newListText.innerHTML = 'Current List: ' + currentList;
-};
+})
 
 const enterKeyUp = (event) => {
   if (event.key === 'Enter') {
