@@ -12,54 +12,60 @@ const store = {
     name: new Storage('username')
 }
 
-const page = {}
+const page = {
+    prev: document.querySelector('.prevPageBtn'),
+    next: document.querySelector('.nextPageBtn')
+}
+
+const list = {
+    newListInput: document.querySelector('input.newListInput'),
+    newListSubmit: document.querySelector('button.newListSubmit'),
+    listView: document.getElementById('listView'),
+    newListText: document.querySelector('span.newListText')
+}
+
+const design = {
+    switchDesignButton: document.querySelector('button.switch-design'),
+    switchDesignIcon: document.querySelector('button.switch-design i')
+}
+
+const name = {
+    nameInput: document.querySelector('.nameInput'),
+    nameSubmit: document.querySelector('.nameSubmit')
+}
 
 let todolistPagination
 let todoLists = []
-let listView
-let inputField
-let newListInput
-let newListText
-let nameInput
-let nameSubmit
-let newListSubmit
-let todoListHeader
 let fromStorage = []
 
-const init = () => {
-    page.prev = document.querySelector('.prevPageBtn')
-    page.next = document.querySelector('.nextPageBtn')
+let inputField
+let todoListHeader
 
-    listView = document.getElementById('listView')
+const init = () => {
 
     const root = document.querySelector('html')
-    const switchDesignButton = document.querySelector('button.switch-design')
-    const switchDesignIcon = document.querySelector('button.switch-design i')
     const addTodoButton = document.querySelector('button.addToDo')
     addTodoButton.classList.add('ripple')
     todoListHeader = document.querySelector('.toDoListHeader')
-    nameInput = document.querySelector('.nameInput')
-    nameSubmit = document.querySelector('.nameSubmit')
-    newListText = document.querySelector('span.newListText')
-    inputField = document.getElementById('inputField')
-    newListInput = document.querySelector('input.newListInput')
-    newListSubmit = document.querySelector('button.newListSubmit')
 
-    nameSubmit.addEventListener('click', sendName)
+
+    inputField = document.getElementById('inputField')
+
+    name.nameSubmit.addEventListener('click', sendName)
     addTodoButton.addEventListener('click', addTodo)
     inputField.addEventListener('keyup', enterKeyUp)
-    switchDesignButton.addEventListener('click', switchDesign)
-    prevPageBtn.addEventListener('click', () => {
+    design.switchDesignButton.addEventListener('click', switchDesign)
+    page.prev.addEventListener('click', () => {
         todolistPagination.prevPage()
     })
-    nextPageBtn.addEventListener('click', () => {
+    page.next.addEventListener('click', () => {
         todolistPagination.nextPage()
     })
-    newListSubmit.addEventListener('click', addNewList)
+    list.newListSubmit.addEventListener('click', addNewList)
 
     if (!store.index.get()) {
         store.index.set(0)
-        newListText.innerHTML = 'Current List: Default'
+        list.newListText.innerHTML = 'Current List: Default'
     }
 
     const theme = store.theme.get()
@@ -67,13 +73,13 @@ const init = () => {
     if (theme === 'white') {
         store.theme.set('white')
         root.classList.add('white')
-        switchDesignIcon.classList.remove('fa-moon')
-        switchDesignIcon.classList.add('fa-sun')
+        design.switchDesignIcon.classList.remove('fa-moon')
+        design.switchDesignIcon.classList.add('fa-sun')
     } else {
         store.theme.set('dark')
         root.classList.remove('white')
-        switchDesignIcon.classList.remove('fa-sun')
-        switchDesignIcon.classList.add('fa-moon')
+        design.switchDesignIcon.classList.remove('fa-sun')
+        design.switchDesignIcon.classList.add('fa-moon')
     }
 
     const lists = store.todo.get()
@@ -101,7 +107,7 @@ window.addEventListener('DOMContentLoaded', init)
 
 const create = () => {
     todoLists = fromStorage.map((list) => {
-        const todoList = new Todolist(list.name, listView)
+        const todoList = new Todolist(list.name, list.listView)
         list.todos.forEach(({name, done}) => {
             todoList.addTodo({name, done})
         })
@@ -126,7 +132,7 @@ Eventbus.on('pageChange', (index) => {
 
 const updateListText = () => {
     const currentList = todoLists[todolistPagination.currentPage].name
-    newListText.innerHTML = 'Current List: ' + currentList
+    list.newListText.innerHTML = 'Current List: ' + currentList
 }
 
 const enterKeyUp = (event) => {
@@ -156,12 +162,12 @@ const addTodo = () => {
 
 const sendName = (event) => {
     event.preventDefault()
-    const name = nameInput.value
+    const name = name.nameInput.value
 
-    if (!nameInput.value.trim().length) {
-        nameInput.value = null
-        nameInput.placeholder = 'Trage erst einen Namen ein'
-        nameInput.classList.add('placeholder-color')
+    if (!name.nameInput.value.trim().length) {
+        name.nameInput.value = null
+        name.nameInput.placeholder = 'Trage erst einen Namen ein'
+        name.nameInput.classList.add('placeholder-color')
 
         return
     }
@@ -169,7 +175,7 @@ const sendName = (event) => {
     endsWithS(name)
 
     store.name.set(name)
-    nameInput.value = null
+    name.nameInput.value = null
 }
 
 const endsWithS = (name) => {
@@ -179,22 +185,22 @@ const endsWithS = (name) => {
 const addNewList = (event) => {
     event.preventDefault()
 
-    if (!newListInput.value.trim().length) {
-        newListInput.value = null
-        newListInput.placeholder = 'Trage erst einen Namen ein'
-        newListInput.classList.add('placeholder-color')
+    if (!list.newListInput.value.trim().length) {
+        list.newListInput.value = null
+        list.newListInput.placeholder = 'Trage erst einen Namen ein'
+        list.newListInput.classList.add('placeholder-color')
 
         return
     }
 
-    todoLists.push(new Todolist(newListInput.value, listView))
+    todoLists.push(new Todolist(list.newListInput.value, list.listView))
     Eventbus.emit('change')
 
     todolistPagination.addMaxPage()
     todolistPagination.setPage(todoLists.length - 1)
 
-    newListText.innerHTML = 'Current List: ' + newListInput.value
-    newListInput.value = null
+    list.newListText.innerHTML = 'Current List: ' + list.newListInput.value
+    list.newListInput.value = null
 }
 
 const switchDesign = () => {
