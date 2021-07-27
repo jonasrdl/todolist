@@ -167,13 +167,13 @@ const sendName = (event) => {
         return
     }
 
-    endsWithS(name)
+    setListNameWithS(name)
 
     store.name.set(name)
     name.nameInput.value = null
 }
 
-const endsWithS = (name) => {
+const setListNameWithS = (name) => {
     name.endsWith('s') ? todoListHeader.textContent = name + '\' To Do List' : todoListHeader.textContent = name + '\'s To Do List'
 }
 
