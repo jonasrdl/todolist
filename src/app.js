@@ -42,18 +42,19 @@ let inputField
 let todoListHeader
 
 const init = () => {
-
     const root = document.querySelector('html')
     const addTodoButton = document.querySelector('button.addToDo')
+
     addTodoButton.classList.add('ripple')
     todoListHeader = document.querySelector('.toDoListHeader')
-
-
     inputField = document.getElementById('inputField')
-
     name.nameSubmit.addEventListener('click', sendName)
     addTodoButton.addEventListener('click', addTodo)
-    inputField.addEventListener('keyup', enterKeyUp)
+    inputField.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            addTodo()
+        }
+    })
     design.switchDesignButton.addEventListener('click', switchDesign)
     page.prev.addEventListener('click', () => {
         todolistPagination.prevPage()
@@ -106,9 +107,9 @@ const init = () => {
 window.addEventListener('DOMContentLoaded', init)
 
 const create = () => {
-    todoLists = fromStorage.map((list) => {
-        const todoList = new Todolist(list.name, list.listView)
-        list.todos.forEach(({name, done}) => {
+    todoLists = fromStorage.map((storageList) => {
+        const todoList = new Todolist(storageList.name, list.listView)
+        storageList.todos.forEach(({name, done}) => {
             todoList.addTodo({name, done})
         })
         return todoList
@@ -133,12 +134,6 @@ Eventbus.on('pageChange', (index) => {
 const updateListText = () => {
     const currentList = todoLists[todolistPagination.currentPage].name
     list.newListText.innerHTML = 'Current List: ' + currentList
-}
-
-const enterKeyUp = (event) => {
-    if (event.key === 'Enter') {
-        addTodo()
-    }
 }
 
 const createTodoElement = (name, done) => {
