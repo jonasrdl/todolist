@@ -1,0 +1,306 @@
+/*
+Überschrift: Roboto Condensed
+Todos: Roboto
+*/
+
+:root {
+  --color-background: #1f2933;
+  --color-text: #fdfdfd;
+  --color-drag-drop: #8b52ff;
+}
+
+:root.white {
+  --color-background: #fdfdfd;
+  --color-text: #212121;
+  --color-drag-drop: #5527b3;
+}
+
+* {
+  transition: all 0.2s ease;
+  background-color: var(--color-background);
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: var(--color-text);
+  opacity: 87%;
+}
+
+.switch-design {
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  font-size: 20px;
+  cursor: pointer;
+  top: 1%;
+  position: absolute;
+  transition: all 0.2s ease;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  padding: 10px;
+}
+
+.nameInput {
+  position: relative;
+}
+
+#inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#inputField,
+.nameInput {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 300px;
+  height: 30px;
+  font-size: 20px;
+  opacity: 87%;
+  border-bottom: 1px solid var(--color-text);
+  color: var(--color-text);
+}
+
+#inputField::placeholder {
+  opacity: 87%;
+}
+
+input[type='text']:focus {
+  outline: none;
+}
+
+input[type='checkbox'] {
+  position: absolute;
+  left: 40.5%;
+  width: 20px;
+  height: 20px;
+}
+
+input[type='checkbox']:checked ~ span {
+  text-decoration: line-through;
+}
+
+.btn {
+  position: absolute;
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+}
+
+.btn:hover {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:focus,
+.switch-design:focus {
+  outline: none;
+}
+
+.nameSubmit {
+  margin-top: 3px;
+  margin-left: 5px;
+  width: 50px;
+}
+
+.editToDoButton {
+  left: 56%;
+  transition: all 0.2s ease-in-out;
+}
+
+.deleteToDoButton {
+  left: 58%;
+  transition: all 0.2s ease-in-out;
+}
+
+span {
+  font-size: 20px;
+  position: relative;
+  margin-top: 2px;
+  left: 41%;
+  color: var(--color-text);
+  opacity: 87%;
+}
+
+.addToDo {
+  font-size: 15px;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  opacity: 87%;
+  background: none;
+  width: 40px;
+  height: 36px;
+  margin-left: 1%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addToDo:hover {
+  transition: all 0.2s ease;
+}
+
+.addToDo:focus {
+  outline: none;
+}
+
+button > i {
+  pointer-events: none;
+}
+
+li.edit > input[type='text'] {
+  font-size: 20px;
+  position: relative;
+  left: 41%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 247px;
+}
+
+li.edit > input[type='text'],
+li > span {
+  display: inline-block;
+  color: var(--color-text);
+  opacity: 87%;
+}
+
+li.edit > span,
+li > input[type='text'] {
+  display: none;
+}
+
+.clearLocalStorageBtn {
+  font-size: 15px;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+  opacity: 87%;
+  background: none;
+  width: 60px;
+  height: 36px;
+  margin-left: 0.5%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clearLocalStorageBtn:hover {
+  transition: all 0.2s ease;
+}
+
+.clearLocalStorageBtn:focus {
+  outline: none;
+}
+
+/* ripple */
+.ripple {
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.ripple:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    var(--color-drag-drop) 10%,
+    transparent 10.01%
+  );
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+/* ripple */
+
+.dragover-if {
+  border-bottom: solid 4px var(--color-drag-drop);
+  border-top: none;
+}
+
+.dragover-else {
+  border-top: solid 4px var(--color-drag-drop);
+  border-bottom: none;
+}
+
+.dragleave {
+  border-bottom: none;
+  border-top: none;
+}
+
+.drop-if {
+  border-bottom: none;
+}
+
+.drop-else {
+  border-top: none;
+}
+
+.placeholder-color::placeholder {
+  transition: 0.2s ease-in-out;
+  color: red;
+}
+
+.prevPageBtn,
+.nextPageBtn {
+  height: 28px;
+  position: absolute;
+  top: 1%;
+  font-size: 20px;
+}
+
+.prevPageBtn {
+  left: 3%;
+}
+
+.nextPageBtn {
+  left: 4.8%;
+}
+
+.newListInput {
+  position: absolute;
+  top: 0.6%;
+  left: 7%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 300px;
+  height: 30px;
+  font-size: 20px;
+  opacity: 87%;
+  border-bottom: 1px solid var(--color-text);
+  color: var(--color-text);
+}
+
+.newListSubmit {
+  font-size: 20px;
+  position: absolute;
+  top: 0.8%;
+  left: 23%;
+}
+
+.newListText {
+  position: absolute;
+  top: 5%;
+  left: 0.5%;
+}
