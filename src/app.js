@@ -42,14 +42,14 @@ let todoLists = []
 let fromStorage = []
 
 let inputField
-let todoListHeader
+let heading
 
 const init = () => {
     const root = document.querySelector('html')
     const addTodoButton = document.querySelector('button.addToDo')
 
     addTodoButton.classList.add('ripple')
-    todoListHeader = document.querySelector('.toDoListHeader')
+    heading = document.querySelector('.heading')
     inputField = document.getElementById('inputField')
     name.nameSubmit.addEventListener('click', sendName)
     addTodoButton.addEventListener('click', addTodo)
@@ -175,7 +175,7 @@ const sendName = (event) => {
 }
 
 const setListNameWithS = (name) => {
-    name.endsWith('s') ? todoListHeader.textContent = name + '\' To Do List' : todoListHeader.textContent = name + '\'s To Do List'
+    name.endsWith('s') ? heading.textContent = name + '\' To Do List' : heading.textContent = name + '\'s To Do List'
 }
 
 const addNewList = (event) => {
