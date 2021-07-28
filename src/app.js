@@ -4,14 +4,11 @@ import Eventbus from '../eventbus.js'
 import {Storage} from './components/Storage.js'
 import {Todolist} from './components/Todolist.js'
 import {Pagination} from './components/Pagination.js'
-import {Theme} from "./components/Theme.js";
-
-let theme = new Theme();
 
 const store = {
     todo: new Storage('todos'),
-    //theme: new Storage('theme'),
     index: new Storage('currentIndex'),
+    theme: new Storage('theme'),
     name: new Storage('username')
 }
 
@@ -72,13 +69,13 @@ const init = () => {
         list.newListText.innerHTML = 'Current List: Default'
     }
 
-    if (theme.get() === 'white') {
-        theme.set('white')
+    if (JSON.parse(store.theme.get()) === 'white') {
+        store.theme.set('white')
         root.classList.add('white')
         design.switchDesignIcon.classList.remove('fa-moon')
         design.switchDesignIcon.classList.add('fa-sun')
     } else {
-        theme.set('dark')
+        store.theme.set('dark')
         root.classList.remove('white')
         design.switchDesignIcon.classList.remove('fa-sun')
         design.switchDesignIcon.classList.add('fa-moon')
@@ -208,12 +205,12 @@ const switchDesign = () => {
     root.classList.toggle('white')
 
     if (root.classList.contains('white')) {
-        theme.set('white')
+        store.theme.set('white')
 
         switchDesignIcon.classList.remove('fa-moon')
         switchDesignIcon.classList.add('fa-sun')
     } else {
-        theme.set('dark')
+        store.theme.set('dark')
 
         switchDesignIcon.classList.remove('fa-sun')
         switchDesignIcon.classList.add('fa-moon')
