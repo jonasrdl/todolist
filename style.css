@@ -1,10 +1,5 @@
-/*
-Überschrift: Roboto Condensed
-Todos: Roboto
-*/
-
 :root {
-  --color-background: #1f2933;
+  --color-background: #212121;
   --color-text: #fdfdfd;
   --color-drag-drop: #8b52ff;
 }

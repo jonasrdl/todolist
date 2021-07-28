@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <link rel="shortcut icon" type="image/jpg" href="./assets/img/favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
@@ -17,7 +16,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do Liste</title>
-    <script src="src/app.js" type="module"></script>
+    <script src="app.js"></script>
   </head>
   <body>
     <h1 class="toDoListHeader">To Do List</h1>
@@ -30,24 +29,41 @@
     <button class="nextPageBtn btn ripple">></button>
 
     <form>
-      <input type="text" placeholder="New list name... (max. 30)" class="newListInput" id="newListInput" autocomplete="off" maxlength="30" />
+      <input
+        type="text"
+        placeholder="New list name... (max. 30)"
+        class="newListInput"
+        id="newListInput"
+        autocomplete="off"
+        maxlength="30"
+      />
       <button type="submit" class="newListSubmit btn">+</button>
     </form>
-
     <span class="newListText"></span>
 
     <form>
-      <input type="text" placeholder="Your Name..." class="nameInput" maxlength="20" />
+      <input
+        type="text"
+        placeholder="Your Name..."
+        class="nameInput"
+        maxlength="20"
+      />
       <button type="submit" class="nameSubmit btn">Send</button>
     </form>
 
     <section id="inputContainer">
-      <input type="text" placeholder="To Do..." id="inputField" autocomplete="off" />
+      <input
+        type="text"
+        placeholder="To Do..."
+        id="inputField"
+        autocomplete="off"
+      />
       <button class="addToDo">
         <i class="fas fa-plus"></i>
       </button>
+      <button class="clearLocalStorageBtn">Clear</button>
     </section>
 
-    <ul id="listView"></ul>
+    <ul id="toDoList"></ul>
   </body>
 </html>
