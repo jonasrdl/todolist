@@ -98,11 +98,13 @@ const init = () => {
     todolistPagination = new Pagination(0, +store.index.get())
 
     if (fromStorage[todolistPagination.currentPage].name !== 'Default') {
-        store.index.set(0)
-        updateListText()
+        store.index.set(0);
+        updateListText();
     }
 
-    create()
+    updateListText();
+
+    create();
 }
 
 window.addEventListener('DOMContentLoaded', init)
@@ -133,7 +135,7 @@ Eventbus.on('pageChange', (index) => {
 })
 
 const updateListText = () => {
-    const currentList = todoLists[todolistPagination.currentPage].name
+    const currentList = fromStorage[todolistPagination.currentPage].name
     list.newListText.innerHTML = 'Current List: ' + currentList
 }
 
