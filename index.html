@@ -26,47 +26,62 @@
   <!-- NEW STUFF -->
     <nav class="nav">
       <div class="nav-content-wrapper">
-        <i class="fas fa-clipboard-list todolist-icon"></i>
-        <p>Todolist</p>
+          <i class="fas fa-clipboard-list todolist-icon"></i>
+
+        <p class="heading">Todolist</p>
         <!-- Theme switch checkbox(?) -->
-        <input type="checkbox" class="theme-switch">
-        <!-- Theme switch checkbox(?) -->
+        <div class="theme-switch-wrapper">
+          <label>
+            <input type="checkbox" class="theme-switch">
+          </label>
+        </div>
+          <!-- Theme switch checkbox(?) -->
       </div>
     </nav>
 
-    <main>
-      <!-- TODO AREA -->
-    </main>
+    <div class="welcome">
+      <span class="welcome-text">Hey [NAME]!</span>
+      <span class="upcoming-todos">Du hast derzeit <span class="marked-list-text">3 Listen</span> mit ingesamt <span class="marked-todo-text">24 Todos.</span></span>
+    </div>
+
+      <div class="list-todo-area">
+          <div class="list-area">
+            <form>
+              <input type="text" placeholder="New list name... (max. 30)" class="newListInput" id="newListInput" autocomplete="off" maxlength="30" />
+              <button type="submit" class="newListSubmit btn">+</button>
+            </form>
+          </div>
+          <div class="todo-area">
+            <section id="inputContainer">
+              <input type="text" placeholder="To Do..." id="inputField" autocomplete="off" />
+              <button class="addToDo">
+                <i class="fas fa-plus"></i>
+              </button>
+            </section>
+
+            <ul id="listView"></ul>
+          </div>
+      </div>
   <!-- NEW STUFF -->
 
   <!-- OLD STUFF -->
 
-    <button class="switch-design">
+    <!-- <button class="switch-design">
       <i class="fas fa-moon"></i>
-    </button>
+    </button> -->
 
-    <button class="prevPageBtn btn ripple"><</button>
-    <button class="nextPageBtn btn ripple">></button>
+    <!-- <button class="prevPageBtn btn ripple"><</button>
+    <button class="nextPageBtn btn ripple">></button> -->
 
-    <form>
-      <input type="text" placeholder="New list name... (max. 30)" class="newListInput" id="newListInput" autocomplete="off" maxlength="30" />
-      <button type="submit" class="newListSubmit btn">+</button>
-    </form>
 
-    <span class="newListText"></span>
 
-    <form>
+    <!-- <span class="newListText"></span> -->
+
+    <!-- <form>
       <input type="text" placeholder="Your Name..." class="nameInput" maxlength="20" />
       <button type="submit" class="nameSubmit btn">Send</button>
-    </form>
+    </form> -->
 
-    <section id="inputContainer">
-      <input type="text" placeholder="To Do..." id="inputField" autocomplete="off" />
-      <button class="addToDo">
-        <i class="fas fa-plus"></i>
-      </button>
-    </section>
 
-    <ul id="listView"></ul>
   </body>
 </html>
