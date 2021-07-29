@@ -14,13 +14,19 @@ Haupt Hintergrund: #ffffff
 Links Listen Name Background (lila): #7a3db4
 Theme Button, checkbox abgehakt background: #7a3db4
 Theme button klickbar: #af64e8
+
 Schrift "3 Listen, 24 Todos" highlighted: #b36ce9
+Schriftfarbe ohne highlighted: #7e8084
+
  */
 
 :root {
     --heading-background: #454558;
     --main-background: #272730;
     --heading-font: 'Roboto Condensed', sans-serif;
+    --icon-color: #af64e8;
+    --heading-font-color: #ecf0f1;
+    --marked-todos-lists: #664385;
 }
 
 body {
@@ -29,38 +35,78 @@ body {
     background-color: var(--main-background);
 }
 
+.heading {
+    color: var(--heading-font-color);
+    font-family: var(--heading-font);
+    margin-right: auto;
+    font-size: 30px;
+}
+
 .nav {
     background-color: var(--heading-background);
 }
 
 .nav-content-wrapper {
     display: flex;
+    justify-content: space-between;
+    height: 4.3rem;
     align-items: center;
-    height: 15%;
 }
 
-.nav .nav-content-wrapper i {
-    padding: 12px;
-    text-decoration: none;
-    font-size: 45px;
+.todolist-icon {
+    padding-left: 1.3%;
+    padding-right: .5%;
+    color: var(--icon-color);
+    font-size: 40px;
+}
+
+.theme-switch {
+}
+
+.welcome {
     margin-left: 1%;
-    color: #af64e8;
+    margin-top: 1%;
 }
 
-.nav .nav-content-wrapper p {
-    font-size: 35px;
+.welcome-text {
+    color: var(--heading-font-color);
+    font-size: 30px;
+    display: block;
+}
+
+.upcoming-todos {
+    margin-top: .3%;
+    color: #7e8084;
+}
+
+.welcome-text, .upcoming-todos {
     font-family: var(--heading-font);
-    color: #ecf0f1;
-    display: inline;
-    vertical-align: middle
+}
+
+.marked-list-text, .marked-todo-text {
+    color: var(--marked-todos-lists);
+}
+
+.list-todo-area {
+    display: flex;
+    overflow: hidden;
+    margin: 1em 0;
+    align-items: center;
+}
+
+.list-area {
+    flex: 1;
+}
+
+.todo-area {
+    flex: 1;
 }
 
 /*
 Theme switch Button
  */
+/*
 .theme-switch {
-    /* background-image: url("assets/img/icons/half-moon.png"); */
-    position: relative;
     left: 85%;
     width: 80px;
     height: 40px;
@@ -80,8 +126,8 @@ Theme switch Button
 .theme-switch:before {
     content: '';
     position: absolute;
-    width: 50%;
-    height: 100%;
+    width: 50px;
+    height: 50px;
     border-radius: 20px;
     top: 0;
     left: 0;
