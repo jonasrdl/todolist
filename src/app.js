@@ -51,20 +51,20 @@ const init = () => {
     addTodoButton.classList.add('ripple')
     heading = document.querySelector('.heading')
     inputField = document.getElementById('inputField')
-    name.nameSubmit.addEventListener('click', sendName)
+    //name.nameSubmit.addEventListener('click', sendName)
     addTodoButton.addEventListener('click', addTodo)
     inputField.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             addTodo()
         }
     })
-    design.switchDesignButton.addEventListener('click', switchDesign)
-    page.prev.addEventListener('click', () => {
-        todolistPagination.prevPage()
-    })
-    page.next.addEventListener('click', () => {
-        todolistPagination.nextPage()
-    })
+    //design.switchDesignButton.addEventListener('click', switchDesign)
+    //page.prev.addEventListener('click', () => {
+    //    todolistPagination.prevPage()
+    //})
+    //page.next.addEventListener('click', () => {
+    //    todolistPagination.nextPage()
+    //})
     list.newListSubmit.addEventListener('click', addNewList)
 
     if (!store.index.get()) {
@@ -75,13 +75,13 @@ const init = () => {
     if (theme.get() === 'white') {
         theme.set('white')
         root.classList.add('white')
-        design.switchDesignIcon.classList.remove('fa-moon')
-        design.switchDesignIcon.classList.add('fa-sun')
+        //design.switchDesignIcon.classList.remove('fa-moon')
+        //design.switchDesignIcon.classList.add('fa-sun')
     } else {
         theme.set('dark')
         root.classList.remove('white')
-        design.switchDesignIcon.classList.remove('fa-sun')
-        design.switchDesignIcon.classList.add('fa-moon')
+        //design.switchDesignIcon.classList.remove('fa-sun')
+        //design.switchDesignIcon.classList.add('fa-moon')
     }
 
     const lists = store.todo.get()
