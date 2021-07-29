@@ -69,7 +69,7 @@ const init = () => {
 
     if (!store.index.get()) {
         store.index.set(0)
-        list.newListText.innerHTML = 'Current List: Default'
+        //list.newListText.innerHTML = 'Current List: Default'
     }
 
     if (theme.get() === 'white') {
@@ -99,10 +99,12 @@ const init = () => {
 
     if (fromStorage[todolistPagination.currentPage].name !== 'Default') {
         store.index.set(0)
-        updateListText()
+        //updateListText()
     }
 
     create()
+    countTodos()
+    countLists()
 }
 
 window.addEventListener('DOMContentLoaded', init)
@@ -129,13 +131,33 @@ Eventbus.on('pageChange', (index) => {
     todoLists[index].create()
     store.index.set(index)
 
-    updateListText()
+    //updateListText()
 })
 
-const updateListText = () => {
+const countTodos = () => {
+    const todoCountText = document.querySelector('span.marked-todo-text');
+
+    fromStorage.forEach(todos => {
+        todoCountText.innerHTML = `${todos.todos.length} Todos.`;
+    });
+}
+
+const countLists = () => {
+    const listCountText = document.querySelector('span.marked-list-text');
+
+    fromStorage.forEach(lists => {
+        if (fromStorage.length === 1) {
+            listCountText.innerHTML = `${fromStorage.length} Liste`;
+        } else {
+            listCountText.innerHTML = `${fromStorage.length} Listen`;
+        }
+    })
+}
+
+/* const updateListText = () => {
     const currentList = todoLists[todolistPagination.currentPage].name
     list.newListText.innerHTML = 'Current List: ' + currentList
-}
+} */
 
 const createTodoElement = (name, done) => {
     todoLists[todolistPagination.currentPage].addTodo({name, done})
