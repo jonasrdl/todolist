@@ -13,7 +13,7 @@ export class Todo {
 
     const li = document.createElement('li');
     li.classList.add('li');
-    li.draggable = true;
+    //li.draggable = true;
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
