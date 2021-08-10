@@ -1,10 +1,10 @@
 'use strict'
 
 import Eventbus from '../eventbus.js'
-import {Storage} from './components/Storage.js'
-import {Todolist} from './components/Todolist.js'
-import {Pagination} from './components/Pagination.js'
-import {Theme} from "./components/Theme.js";
+import { Storage } from './components/Storage.js'
+import { Todolist } from './components/Todolist.js'
+import { Pagination } from './components/Pagination.js'
+import { Theme } from "./components/Theme.js";
 
 let theme = new Theme();
 
@@ -176,6 +176,9 @@ const addTodo = () => {
     Eventbus.emit('change')
 
     inputField.value = null
+
+    countTodos()
+    countLists()
 }
 
 const sendName = (event) => {
