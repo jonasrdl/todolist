@@ -27,6 +27,7 @@ Schriftfarbe ohne highlighted: #7e8084
     --icon-color: #af64e8;
     --heading-font-color: #ecf0f1;
     --marked-todos-lists: #664385;
+    --main-left-margin: 1.5rem;
 }
 
 body {
@@ -39,7 +40,7 @@ body {
     color: var(--heading-font-color);
     font-family: var(--heading-font);
     margin-right: auto;
-    font-size: 30px;
+    font-size: 45px;
 }
 
 .nav {
@@ -49,7 +50,7 @@ body {
 .nav-content-wrapper {
     display: flex;
     justify-content: space-between;
-    height: 4.3rem;
+    height: 7rem;
     align-items: center;
 }
 
@@ -68,18 +69,22 @@ body {
     margin-top: 1%;
 }
 
-.welcome-text {
+.welcome-heading {
     color: var(--heading-font-color);
-    font-size: 30px;
+    font-size: 2.8rem;
     display: block;
+    margin-top: 2rem;
+    margin-left: var(--main-left-margin);
+    margin-bottom: .8rem;
 }
 
 .upcoming-todos {
-    margin-top: .3%;
     color: #7e8084;
+    font-size: 1.5rem;
+    margin-left: var(--main-left-margin);
 }
 
-.welcome-text, .upcoming-todos {
+.welcome-heading, .upcoming-todos {
     font-family: var(--heading-font);
 }
 
@@ -87,7 +92,7 @@ body {
     color: var(--marked-todos-lists);
 }
 
-.list-todo-area {
+/* .list-todo-area {
     display: flex;
     overflow: hidden;
     margin: 1em 0;
@@ -100,6 +105,129 @@ body {
 
 .todo-area {
     flex: 1;
+} */
+
+.list-heading, .current-list-name {
+    font-family: var(--heading-font);
+    color: var(--heading-font-color);
+    font-size: 2.3rem;
+}
+
+.list-heading-wrapper {
+    margin-top: 2rem;
+    margin-left: var(--main-left-margin);
+    width: 40%;
+}
+
+.main-wrapper {
+    display: flex;
+    margin-top: 3.5rem;
+}
+
+.item {
+    flex-basis: 100px;
+    height: 100px;
+    margin: 5px;
+}
+
+.left-content-wrapper {
+    margin-left: var(--main-left-margin);
+    font-family: var(--heading-font);
+}
+
+.right-content-wrapper {
+    margin-left: 8rem;
+}
+
+.active-list {
+    background-color: #af64e8;
+    border-radius: 8px;
+    border: 8px solid #af64e8;
+}
+
+.left-content-wrapper > ul {
+    color: #ecf0f1;
+    list-style: none;
+    font-size: 2rem;
+    margin: 2rem 0 0;
+    padding: 0;
+}
+
+.left-content-wrapper > ul > li {
+    margin: 1.3rem;
+}
+
+.newListInput {
+    margin-top: 1rem;
+    background: none;
+    color: #ecf0f1;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #af64e8;
+    font-size: 1.4rem;
+}
+
+.new-todo-input {
+    margin-top: 1rem;
+    background: none;
+    color: #ecf0f1;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #af64e8;
+    font-size: 1.5rem;
+}
+
+.right-content-wrapper > ul > li {
+    list-style: none;
+    color: #ecf0f1;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+}
+
+/* .current-list-name {
+    margin-left: 25rem;
+}
+
+.new-list-input-wrapper {
+    display: inline-block;
+}
+
+
+
+.new-todo-input-wrapper {
+    display: inline-block;
+}
+
+
+
+.lists {
+    margin-top: 2rem;
+    font-family: var(--heading-font);
+    font-size: 3rem;
+    margin-left: var(--main-left-margin);
+}
+
+.lists > span {
+    padding: .5%;
+    margin-top: 1rem;
+    color: #ecf0f1;
+    display: block;
+    background-color: #af64e8;
+    border-radius: 1rem;
+    width: 20rem;
+    font-size: 2.5rem;
+}
+
+.list-view-wrapper {
+    display: inline-block;
+}
+
+li {
+    list-style: none;
 }
 
 /*

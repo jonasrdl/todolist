@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" type="image/jpg" href="./assets/img/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="./assets/img/favicon.ico" rel="shortcut icon" type="image/jpg" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
       rel="stylesheet"
     />
     <link
-      rel="stylesheet"
+      crossorigin="anonymous"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
       integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-      crossorigin="anonymous"
+      rel="stylesheet"
     />
     <!-- <link rel="stylesheet" href="style-backup.css" /> -->
-    <link rel="stylesheet" href="style.css">
+    <link href="style.css" rel="stylesheet">
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>To Do Liste</title>
     <script src="src/app.js" type="module"></script>
   </head>
@@ -32,56 +33,40 @@
         <!-- Theme switch checkbox(?) -->
         <div class="theme-switch-wrapper">
           <label>
-            <input type="checkbox" class="theme-switch">
+            <input class="theme-switch" type="checkbox">
           </label>
         </div>
-          <!-- Theme switch checkbox(?) -->
+          <!-- Theme switch checkbox -->
       </div>
     </nav>
 
-    <div class="welcome">
-      <span class="welcome-text">Hey <span class="welcome-name">[NAME]!</span></span>
-      <span class="upcoming-todos">Du hast derzeit <span class="marked-list-text">0 Listen</span> mit ingesamt <span class="marked-todo-text">0 Todos.</span></span>
+  <div class="welcome-heading-wrapper">
+    <span class="welcome-heading">Hey <span class="welcome-name">[NAME]!</span></span>
+    <span class="upcoming-todos">Du hast derzeit <span class="marked-list-text">0 Listen</span> mit ingesamt <span class="marked-todo-text">0 Todos.</span></span>
+  </div>
+
+  <div class="main-wrapper">
+    <div class="item left-content-wrapper">
+      <span class="list-heading">Listen</span>
+
+      <input autocomplete="off" class="newListInput" maxlength="30" placeholder="New list name..." type="text" />
+
+      <ul>
+        <li class="active-list"><i class="fas fa-shopping-cart"></i> Einkauf</li>
+        <li><i class="fas fa-home"></i> Haushalt</li>
+        <li><i class="fas fa-money-bill-wave-alt"></i> Schulden</li>
+      </ul>
     </div>
 
-      <div class="list-todo-area">
-          <div class="list-area">
-            <form>
-              <input type="text" placeholder="New list name... (max. 30)" class="newListInput" id="newListInput" autocomplete="off" maxlength="30" />
-              <button type="submit" class="newListSubmit btn">+</button>
-            </form>
-          </div>
-          <div class="todo-area">
-            <section id="inputContainer">
-              <input type="text" placeholder="To Do..." id="inputField" autocomplete="off" />
-              <button class="addToDo">
-                <i class="fas fa-plus"></i>
-              </button>
-            </section>
+    <div class="item right-content-wrapper">
+      <span class="current-list-name"><i class="fas fa-shopping-cart"></i> Einkauf</span>
 
-            <ul id="listView"></ul>
-          </div>
-      </div>
-  <!-- NEW STUFF -->
+      <input type="text" class="new-todo-input" placeholder="New Todo...">
 
-  <!-- OLD STUFF -->
-
-    <!-- <button class="switch-design">
-      <i class="fas fa-moon"></i>
-    </button> -->
-
-    <!-- <button class="prevPageBtn btn ripple"><</button>
-    <button class="nextPageBtn btn ripple">></button> -->
-
-
-
-    <!-- <span class="newListText"></span> -->
-
-    <!-- <form>
-      <input type="text" placeholder="Your Name..." class="nameInput" maxlength="20" />
-      <button type="submit" class="nameSubmit btn">Send</button>
-    </form> -->
-
-
+      <ul id="listView">
+        <li>Ich bin ein Todo</li>
+      </ul>
+    </div>
+  </div>
   </body>
 </html>
