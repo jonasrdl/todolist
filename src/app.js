@@ -41,19 +41,19 @@ let todolistPagination
 let todoLists = []
 let fromStorage = []
 
-let inputField
+let newTodoInput
 let heading
 
 const init = () => {
     const root = document.querySelector('html')
-    const addTodoButton = document.querySelector('button.addToDo')
+    //const addTodoButton = document.querySelector('button.addToDo')
 
-    addTodoButton.classList.add('ripple')
+    //addTodoButton.classList.add('ripple')
     heading = document.querySelector('.heading')
-    inputField = document.getElementById('inputField')
+    newTodoInput = document.querySelector('input.new-todo-input');
     //name.nameSubmit.addEventListener('click', sendName)
-    addTodoButton.addEventListener('click', addTodo)
-    inputField.addEventListener('keyup', (event) => {
+    //addTodoButton.addEventListener('click', addTodo)
+    newTodoInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             addTodo()
         }
@@ -65,7 +65,7 @@ const init = () => {
     //page.next.addEventListener('click', () => {
     //    todolistPagination.nextPage()
     //})
-    list.newListSubmit.addEventListener('click', addNewList)
+    //list.newListSubmit.addEventListener('click', addNewList)
 
     if (!store.index.get()) {
         store.index.set(0)
@@ -164,18 +164,18 @@ const createTodoElement = (name, done) => {
 }
 
 const addTodo = () => {
-    if (!inputField.value.trim().length) {
+    if (!newTodoInput.value.trim().length) {
 
         return
     }
 
-    inputField.placeholder = 'To Do...'
-    inputField.classList.remove('placeholder-color')
+    newTodoInput.placeholder = 'To Do...'
+    newTodoInput.classList.remove('placeholder-color')
 
-    createTodoElement(inputField.value)
+    createTodoElement(newTodoInput.value)
     Eventbus.emit('change')
 
-    inputField.value = null
+    newTodoInput.value = null
 
     countTodos()
     countLists()
