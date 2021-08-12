@@ -10,10 +10,12 @@ export class Todo {
   create(name, done) {
     const todoText = document.createElement('span');
     todoText.innerText = name;
+    todoText.addEventListener('click', () => {
+      this.edit();
+    });
 
     const li = document.createElement('li');
     li.classList.add('li');
-    //li.draggable = true;
 
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -61,6 +63,7 @@ export class Todo {
 
     this.ref.classList.add('edit');
     inputEdit.value = todoText.textContent;
+    inputEdit.focus();
   }
 
   saveEdit(event) {

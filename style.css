@@ -36,6 +36,7 @@ font-family: 'Roboto Condensed', sans-serif;
     --heading-font-color: #ecf0f1;
     --marked-todos-lists: #664385;
     --main-left-margin: 1.5rem;
+    --todo-transition: .1s;
 }
 
 body {
@@ -156,6 +157,8 @@ nav > h1 > i {
 
 .main-wrapper > .right-content-wrapper > input {
     margin-top: 1rem;
+    float: right;
+    line-break: strict;
     background: none;
     color: #ecf0f1;
     outline: none;
@@ -171,4 +174,50 @@ nav > h1 > i {
     color: #ecf0f1;
     font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
+}
+
+#listView {
+    margin: 15px 0 0 0;
+    padding: 0;
+    width: 800px;
+}
+
+#listView > li {
+    margin: 10px 0 0 0;
+}
+
+li.edit > input[type='text'] {
+    display: inline-block;
+    font-size: 20px;
+    left: 41%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 15rem;
+    color: #ecf0f1;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #af64e8;
+    background: none;
+}
+
+li > span {
+    transition: var(--todo-transition);
+}
+
+li.edit > input[type='text'], li > span {
+    display: inline-block;
+    opacity: 87%;
+}
+
+li.edit > span, li > input[type='text'] {
+    display: none;
+}
+
+li > span:hover {
+    cursor: pointer;
+    color: #af64e8;
+    transition: var(--todo-transition);
 }
