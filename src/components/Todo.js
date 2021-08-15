@@ -23,13 +23,6 @@ export class Todo {
     checkbox.checked = !!done;
     checkbox.classList.add('checkbox');
 
-    const editTodoButton = document.createElement('button');
-    editTodoButton.addEventListener('click', () => this.edit());
-    editTodoButton.classList.add('editToDoButton');
-    editTodoButton.classList.add('btn');
-    editTodoButton.classList.add('ripple');
-    editTodoButton.innerHTML = '<i class="fas fa-pen"></i>';
-
     const deleteTodoButton = document.createElement('button');
     deleteTodoButton.addEventListener('click', () => {
       Eventbus.emit('deleteTodo', this);
@@ -37,7 +30,7 @@ export class Todo {
     deleteTodoButton.classList.add('deleteToDoButton');
     deleteTodoButton.classList.add('btn');
     deleteTodoButton.classList.add('ripple');
-    deleteTodoButton.innerHTML = '<i class="fas fa-trash"></i>';
+    deleteTodoButton.innerHTML = '<i class="fas fa-times"></i>';
 
     const inputEdit = document.createElement('input');
     inputEdit.type = 'text';
@@ -46,7 +39,6 @@ export class Todo {
     li.appendChild(checkbox);
     li.appendChild(inputEdit);
     li.appendChild(todoText);
-    li.appendChild(editTodoButton);
     li.appendChild(deleteTodoButton);
 
     this.ref = li;
@@ -89,6 +81,8 @@ export class Todo {
 
   check() {
     const checkbox = this.ref.querySelector('input[type="checkbox"]');
+
+    this.ref.style.textDecoration = 'line-through';
 
     this.done = !!checkbox.checked;
     Eventbus.emit('change');
