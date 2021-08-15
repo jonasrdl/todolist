@@ -37,6 +37,7 @@ font-family: 'Roboto Condensed', sans-serif;
     --marked-todos-lists: #664385;
     --main-left-margin: 1.5rem;
     --todo-transition: .1s;
+    --button-transition: .5s;
 }
 
 body {
@@ -173,7 +174,7 @@ nav > h1 > i {
     list-style: none;
     color: #ecf0f1;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 #listView {
@@ -205,6 +206,7 @@ li.edit > input[type='text'] {
 
 li > span {
     transition: var(--todo-transition);
+    margin-left: 1rem;
 }
 
 li.edit > input[type='text'], li > span {
@@ -220,4 +222,23 @@ li > span:hover {
     cursor: pointer;
     color: #af64e8;
     transition: var(--todo-transition);
+}
+
+.deleteToDoButton {
+    background: none;
+    border: none;
+    color: #af64e8;
+    transform: scale(250%);
+    margin-left: 1rem;
+    transition: var(--button-transition);
+}
+
+.deleteToDoButton:hover {
+    cursor: pointer;
+    color: #454558;
+    transition: var(--button-transition);
+}
+
+input[type='checkbox']:checked ~ span {
+    text-decoration: line-through;
 }
