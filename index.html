@@ -1,56 +1,51 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <link
-      crossorigin="anonymous"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-      rel="stylesheet"
-    />
-    <link rel="shortcut icon" type="image/x-icon" href="./assets/img/favicon.ico">
-    <link href="style.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/img/favicon.ico" />
+    <link href="style.css" rel="stylesheet" />
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>To Do Liste</title>
     <script src="src/app.js" type="module"></script>
   </head>
   <body>
-  <!-- NEW STUFF -->
+    <!-- NEW STUFF -->
     <nav>
-        <h1><i class="fas fa-clipboard-list"></i> Todolist</h1>
-        <!-- Theme switch checkbox(?) -->
-        <div class="theme-switch-wrapper">
-          <label>
-            <input type="checkbox">
-          </label>
-        </div>
+      <h1><i class="fas fa-clipboard-list"></i> Todolist</h1>
+
+      <div>
+        <label>
+          <input type="checkbox" />
+          <!-- Theme switch checkbox(?) -->
+        </label>
+      </div>
     </nav>
 
-  <div class="welcome-heading-wrapper">
-    <h2>Hey <span class="welcome-name">[NAME]!</span></h2>
-    <span>Du hast derzeit <span class="marked-list-text">0 Listen</span> mit ingesamt <span class="marked-todo-text">0 Todos.</span></span>
-  </div>
-
-  <div class="main-wrapper">
-    <div class="item left-content-wrapper">
-      <span>Listen</span>
-
-      <input autocomplete="off" class="newListInput" maxlength="30" placeholder="New list name..." type="text" />
-
-      <ul>
-        <li class="active-list"><i class="fas fa-shopping-cart"></i> Einkauf</li>
-        <li><i class="fas fa-home"></i> Haushalt</li>
-        <li><i class="fas fa-money-bill-wave-alt"></i> Schulden</li>
-      </ul>
+    <div class="welcome-heading-wrapper">
+      <h2>Hey <span class="welcome-name">[NAME]!</span></h2>
+      <span>Du hast derzeit <span class="marked-list-text">0 Listen</span> mit ingesamt <span class="marked-todo-text">0 Todos.</span></span>
     </div>
 
-    <div class="item right-content-wrapper">
-      <span><i class="fas fa-shopping-cart"></i> Einkauf</span>
-      <input type="text" class="new-todo-input" placeholder="To Do...">
+    <div class="main-wrapper">
+      <div class="item left-content-wrapper">
+        <span>Listen</span>
 
-      <ul id="listView">
-      </ul>
+        <input autocomplete="off" class="newListInput" maxlength="30" placeholder="New list name..." type="text" />
+
+        <ul>
+          <li class="active-list"><i class="fas fa-shopping-cart"></i> Einkauf</li>
+          <li><i class="fas fa-home"></i> Haushalt</li>
+          <li><i class="fas fa-money-bill-wave-alt"></i> Schulden</li>
+        </ul>
+      </div>
+
+      <div class="item right-content-wrapper">
+        <span><i class="fas fa-shopping-cart"></i> Einkauf</span>
+        <input type="text" class="new-todo-input" placeholder="To Do..." />
+
+        <ul id="listView"></ul>
+      </div>
     </div>
-  </div>
   </body>
 </html>
