@@ -28,217 +28,222 @@ font-family: 'Roboto Condensed', sans-serif;
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@300;400&display=swap');
 
 :root {
-    --heading-background: #454558;
-    --main-background: #272730;
-    --roboto-condensed: 'Roboto Condensed', sans-serif;
-    --roboto: 'Roboto', sans-serif;
-    --icon-color: #af64e8;
-    --heading-font-color: #ecf0f1;
-    --marked-todos-lists: #664385;
-    --main-left-margin: 1.5rem;
-    --todo-transition: .1s;
-    --button-transition: .5s;
+  --heading-background: #454558;
+  --main-background: #272730;
+  --roboto-condensed: 'Roboto Condensed', sans-serif;
+  --roboto: 'Roboto', sans-serif;
+  --icon-color: #af64e8;
+  --heading-font-color: #ecf0f1;
+  --marked-todos-lists: #664385;
+  --main-left-margin: 1.5rem;
+  --todo-transition: 0.1s;
+  --button-transition: 0.5s;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--main-background);
+  margin: 0;
+  padding: 0;
+  background-color: var(--main-background);
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    height: 7rem;
-    align-items: center;
-    background-color: var(--heading-background);
+  display: flex;
+  justify-content: space-between;
+  height: 7rem;
+  align-items: center;
+  background-color: var(--heading-background);
 }
 
 nav > h1 {
-    display: flex;
-    font-weight: 400;
-    letter-spacing: -2px;
-    align-items: center;
-    color: var(--heading-font-color);
-    font-family: var(--roboto-condensed);
-    margin-right: auto;
-    font-size: 45px;
+  display: flex;
+  font-weight: 400;
+  letter-spacing: -2px;
+  align-items: center;
+  color: var(--heading-font-color);
+  font-family: var(--roboto-condensed);
+  margin-right: auto;
+  font-size: 45px;
 }
 
 nav > h1 > i {
-    margin-left: 25px;
-    margin-right: 15px;
-    color: var(--icon-color);
-    font-size: 40px;
+  margin-left: 25px;
+  margin-right: 15px;
+  color: var(--icon-color);
+  font-size: 40px;
 }
 
 .welcome-heading-wrapper > h2 {
-    color: var(--heading-font-color);
-    font-size: 2.8rem;
-    display: block;
-    margin-top: 2rem;
-    margin-left: var(--main-left-margin);
-    margin-bottom: .8rem;
+  color: var(--heading-font-color);
+  font-size: 2.8rem;
+  display: block;
+  margin-top: 2rem;
+  margin-left: var(--main-left-margin);
+  margin-bottom: 0.8rem;
 }
 
 .welcome-heading-wrapper > span {
-    color: #7e8084;
-    font-size: 1.5rem;
-    margin-left: var(--main-left-margin);
+  color: #7e8084;
+  font-size: 1.5rem;
+  margin-left: var(--main-left-margin);
 }
 
-.welcome-heading-wrapper > h2, .welcome-heading-wrapper > span {
-    font-family: var(--roboto-condensed);
-    font-weight: 400;
+.welcome-heading-wrapper > h2,
+.welcome-heading-wrapper > span {
+  font-family: var(--roboto-condensed);
+  font-weight: 400;
 }
 
-.marked-list-text, .marked-todo-text {
-    color: var(--marked-todos-lists);
+.marked-list-text,
+.marked-todo-text {
+  color: var(--marked-todos-lists);
 }
 
-.main-wrapper > .left-content-wrapper > span, .main-wrapper > .right-content-wrapper > span {
-    font-family: var(--roboto-condensed);
-    color: var(--heading-font-color);
-    font-size: 2.3rem;
+.main-wrapper > .left-content-wrapper > span,
+.main-wrapper > .right-content-wrapper > span {
+  font-family: var(--roboto-condensed);
+  color: var(--heading-font-color);
+  font-size: 2.3rem;
 }
 
 .main-wrapper {
-    display: flex;
-    margin-top: 3.5rem;
+  display: flex;
+  margin-top: 3.5rem;
 }
 
 .item {
-    flex-basis: 100px;
-    height: 100px;
-    margin: 5px;
+  flex-basis: 100px;
+  height: 100px;
+  margin: 5px;
 }
 
 .left-content-wrapper {
-    margin-left: var(--main-left-margin);
-    font-family: var(--roboto-condensed);
+  margin-left: var(--main-left-margin);
+  font-family: var(--roboto-condensed);
 }
 
 .left-content-wrapper > ul > li {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .right-content-wrapper {
-    margin-left: 8rem;
+  margin-left: 8rem;
 }
 
 .active-list {
-    background-color: #af64e8;
-    border-radius: 8px;
-    border: 8px solid #af64e8;
+  background-color: #af64e8;
+  border-radius: 8px;
+  border: 8px solid #af64e8;
 }
 
 .left-content-wrapper > ul {
-    color: #ecf0f1;
-    list-style: none;
-    font-size: 2rem;
-    margin: 2rem 0 0;
-    padding: 0;
+  color: #ecf0f1;
+  list-style: none;
+  font-size: 2rem;
+  margin: 2rem 0 0;
+  padding: 0;
 }
 
 .left-content-wrapper > ul > li {
-    margin: 1.3rem;
+  margin: 1.3rem;
 }
 
 .main-wrapper > .left-content-wrapper > input {
-    margin-top: 1rem;
-    background: none;
-    color: #ecf0f1;
-    outline: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #af64e8;
-    font-size: 1.4rem;
+  margin-top: 1rem;
+  background: none;
+  color: #ecf0f1;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #af64e8;
+  font-size: 1.4rem;
 }
 
 .main-wrapper > .right-content-wrapper > input {
-    margin-top: 1rem;
-    float: right;
-    line-break: strict;
-    background: none;
-    color: #ecf0f1;
-    outline: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #af64e8;
-    font-size: 1.5rem;
+  margin-top: 1rem;
+  float: right;
+  line-break: strict;
+  background: none;
+  color: #ecf0f1;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #af64e8;
+  font-size: 1.5rem;
 }
 
 .right-content-wrapper > ul > li {
-    list-style: none;
-    color: #ecf0f1;
-    font-family: 'Roboto', sans-serif;
-    font-size: 2rem;
+  list-style: none;
+  color: #ecf0f1;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
 }
 
 #listView {
-    margin: 15px 0 0 0;
-    padding: 0;
-    width: 800px;
+  margin: 15px 0 0 0;
+  padding: 0;
+  width: 800px;
 }
 
 #listView > li {
-    margin: 10px 0 0 0;
+  margin: 10px 0 0 0;
 }
 
 li.edit > input[type='text'] {
-    display: inline-block;
-    font-size: 20px;
-    left: 41%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    width: 15rem;
-    color: #ecf0f1;
-    outline: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #af64e8;
-    background: none;
+  display: inline-block;
+  font-size: 20px;
+  left: 41%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 15rem;
+  color: #ecf0f1;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #af64e8;
+  background: none;
 }
 
 li > span {
-    transition: var(--todo-transition);
-    margin-left: 1rem;
+  transition: var(--todo-transition);
+  margin-left: 1rem;
 }
 
-li.edit > input[type='text'], li > span {
-    display: inline-block;
-    opacity: 87%;
+li.edit > input[type='text'],
+li > span {
+  display: inline-block;
+  opacity: 87%;
 }
 
-li.edit > span, li > input[type='text'] {
-    display: none;
+li.edit > span,
+li > input[type='text'] {
+  display: none;
 }
 
 li > span:hover {
-    cursor: pointer;
-    color: #af64e8;
-    transition: var(--todo-transition);
+  cursor: pointer;
+  color: #af64e8;
+  transition: var(--todo-transition);
 }
 
 .deleteToDoButton {
-    background: none;
-    border: none;
-    color: #af64e8;
-    transform: scale(250%);
-    margin-left: 1rem;
-    transition: var(--button-transition);
+  background: none;
+  border: none;
+  color: #af64e8;
+  transform: scale(250%);
+  margin-left: 1rem;
+  transition: var(--button-transition);
 }
 
 .deleteToDoButton:hover {
-    cursor: pointer;
-    color: #454558;
-    transition: var(--button-transition);
+  cursor: pointer;
+  color: #454558;
+  transition: var(--button-transition);
 }
 
 input[type='checkbox']:checked ~ span {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
