@@ -125,10 +125,6 @@ nav > h1 > i {
   cursor: pointer;
 }
 
-.right-content-wrapper {
-  margin-left: 8rem;
-}
-
 .active-list {
   background-color: #af64e8;
   border-radius: 8px;
@@ -159,13 +155,18 @@ nav > h1 > i {
   font-size: 1.4rem;
 }
 
+.right-content-wrapper {
+  display: flex;
+  margin-left: 8rem;
+  flex-direction: column;
+}
+
 .main-wrapper > .right-content-wrapper > input {
   margin-top: 1rem;
-  float: right;
-  line-break: strict;
   background: none;
   color: #ecf0f1;
   outline: none;
+  width: 20rem;
   border-top: none;
   border-left: none;
   border-right: none;
