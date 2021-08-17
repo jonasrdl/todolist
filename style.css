@@ -25,6 +25,8 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Roboto Condensed', sans-serif;
  */
 
+/* Moon background color: #27536b */
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@300;400&display=swap');
 
 :root {
@@ -41,7 +43,6 @@ font-family: 'Roboto Condensed', sans-serif;
   --slider-size: 50px;
   --toggle-width: calc(var(--slider-size) * 1.5);
   --slider-transition: 250ms;
-
   --slider-size: 50px;
   --toggle-width: calc(var(--slider-size) * 1.5);
   --transition: 250ms;
@@ -264,7 +265,7 @@ input[type='checkbox']:checked ~ span {
 .toggle {
   width: var(--toggle-width);
   height: var(--slider-size);
-  background: #fd8469;
+  background: #27536b;
   border-radius: 999px;
   transition: var(--transition);
 }
