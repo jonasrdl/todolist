@@ -236,7 +236,7 @@ li > span:hover {
   color: #af64e8;
   transform: scale(2.5);
   margin-left: 1rem;
-  padding-bottom: 0.3rem;
+  padding-bottom: 0.5rem;
   transition: var(--button-transition);
 }
 
