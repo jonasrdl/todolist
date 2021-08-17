@@ -38,6 +38,17 @@ font-family: 'Roboto Condensed', sans-serif;
   --main-left-margin: 1.5rem;
   --todo-transition: 0.1s;
   --button-transition: 0.5s;
+  --slider-size: 50px;
+  --toggle-width: calc(var(--slider-size) * 1.5);
+  --slider-transition: 250ms;
+
+  --slider-size: 50px;
+  --toggle-width: calc(var(--slider-size) * 1.5);
+  --transition: 250ms;
+}
+
+:root.light {
+  --heading-background: white;
 }
 
 body {
@@ -248,4 +259,37 @@ li > span:hover {
 
 input[type='checkbox']:checked ~ span {
   text-decoration: line-through;
+}
+
+.toggle {
+  width: var(--toggle-width);
+  height: var(--slider-size);
+  background: #fd8469;
+  border-radius: 999px;
+  transition: var(--transition);
+}
+
+.toggle > input {
+  display: none;
+}
+
+.toggle > .slider {
+  position: relative;
+  top: -1px;
+  display: block;
+  height: calc(var(--slider-size) + 2px);
+  width: var(--slider-size);
+  background: url(/assets/img/icons/half-moon.png) no-repeat;
+  background-size: 100%;
+  background-position: center center;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: var(--transition);
+  left: -1px;
+}
+
+input[type="checkbox"]:checked + .slider {
+  transform: rotate(360deg);
+  left: calc(var(--toggle-width) / 3 + 2px);
+  background-image: url(/assets/img/icons/sun.png);
 }

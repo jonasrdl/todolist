@@ -10,7 +10,6 @@ let theme = new Theme();
 
 const store = {
     todo: new Storage('todos'),
-    //theme: new Storage('theme'),
     index: new Storage('currentIndex'),
     name: new Storage('username')
 }
@@ -73,15 +72,13 @@ const init = () => {
     }
 
     if (theme.get() === 'white') {
+        document.querySelector('[type=checkbox]').checked = true;
         theme.set('white')
         root.classList.add('white')
-        //design.switchDesignIcon.classList.remove('fa-moon')
-        //design.switchDesignIcon.classList.add('fa-sun')
     } else {
+        document.querySelector('[type=checkbox]').checked = false;
         theme.set('dark')
         root.classList.remove('white')
-        //design.switchDesignIcon.classList.remove('fa-sun')
-        //design.switchDesignIcon.classList.add('fa-moon')
     }
 
     const lists = store.todo.get()
@@ -108,6 +105,16 @@ const init = () => {
 }
 
 window.addEventListener('DOMContentLoaded', init)
+
+document.querySelector("[type=checkbox]").addEventListener("click", () => {
+    document.querySelector('html').classList.toggle('light');
+    
+    if (document.querySelector('html').classList.contains('light')) {
+        theme.set('white');
+    } else {
+        theme.set('dark')
+    }
+});
 
 const create = () => {
     todoLists = fromStorage.map((storageList) => {
@@ -232,13 +239,9 @@ const switchDesign = () => {
 
     if (root.classList.contains('white')) {
         theme.set('white')
-
-        switchDesignIcon.classList.remove('fa-moon')
-        switchDesignIcon.classList.add('fa-sun')
+        console.log(theme.get())
     } else {
         theme.set('dark')
-
-        switchDesignIcon.classList.remove('fa-sun')
-        switchDesignIcon.classList.add('fa-moon')
+        console.log(theme.get())
     }
 }
