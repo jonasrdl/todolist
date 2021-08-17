@@ -315,3 +315,50 @@ input[type="checkbox"]:checked + .slider {
   left: calc(var(--toggle-width) / 3 + 2px);
   background-image: url(/assets/img/icons/sun.png);
 }
+
+/* 
+Checkbox styling
+
+.checkbox + .todo-checkbox-label {
+  display: block;
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox + .todo-checkbox-label:before {
+  content: "\2714";
+  border: 0.15em solid #af64e8;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  padding-left: 0.2em;
+  padding-bottom: 0.3em;
+  margin-right: 0.2em;
+  vertical-align: bottom;
+  color: transparent;
+  transition: 0.2s;
+}
+
+.checkbox:checked + .todo-checkbox-label:before {
+  background-color: #af64e8;
+  border-color: #af64e8;
+  color: #fff;
+}
+
+.checkbox:disabled + .todo-checkbox-label:before {
+  border-color: #aaa;
+}
+
+.checkbox:checked:disabled + .todo-checkbox-label:before {
+  background-color: #bfb;
+  border-color: #bfb; 
+}
+
+Checkbox styling
+*/
