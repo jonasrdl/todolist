@@ -107,9 +107,9 @@ const init = () => {
 window.addEventListener('DOMContentLoaded', init)
 
 document.querySelector("[type=checkbox]").addEventListener("click", () => {
-    document.querySelector('html').classList.toggle('light');
+    document.querySelector('html').classList.toggle('white');
     
-    if (document.querySelector('html').classList.contains('light')) {
+    if (document.querySelector('html').classList.contains('white')) {
         theme.set('white');
     } else {
         theme.set('dark')
@@ -229,19 +229,4 @@ const addNewList = (event) => {
 
     list.newListText.innerHTML = 'Current List: ' + list.newListInput.value
     list.newListInput.value = null
-}
-
-const switchDesign = () => {
-    const root = document.querySelector('html')
-    const switchDesignIcon = document.querySelector('button.switch-design i')
-
-    root.classList.toggle('white')
-
-    if (root.classList.contains('white')) {
-        theme.set('white')
-        console.log(theme.get())
-    } else {
-        theme.set('dark')
-        console.log(theme.get())
-    }
 }
