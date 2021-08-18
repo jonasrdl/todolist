@@ -106,7 +106,7 @@ document.querySelector("[type=checkbox]").addEventListener("click", () => {
     } else {
         theme.set('dark')
     }
-});
+})
 
 const create = () => {
     todoLists = fromStorage.map((storageList) => {
@@ -136,7 +136,7 @@ const createListElements = () => {
 
     todoLists.forEach(lists => {
         const list = document.createElement('li')
-        list.innerHTML = lists.name;
+        list.innerHTML = lists.name
 
         listContainer.appendChild(list)
     })
@@ -151,7 +151,7 @@ const countTodos = () => {
 
     fromStorage.forEach(todos => {
         todoCountText.innerHTML = `${todos.todos.length} Todos.`
-    });
+    })
 }
 
 const countLists = () => {
