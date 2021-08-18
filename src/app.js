@@ -210,28 +210,6 @@ const addTodo = () => {
     countLists()
 }
 
-const sendName = (event) => {
-    event.preventDefault()
-    const name = name.nameInput.value
-
-    if (!name.nameInput.value.trim().length) {
-        name.nameInput.value = null
-        name.nameInput.placeholder = 'Trage erst einen Namen ein'
-        name.nameInput.classList.add('placeholder-color')
-
-        return
-    }
-
-    setListNameWithS(name)
-
-    store.name.set(name)
-    name.nameInput.value = null
-}
-
-const setListNameWithS = (name) => {
-    name.endsWith('s') ? heading.textContent = name + '\' To Do List' : heading.textContent = name + '\'s To Do List'
-}
-
 const addNewList = (event) => {
     console.log("new list ad")
     event.preventDefault()
