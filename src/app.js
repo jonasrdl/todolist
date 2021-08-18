@@ -21,7 +21,6 @@ const page = {
 
 const list = {
     newListInput: document.querySelector('input.newListInput'),
-    newListSubmit: document.querySelector('button.newListSubmit'),
     listView: document.getElementById('listView'),
     newListText: document.querySelector('span.newListText')
 }
@@ -57,14 +56,18 @@ const init = () => {
             addTodo()
         }
     })
-    //design.switchDesignButton.addEventListener('click', switchDesign)
-    //page.prev.addEventListener('click', () => {
-    //    todolistPagination.prevPage()
-    //})
-    //page.next.addEventListener('click', () => {
-    //    todolistPagination.nextPage()
-    //})
-    //list.newListSubmit.addEventListener('click', addNewList)
+
+    /* page.prev.addEventListener('click', () => {
+        todolistPagination.prevPage()
+    })
+    page.next.addEventListener('click', () => {
+        todolistPagination.nextPage()
+    }) */
+    list.newListInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            addNewList(event)
+        }
+    })
 
     if (!store.index.get()) {
         store.index.set(0)
@@ -102,6 +105,8 @@ const init = () => {
     create()
     countTodos()
     countLists()
+    createListElements()
+    renderLists()
 }
 
 window.addEventListener('DOMContentLoaded', init)
@@ -140,6 +145,23 @@ Eventbus.on('pageChange', (index) => {
 
     //updateListText()
 })
+
+const createListElements = () => {
+    const listContainer = document.getElementById('list-container');
+
+    todoLists.forEach(lists => {
+        const list = document.createElement('li');
+        list.innerHTML = lists.name;
+
+        listContainer.appendChild(list)
+    })
+}
+
+const renderLists = () => {
+    const listContainer = document.getElementById('list-container');
+
+
+}
 
 const countTodos = () => {
     const todoCountText = document.querySelector('span.marked-todo-text');
@@ -211,6 +233,7 @@ const setListNameWithS = (name) => {
 }
 
 const addNewList = (event) => {
+    console.log("new list ad")
     event.preventDefault()
 
     if (!list.newListInput.value.trim().length) {
@@ -227,6 +250,8 @@ const addNewList = (event) => {
     todolistPagination.addMaxPage()
     todolistPagination.setPage(todoLists.length - 1)
 
-    list.newListText.innerHTML = 'Current List: ' + list.newListInput.value
-    list.newListInput.value = null
+    createListElements()
+
+    //list.newListText.innerHTML = 'Current List: ' + list.newListInput.value
+    //list.newListInput.value = null
 }
