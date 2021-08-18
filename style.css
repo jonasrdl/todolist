@@ -36,15 +36,13 @@ font-family: 'Roboto Condensed', sans-serif;
   --roboto: 'Roboto', sans-serif;
   --icon-color: #af64e8;
   --heading-font-color: #ecf0f1;
-  --marked-todos-lists: #664385;
+  --marked-todos-lists: #af64e8;
   --main-left-margin: 1.5rem;
   --todo-transition: 0.1s;
   --button-transition: 0.5s;
   --slider-size: 50px;
   --toggle-width: calc(var(--slider-size) * 1.5);
   --slider-transition: 250ms;
-  --slider-size: 50px;
-  --toggle-width: calc(var(--slider-size) * 1.5);
   --transition: 250ms;
   --list-text-color: #ecf0f1;
   --active-list-text: #ecf0f1;
@@ -178,7 +176,6 @@ nav > h1 > i {
 .main-wrapper > .left-content-wrapper > input {
   margin-top: 1rem;
   background: none;
-  color: #ecf0f1;
   outline: none;
   border-top: none;
   border-left: none;
@@ -196,7 +193,6 @@ nav > h1 > i {
 .main-wrapper > .right-content-wrapper > input {
   margin-top: 1rem;
   background: none;
-  color: #ecf0f1;
   outline: none;
   width: 20rem;
   border-top: none;
