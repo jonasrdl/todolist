@@ -4,9 +4,9 @@ import Eventbus from '../eventbus.js'
 import { Storage } from './components/Storage.js'
 import { Todolist } from './components/Todolist.js'
 import { Pagination } from './components/Pagination.js'
-import { Theme } from "./components/Theme.js";
+import { Theme } from "./components/Theme.js"
 
-let theme = new Theme();
+let theme = new Theme()
 
 const store = {
     todo: new Storage('todos'),
@@ -38,31 +38,20 @@ const name = {
 let todolistPagination
 let todoLists = []
 let fromStorage = []
-
 let newTodoInput
 let heading
 
 const init = () => {
     const root = document.querySelector('html')
-    //const addTodoButton = document.querySelector('button.addToDo')
 
-    //addTodoButton.classList.add('ripple')
     heading = document.querySelector('.heading')
-    newTodoInput = document.querySelector('input.new-todo-input');
-    //name.nameSubmit.addEventListener('click', sendName)
-    //addTodoButton.addEventListener('click', addTodo)
+    newTodoInput = document.querySelector('input.new-todo-input')
     newTodoInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             addTodo()
         }
     })
 
-    /* page.prev.addEventListener('click', () => {
-        todolistPagination.prevPage()
-    })
-    page.next.addEventListener('click', () => {
-        todolistPagination.nextPage()
-    }) */
     list.newListInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             addNewList(event)
@@ -71,15 +60,14 @@ const init = () => {
 
     if (!store.index.get()) {
         store.index.set(0)
-        //list.newListText.innerHTML = 'Current List: Default'
     }
 
     if (theme.get() === 'white') {
-        document.querySelector('[type=checkbox]').checked = true;
+        document.querySelector('[type=checkbox]').checked = true
         theme.set('white')
         root.classList.add('white')
     } else {
-        document.querySelector('[type=checkbox]').checked = false;
+        document.querySelector('[type=checkbox]').checked = false
         theme.set('dark')
         root.classList.remove('white')
     }
@@ -99,7 +87,6 @@ const init = () => {
 
     if (fromStorage[todolistPagination.currentPage].name !== 'Default') {
         store.index.set(0)
-        //updateListText()
     }
 
     create()
@@ -112,10 +99,10 @@ const init = () => {
 window.addEventListener('DOMContentLoaded', init)
 
 document.querySelector("[type=checkbox]").addEventListener("click", () => {
-    document.querySelector('html').classList.toggle('white');
+    document.querySelector('html').classList.toggle('white')
     
     if (document.querySelector('html').classList.contains('white')) {
-        theme.set('white');
+        theme.set('white')
     } else {
         theme.set('dark')
     }
@@ -142,15 +129,13 @@ Eventbus.on('change', change)
 Eventbus.on('pageChange', (index) => {
     todoLists[index].create()
     store.index.set(index)
-
-    //updateListText()
 })
 
 const createListElements = () => {
-    const listContainer = document.getElementById('list-container');
+    const listContainer = document.getElementById('list-container')
 
     todoLists.forEach(lists => {
-        const list = document.createElement('li');
+        const list = document.createElement('li')
         list.innerHTML = lists.name;
 
         listContainer.appendChild(list)
@@ -158,35 +143,28 @@ const createListElements = () => {
 }
 
 const renderLists = () => {
-    const listContainer = document.getElementById('list-container');
-
-
+    const listContainer = document.getElementById('list-container')
 }
 
 const countTodos = () => {
-    const todoCountText = document.querySelector('span.marked-todo-text');
+    const todoCountText = document.querySelector('span.marked-todo-text')
 
     fromStorage.forEach(todos => {
-        todoCountText.innerHTML = `${todos.todos.length} Todos.`;
+        todoCountText.innerHTML = `${todos.todos.length} Todos.`
     });
 }
 
 const countLists = () => {
-    const listCountText = document.querySelector('span.marked-list-text');
+    const listCountText = document.querySelector('span.marked-list-text')
 
     fromStorage.forEach(lists => {
         if (fromStorage.length === 1) {
-            listCountText.innerHTML = `${fromStorage.length} Liste`;
+            listCountText.innerHTML = `${fromStorage.length} Liste`
         } else {
-            listCountText.innerHTML = `${fromStorage.length} Listen`;
+            listCountText.innerHTML = `${fromStorage.length} Listen`
         }
     })
 }
-
-/* const updateListText = () => {
-    const currentList = todoLists[todolistPagination.currentPage].name
-    list.newListText.innerHTML = 'Current List: ' + currentList
-} */
 
 const createTodoElement = (name, done) => {
     todoLists[todolistPagination.currentPage].addTodo({name, done})
@@ -211,7 +189,6 @@ const addTodo = () => {
 }
 
 const addNewList = (event) => {
-    console.log("new list ad")
     event.preventDefault()
 
     if (!list.newListInput.value.trim().length) {
@@ -229,7 +206,5 @@ const addNewList = (event) => {
     todolistPagination.setPage(todoLists.length - 1)
 
     createListElements()
-
-    //list.newListText.innerHTML = 'Current List: ' + list.newListInput.value
-    //list.newListInput.value = null
+    list.newListInput.value = null
 }
