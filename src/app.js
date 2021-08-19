@@ -30,11 +30,6 @@ const design = {
     switchDesignIcon: document.querySelector('button.switch-design i')
 }
 
-const name = {
-    nameInput: document.querySelector('.nameInput'),
-    nameSubmit: document.querySelector('.nameSubmit')
-}
-
 let todolistPagination
 let todoLists = []
 let fromStorage = []
