@@ -175,7 +175,7 @@ nav > h1 > i {
   margin: 1.3rem;
 }
 
-.main-wrapper > .left-content-wrapper > input {
+.main-wrapper > .left-content-wrapper > label > input {
   margin-top: 1rem;
   background: none;
   color: var(--input-text-color);
