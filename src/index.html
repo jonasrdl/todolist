@@ -6,7 +6,7 @@
     <link href="../style.css" rel="stylesheet" />
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>To Do Liste</title>
+    <title>Todolist</title>
     <script src="app.js" type="module"></script>
   </head>
   <body>
@@ -21,12 +21,12 @@
 
     <div class="welcome-heading-wrapper">
       <h2>Hey <span class="welcome-name">[NAME]!</span></h2>
-      <span>Du hast derzeit <span class="marked-list-text">0 Listen</span> mit ingesamt <span class="marked-todo-text">0 Todos.</span></span>
+      <span>You currently have <span class="marked-list-text">0 lists</span> with a total of <span class="marked-todo-text">0 todos.</span></span>
     </div>
 
     <div class="main-wrapper">
       <div class="item left-content-wrapper">
-        <span>Listen</span>
+        <span>Lists</span>
 
         <input autocomplete="off" class="newListInput" maxlength="30" placeholder="New list name..." type="text" />
 
@@ -36,8 +36,8 @@
       </div>
 
       <div class="item right-content-wrapper">
-        <span><i class="fas fa-shopping-cart"></i> Einkauf</span>
-        <input type="text" class="new-todo-input" placeholder="To Do..." />
+        <span><i class="fas fa-shopping-cart"></i> [List Name]</span>
+        <input type="text" class="new-todo-input" placeholder="New todo..." />
 
         <ul id="listView"></ul>
       </div>

@@ -48,6 +48,7 @@ font-family: 'Roboto Condensed', sans-serif;
   --active-list-text: #ecf0f1;
   --active-list-background: #af64e8;
   --todo-text: #ecf0f1;
+  --input-text-color: white;
 }
 
 :root.white {
@@ -59,6 +60,7 @@ font-family: 'Roboto Condensed', sans-serif;
   --list-text-color: #454558;
   --active-list-background: #7a3db4;
   --todo-text: #272730;
+  --input-text-color: #272730;
 }
 
 * {
@@ -176,6 +178,7 @@ nav > h1 > i {
 .main-wrapper > .left-content-wrapper > input {
   margin-top: 1rem;
   background: none;
+  color: var(--input-text-color);
   outline: none;
   border-top: none;
   border-left: none;
@@ -194,6 +197,7 @@ nav > h1 > i {
   margin-top: 1rem;
   background: none;
   outline: none;
+  color: var(--input-text-color);
   width: 20rem;
   border-top: none;
   border-left: none;

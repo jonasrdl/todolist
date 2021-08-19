@@ -150,7 +150,7 @@ const countTodos = () => {
     const todoCountText = document.querySelector('span.marked-todo-text')
 
     fromStorage.forEach(todos => {
-        todoCountText.innerHTML = `${todos.todos.length} Todos.`
+        todoCountText.innerHTML = `${todos.todos.length} todos.`
     })
 }
 
@@ -159,9 +159,9 @@ const countLists = () => {
 
     fromStorage.forEach(lists => {
         if (fromStorage.length === 1) {
-            listCountText.innerHTML = `${fromStorage.length} Liste`
+            listCountText.innerHTML = `${fromStorage.length} List`
         } else {
-            listCountText.innerHTML = `${fromStorage.length} Listen`
+            listCountText.innerHTML = `${fromStorage.length} Lists`
         }
     })
 }
