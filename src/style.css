@@ -302,8 +302,8 @@ input[type='checkbox']:checked ~ span {
   height: calc(var(--slider-size) + 2px);
   width: var(--slider-size);
   background: url(/assets/img/icons/half-moon.png) no-repeat;
-  background-size: 100%;
   background-position: center center;
+  background-size: 100%;
   border-radius: 100%;
   cursor: pointer;
   transition: var(--transition);
@@ -314,6 +314,22 @@ input[type="checkbox"]:checked + .slider {
   transform: rotate(360deg);
   left: calc(var(--toggle-width) / 3 + 2px);
   background-image: url(/assets/img/icons/sun.png);
+}
+
+.hidden {
+  display: none;
+}
+
+.input-styling {
+  background: none;
+  color: var(--input-text-color);
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #af64e8;
+  font-size: 2.7rem;
+  width: 12rem;
 }
 
 /* 

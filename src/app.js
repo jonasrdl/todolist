@@ -25,6 +25,8 @@ const list = {
     newListText: document.querySelector('span.newListText')
 }
 
+const nameText = document.querySelector('span.welcome-name')
+let nameInput = document.querySelector('input.name-input')
 let todolistPagination
 let todoLists = []
 let fromStorage = []
@@ -34,6 +36,7 @@ let heading
 const init = () => {
     const root = document.querySelector('html')
 
+    nameInput.classList.add('hidden')
     heading = document.querySelector('.heading')
     newTodoInput = document.querySelector('input.new-todo-input')
     newTodoInput.addEventListener('keyup', (event) => {
@@ -84,6 +87,7 @@ const init = () => {
     countLists()
     createListElements()
     renderLists()
+    renderName()
 }
 
 window.addEventListener('DOMContentLoaded', init)
@@ -97,6 +101,25 @@ document.querySelector("[type=checkbox]").addEventListener("click", () => {
         theme.set('dark')
     }
 })
+
+nameText.addEventListener('click', () => {
+    nameText.classList.add('hidden')
+    nameInput.classList.remove('hidden')
+
+    nameInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            nameText.classList.remove('hidden')
+            nameInput.classList.add('hidden')
+            nameText.innerHTML = nameInput.value
+
+            store.name.set(nameInput.value)
+        }
+    })
+})
+
+const renderName = () => {
+    nameText.innerHTML = JSON.parse(store.name.get())
+}
 
 const create = () => {
     todoLists = fromStorage.map((storageList) => {
