@@ -14,20 +14,15 @@ const store = {
     name: new Storage('username')
 }
 
-const page = {
+/* const page = {
     prev: document.querySelector('.prevPageBtn'),
     next: document.querySelector('.nextPageBtn')
-}
+} */
 
 const list = {
     newListInput: document.querySelector('input.newListInput'),
     listView: document.getElementById('listView'),
     newListText: document.querySelector('span.newListText')
-}
-
-const design = {
-    switchDesignButton: document.querySelector('button.switch-design'),
-    switchDesignIcon: document.querySelector('button.switch-design i')
 }
 
 let todolistPagination
@@ -152,7 +147,7 @@ const countTodos = () => {
 const countLists = () => {
     const listCountText = document.querySelector('span.marked-list-text')
 
-    fromStorage.forEach(lists => {
+    fromStorage.forEach(() => {
         if (fromStorage.length === 1) {
             listCountText.innerHTML = `${fromStorage.length} List`
         } else {
