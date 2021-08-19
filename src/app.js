@@ -14,11 +14,6 @@ const store = {
     name: new Storage('username')
 }
 
-/* const page = {
-    prev: document.querySelector('.prevPageBtn'),
-    next: document.querySelector('.nextPageBtn')
-} */
-
 const list = {
     newListInput: document.querySelector('input.newListInput'),
     listView: document.getElementById('listView'),
@@ -106,6 +101,10 @@ nameText.addEventListener('click', () => {
     nameText.classList.add('hidden')
     nameInput.classList.remove('hidden')
 
+    if (!store.name.get()) {
+        console.log('No name')
+    }
+
     nameInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             nameText.classList.remove('hidden')
@@ -118,6 +117,10 @@ nameText.addEventListener('click', () => {
 })
 
 const renderName = () => {
+    if (!store.name.get()) {
+        return;
+    }
+
     nameText.innerHTML = JSON.parse(store.name.get())
 }
 
@@ -161,10 +164,13 @@ const renderLists = () => {
 
 const countTodos = () => {
     const todoCountText = document.querySelector('span.marked-todo-text')
+    let todoCount = 0
 
-    fromStorage.forEach(todos => {
-        todoCountText.innerHTML = `${todos.todos.length} todos.`
-    })
+    for (let i = 0; i < todoLists.length; i++) {
+        todoCount += todoLists[i].todos.length
+    }
+
+    todoCountText.innerHTML = `${todoCount} todos.`
 }
 
 const countLists = () => {
