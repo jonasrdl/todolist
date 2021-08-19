@@ -193,7 +193,7 @@ nav > h1 > i {
   flex-direction: column;
 }
 
-.main-wrapper > .right-content-wrapper > input {
+.main-wrapper > .right-content-wrapper > label > input {
   margin-top: 1rem;
   background: none;
   outline: none;
