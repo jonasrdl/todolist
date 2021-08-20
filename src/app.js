@@ -77,6 +77,10 @@ const init = () => {
         store.index.set(0)
     }
 
+    if (store.name.get() === `"Jonas"` || store.name.get() === `"jonas"`) {
+        console.log('Hello World!')
+    }
+
     create()
     countTodos()
     countLists()
