@@ -85,7 +85,6 @@ const init = () => {
     countTodos()
     countLists()
     createListElements()
-    renderLists()
     renderName()
 }
 

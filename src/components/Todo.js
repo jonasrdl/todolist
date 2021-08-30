@@ -17,16 +17,11 @@ export class Todo {
     const li = document.createElement('li');
     li.classList.add('li');
 
-    //const checkboxLabel = document.createElement('label');
-    //checkboxLabel.classList.add('todo-checkbox-label');
-
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.addEventListener('click', () => this.check());
     checkbox.checked = !!done;
     checkbox.classList.add('checkbox');
-
-    //checkboxLabel.appendChild(checkbox);
 
     const deleteTodoButton = document.createElement('button');
     deleteTodoButton.addEventListener('click', () => {
@@ -41,7 +36,6 @@ export class Todo {
     inputEdit.type = 'text';
     inputEdit.addEventListener('keyup', () => this.saveEdit(event));
 
-    //li.appendChild(checkboxLabel);
     li.appendChild(checkbox);
     li.appendChild(inputEdit);
     li.appendChild(todoText);
