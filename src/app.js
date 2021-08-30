@@ -162,10 +162,6 @@ const createListElements = () => {
     })
 }
 
-const renderLists = () => {
-    const listContainer = document.getElementById('list-container')
-}
-
 const countTodos = () => {
     const todoCountText = document.querySelector('span.marked-todo-text')
     let todoCount = 0
