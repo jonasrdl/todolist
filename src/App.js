@@ -1,9 +1,14 @@
-import './App.css';
+import './App.css'
+import Todo from './components/Todo/Todo'
+import Todolist from './components/Todolist/Todolist'
 
 function App() {
   return (
-    <p>Hello World</p>
-  );
+    <>
+      <Todolist />
+      <Todo />
+    </>
+  )
 }
 
-export default App;
+export default App
