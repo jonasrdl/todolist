@@ -1,0 +1,8 @@
+version: '3'
+services:
+  frontend:
+    build: .
+    restart: always
+    command: serve -s build
+    ports:
+      - '9000:5000'
