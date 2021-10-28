@@ -9,6 +9,7 @@ const App = () => {
   const [todos, setTodos] = useState([])
 
   useEffect(() => {
+    // Get todos from Storage
     const storageTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
 
     if (storageTodos) {
@@ -17,6 +18,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
+    // Save todos to Storage
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
   }, [todos])
 
