@@ -1,13 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@300;400&display=swap');
 
-:root {
-  --color-background: #1f2933;
-  --color-text: #fdfdfd;
-  --color-drag-drop: #8b52ff;
+ :root {
+   --heading-background: #454558;
+   --main-background: #272730;
+   --roboto-condensed: 'Roboto Condensed', sans-serif;
+   --roboto: 'Roboto', sans-serif;
+   --icon-color: #af64e8;
+   --heading-font-color: #ecf0f1;
+   --marked-todos-lists: #af64e8;
+   --main-left-margin: 1.5rem;
+   --todo-transition: 0.1s;
+   --button-transition: 0.5s;
+   --slider-size: 50px;
+   --toggle-width: calc(var(--slider-size) * 1.5);
+   --slider-transition: 250ms;
+   --transition: 250ms;
+   --list-text-color: #ecf0f1;
+   --active-list-text: #ecf0f1;
+   --active-list-background: #af64e8;
+   --todo-text: #ecf0f1;
+   --input-text-color: white;
+ }
+
+* {
+  transition: all 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* * {
-  transition: all 0.2s ease;
-  background-color: var(--color-background);
-  font-family: 'Roboto', sans-serif;
-} */
+body {
+  background-color: #272730;
+}

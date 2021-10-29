@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
+import Navbar from './components/Navbar/Navbar'
+import WelcomeHeading from "./components/WelcomeHeading/WelcomeHeading";
 
 const LOCAL_STORAGE_KEY = 'todos'
 
@@ -45,13 +47,12 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Todolist</p>
-        <TodoForm addTodo={addTodo} />
-        <TodoList todos={todos} toggleComplete={toggleComplete} removeTodo={removeTodo} />
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <WelcomeHeading />
+      <TodoForm addTodo={addTodo} />
+      <TodoList todos={todos} toggleComplete={toggleComplete} removeTodo={removeTodo} />
+    </>
   )
 }
 
