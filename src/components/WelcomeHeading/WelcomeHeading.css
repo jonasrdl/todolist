@@ -21,4 +21,5 @@
 .marked-list-text,
 .marked-todo-text {
     color: var(--marked-todos-lists);
+    font-family: var(--roboto-condensed);
 }
