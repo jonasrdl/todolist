@@ -1,0 +1,26 @@
+.todo-wrapper {
+    margin-left: 3rem;
+}
+
+.todo-item {
+    font-family: var(--roboto);
+    color: #ecf0f1;
+    font-size: 1.5rem;
+    display: inline-block;
+    margin: 10px 0 0 0;
+}
+
+.todo-remove-button {
+    color: #af64e8;
+    background-color: #272730;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.todo-remove-button:hover {
+    cursor: pointer;
+}

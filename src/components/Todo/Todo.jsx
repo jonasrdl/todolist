@@ -1,4 +1,5 @@
 import React from 'react'
+import './Todo.css'
 
 const Todo = ({ todo, toggleComplete, removeTodo }) => {
   const handleRemoveClick = () => {
@@ -10,12 +11,12 @@ const Todo = ({ todo, toggleComplete, removeTodo }) => {
   }
 
   return (
-    <div>
+    <div className={"todo-wrapper"}>
       <input type="checkbox" onClick={handleCheckboxClick} />
-      <li style={{ textDecoration: todo.completed ? 'line-through' : null, marginLeft: 15 }}>
+      <li className={"todo-item"} style={{ textDecoration: todo.completed ? 'line-through' : null, marginLeft: 15 }}>
         {todo.task}
       </li>
-      <button onClick={handleRemoveClick}>X</button>
+      <button className={"todo-remove-button"} onClick={handleRemoveClick}><i className="fas fa-times"></i></button>
     </div>
   )
 }
