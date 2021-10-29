@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './TodoForm.css'
 const uuid = require('uuid')
 
 const TodoForm = ({ addTodo }) => {
@@ -24,8 +25,8 @@ const TodoForm = ({ addTodo }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input onChange={handleInputChange} value={todo.task} name="task" type="text" />
-      <button type="submit">Add</button>
+      <input onChange={handleInputChange} value={todo.task} name="task" type="text" className={"todo-input"}/>
+      <button className={"todo-add-button"} type="submit">+</button>
     </form>
   )
 }
