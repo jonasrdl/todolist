@@ -25,7 +25,7 @@ const TodoForm = ({ addTodo }) => {
   return (
     <form onSubmit={handleSubmit}>
       <input onChange={handleInputChange} value={todo.task} name="task" type="text" />
-      <button type="submit">Submit</button>
+      <button type="submit">Add</button>
     </form>
   )
 }

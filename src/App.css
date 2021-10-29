@@ -6,8 +6,8 @@
   --color-drag-drop: #8b52ff;
 }
 
-* {
+/* * {
   transition: all 0.2s ease;
   background-color: var(--color-background);
   font-family: 'Roboto', sans-serif;
-}
+} */
