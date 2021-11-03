@@ -16,7 +16,7 @@ const Todo = ({ todo, toggleComplete, removeTodo }) => {
       <li className={"todo-item"} style={{ textDecoration: todo.completed ? 'line-through' : null, marginLeft: 15 }}>
         {todo.task}
       </li>
-      <button className={"todo-remove-button"} onClick={handleRemoveClick}><i className="fas fa-times"></i></button>
+      <button className={"todo-remove-button"} onClick={handleRemoveClick}><i className="fas fa-times"/></button>
     </div>
   )
 }
