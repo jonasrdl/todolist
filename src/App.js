@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import TodoForm from './components/TodoForm/TodoForm'
-import TodoList from './components/TodoList'
+import TodoList from './components/TodoList/TodoList'
 import Navbar from './components/Navbar/Navbar'
 import WelcomeHeading from './components/WelcomeHeading/WelcomeHeading'
 
