@@ -1,26 +1,33 @@
-.todo-wrapper {
-    margin-left: 3rem;
+:root {
+  --button-color: #af64e8;
+  --button-bg-color: #272730;
+  --todo-color: #ecf0f1;
+  --font-size: 1.5rem;
 }
 
-.todo-item {
-    font-family: var(--roboto);
-    color: #ecf0f1;
-    font-size: 1.5rem;
-    display: inline-block;
-    margin: 10px 0 0 0;
+div.todo-wrapper {
+  margin-left: 3rem;
 }
 
-.todo-remove-button {
-    color: #af64e8;
-    background-color: #272730;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    margin-left: 1rem;
-    font-size: 1.5rem;
+div > li {
+  font-family: var(--roboto);
+  color: var(--todo-color);
+  font-size: var(--font-size);
+  display: inline-block;
+  margin: 10px 0 0 0;
 }
 
-.todo-remove-button:hover {
-    cursor: pointer;
+div > button {
+  color: var(--button-color);
+  background-color: var(--button-bg-color);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  margin-left: 1rem;
+  font-size: var(--font-size);
+}
+
+div > button:hover {
+  cursor: pointer;
 }

@@ -1,28 +1,35 @@
-.todo-input {
-    margin-left: 1.5rem;
-    margin-top: 1rem;
-    background: none;
-    outline: none;
-    color: var(--input-text-color);
-    width: 20rem;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #af64e8;
-    font-size: 1.5rem;
+:root {
+  --button-color: #af64e8;
+  --button-bg-color: #272730;
+  --main-bg-color: #454558;
+  --transition: 0.2s;
 }
 
-.todo-add-button {
-    height: 1.5rem;
-    width: 1.7rem;
-    transition: .2s;
-    background-color: #454558;
-    border: 1px solid #af64e8;
-    margin-left: .5rem;
+form > input {
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+  background: none;
+  outline: none;
+  color: var(--input-text-color);
+  width: 20rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid var(--button-color);
+  font-size: 1.5rem;
 }
 
-.todo-add-button:hover {
-    cursor: pointer;
-    background-color: #272730;
-    transition: .2s;
+form > button {
+  height: 1.5rem;
+  width: 1.7rem;
+  transition: var(--transition);
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--button-color);
+  margin-left: 0.5rem;
+}
+
+form > button:hover {
+  cursor: pointer;
+  background-color: var(--button-bg-color);
+  transition: var(--transition);
 }
