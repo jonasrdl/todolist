@@ -11,12 +11,17 @@ const Todo = ({ todo, toggleComplete, removeTodo }) => {
   }
 
   return (
-    <div className={"todo-wrapper"}>
+    <div className={'todo-wrapper'}>
       <input type="checkbox" onClick={handleCheckboxClick} />
-      <li className={"todo-item"} style={{ textDecoration: todo.completed ? 'line-through' : null, marginLeft: 15 }}>
+      <li
+        className={'todo-item'}
+        style={{ textDecoration: todo.completed ? 'line-through' : null, marginLeft: 15 }}
+      >
         {todo.task}
       </li>
-      <button className={"todo-remove-button"} onClick={handleRemoveClick}><i className="fas fa-times"/></button>
+      <button className={'todo-remove-button'} onClick={handleRemoveClick}>
+        <i className="fas fa-times" />
+      </button>
     </div>
   )
 }

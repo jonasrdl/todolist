@@ -3,7 +3,7 @@ import './App.css'
 import TodoForm from './components/TodoForm/TodoForm'
 import TodoList from './components/TodoList'
 import Navbar from './components/Navbar/Navbar'
-import WelcomeHeading from "./components/WelcomeHeading/WelcomeHeading";
+import WelcomeHeading from './components/WelcomeHeading/WelcomeHeading'
 
 const LOCAL_STORAGE_KEY = 'todos'
 
